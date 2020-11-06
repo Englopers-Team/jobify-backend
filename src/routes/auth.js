@@ -5,6 +5,7 @@ const authHelpers = require('../models/auth-helpers');
 const basicAuth = require('../middleware/auth/authentication/basic-auth');
 const bearerAuth = require('../middleware/auth/authentication/bearer-auth');
 const linkedin = require('../middleware/auth/ouath/linkedin');
+const google = require('../middleware/auth/ouath/google');
 
 router.post('/signup', (req, res) => {
   authHelpers
@@ -31,9 +32,10 @@ router.get('/test', bearerAuth, (req, res) => {
 });
 
 router.get('/oauth-linkedin', linkedin, (req, res) => {
-  res
-    .status(200)
-    .cookie('token', req.token)
-    .json({ token: req.token, userinfo: req.user });
+  res.status(200).cookie('token', req.token).json({ token: req.token, userinfo: req.user });
+});
+
+router.get('/oauth-google', google, (req, res) => {
+  res.status(200).cookie('token', req.token).json({ token: req.token, userinfo: req.user });
 });
 module.exports = router;

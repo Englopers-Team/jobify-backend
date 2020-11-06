@@ -2,21 +2,26 @@
 <html>
 
 <head>
+  <meta
+  name="google-signin-client_id"
+  content="845374033514-cipcled8idbs9bg1qml9agt38bbappek.apps.googleusercontent.com"
+/>
   <title>Auth Test</title>
 </head>
 
 <body>
   <main>
 
-    <a id="oauth" href="">linkedin</a>
+    <a id="linkedin-oauth" href="">linkedin</a>
+    <a id="google-oauth" href="">Google</a>
 
   </main>
-
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
   <script>
+    let linkedinURL = "https://www.linkedin.com/oauth/v2/authorization";
+    let googleURL = "https://accounts.google.com/o/oauth2/v2/auth";
 
-    let URL = "https://www.linkedin.com/oauth/v2/authorization";
-
-    let options = {
+    let options1 = {
       response_type: 'code',
       client_id: '77ja8aiam3pogu',
       redirect_uri: 'http://localhost:3000/oauth-linkedin',
@@ -24,14 +29,34 @@
       // state: 'asldfjdfs'
     }
 
-    let QueryString = Object.keys(options).map((key) => {
-      return `${key}=` + encodeURIComponent(options[key]);
+    let options2 = {
+      client_id:'845374033514-cipcled8idbs9bg1qml9agt38bbappek.apps.googleusercontent.com',
+      redirect_uri: 'http://localhost:3000/oauth-google',
+      response_type: 'code',
+      scope: 'profile email',
+     fetch_basic_profile: true,
+    }
+
+    let QueryString1 = Object.keys(options1).map((key) => {
+      return `${key}=` + encodeURIComponent(options1[key]);
     }).join("&");
 
-    let authURL = `${URL}?${QueryString}`;
 
-    let link = document.getElementById('oauth');
-    link.setAttribute('href', authURL);
+    let QueryString2 = Object.keys(options2).map((key) => {
+      return `${key}=` + encodeURIComponent(options2[key]);
+    }).join("&");
+
+
+    let linkedinAuthURL = `${linkedinURL}?${QueryString1}`;
+    let googleAuthURL = `${googleURL}?${QueryString2}`;
+
+    console.log(linkedinURL);
+    let link1 = document.getElementById('linkedin-oauth');
+    link1.setAttribute('href', linkedinAuthURL);
+
+    let link2 = document.getElementById('google-oauth');
+    link2.setAttribute('href', googleAuthURL);
+
 
   </script>
 
