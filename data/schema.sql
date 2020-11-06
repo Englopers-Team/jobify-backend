@@ -52,6 +52,14 @@ CREATE TABLE IF NOT EXISTS job_offers (
     person_id INT REFERENCES person (id),
     company_id INT REFERENCES company (id)
 );
+CREATE TABLE IF NOT EXISTS admin_reports (
+    id SERIAL PRIMARY KEY,
+    description TEXT,
+    account_type VARCHAR(255),
+    response TEXT,
+    company_id INT REFERENCES company (id),
+    person_id INT REFERENCES person (id)
+);
 INSERT INTO auth (email,password,account_type) VALUES('demop@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p');
 INSERT INTO auth (email,password,account_type) VALUES('democ@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','c');
 INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Malek','Ahmed','0790278534','Developer','Jordan','24','https://library.kissclipart.com/20180929/ooq/kissclipart-avatar-person-clipart-avatar-computer-icons-person-87355c56a1748473.jpg', '5','https://www.docdroid.net/izBd6Li/cv-pdf', 1);
@@ -60,3 +68,6 @@ INSERT INTO jobs (title,location,type,description,company_id) VALUES ('Developer
 INSERT INTO jobs (title,location,type,description,company_id) VALUES ('Developer','usa','Full Time (iam from database)','A full time job with 900jd salary.',1);
 INSERT INTO applications (status,person_id,job_id,company_id) VALUES ('Pending', 1,1,1);
 INSERT INTO job_offers (title,location,type,description,status,person_id,company_id) VALUES ('Web Dev','Jordan','Full Time','500 salary','Pending',1,1);
+INSERT INTO admin_reports (description,account_type,company_id,response,person_id) VALUES ('i am report from user','p',null,null,1);
+INSERT INTO admin_reports (description,account_type,company_id,response,person_id) VALUES ('i am report from company','c',null,1,null);
+

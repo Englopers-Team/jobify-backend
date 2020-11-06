@@ -8,8 +8,18 @@ class User {
 
   }
 
-  dashboard(user) {
-    // get statistics for the user and recommanded jobs // only five jobs
+  async dashboard(user) {
+    let SQL = `SELECT job_title ,country  FROM person WHERE id=$1;`;
+    let value = [user.id];
+    const data = await client.query(SQL, value);
+    const title = data.job_title;
+    const location = data.country;
+    const job = await this.searchJob({ title, location });
+    const suggJob = { resultDB: job.resultDB.splice(5), resultAPI: job.resultAPI.splice(5) };
+    const apps = await this.userApps(user);
+    const offer = await this.userOffers(user);
+
+    return { suggJob, numOfApp: apps.length, numOfOffer: offer.length };
   }
 
   async applyDB(user, payload) {
@@ -53,7 +63,7 @@ class User {
   async editProfile(user, payload) {
     let { first_name, last_name, phone, job_title, country, age, avatar, experince, cv } = payload;
     let SQL = `UPDATE person SET first_name=$1,last_name=$2,phone=$3,job_title=$4,country=$5,age=$6,avatar=$7,experince=$8,cv=$9 WHERE id=$10;`;
-    let value = [first_name, last_name, phone, job_title, country, age, avatar, experince, cv, user];
+    let value = [first_name, last_name, phone, job_title, country, age, avatar, experince, cv, user.id];
     await client.query(SQL, value);
   }
 
@@ -77,6 +87,12 @@ class User {
     let value = [company_name, country];
     const result = await client.query(SQL, value);
     return result.rows[0];
+  }
+  async sendReport(user, payload) {
+    let report = payload.description;
+    let SQL = `INSERT INTO admin_reports (description,account_type,company_id,person_id) VALUES ($1,$2,$3,$4);`;
+    let value = [report, user.account_type, null, user.id];
+    await client.query(SQL, value);
   }
 
 }

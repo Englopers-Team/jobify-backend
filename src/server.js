@@ -7,12 +7,15 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const notFoundHandler = require('./middleware/error/404');
 const errorHandler = require('./middleware/error/500');
+const bearerAuth = require('./middleware/auth/authentication/bearer-auth');
+const authorize = require('./middleware/auth/authorization/authorize');
 const app = express();
 app.use(cookieParser());
 app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(express.static('./public'));
+
 
 const communityRouter = require('./routes/community');
 const companyRouter = require('./routes/company');
@@ -22,13 +25,14 @@ const userRouter = require('./routes/user');
 const authRouter = require('./routes/auth');
 const adminRouter = require('./routes/admin');
 
+
 app.use('/', homepageRouter);
 app.use('/', authRouter);
-app.use('/company', companyRouter);
-app.use('/user', userRouter);
+app.use('/company', bearerAuth, authorize('c'), companyRouter);
+app.use('/user', bearerAuth, authorize('p'), userRouter);
 app.use('/search', searchRouter);
-app.use('/community', communityRouter);
-app.use('/admin', adminRouter);
+app.use('/community', bearerAuth, communityRouter);
+app.use('/admin', bearerAuth, authorize('admin'), adminRouter);
 
 app.use('*', notFoundHandler);
 app.use(errorHandler);
