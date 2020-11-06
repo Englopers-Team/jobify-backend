@@ -5,12 +5,10 @@ const companyModel = require('../models/company');
 const userModel = require('../models/company');
 const helper = require('../models/helper');
 
-router.get('/',(req,res)=>{
+// router.get('/',(req,res)=>{
 
-});
+// });
 
-router.post('/report',(req,res)=>{
-
-});
+router.post('/report', (req, res) => {});
 
 module.exports = router;
