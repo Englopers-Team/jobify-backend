@@ -5,7 +5,6 @@ const company = require('../models/company');
 const user = require('../models/user');
 const bearerAuth = require('../middleware/auth/authentication/bearer-auth');
 
-
 router.get('/', bearerAuth, async (req, res) => {
   let data;
   if (req.user.account_type === 'p') { data = await user.dashboard(req.user); }
@@ -20,3 +19,4 @@ router.post('/report', bearerAuth, async (req, res) => {
 });
 
 module.exports = router;
+

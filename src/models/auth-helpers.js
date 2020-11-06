@@ -82,6 +82,13 @@ class AuthHelper {
       throw new Error('Invalid token');
     }
   }
+  async checkEmail(email) {
+    const SQL = `SELECT * FROM auth WHERE email=$1`;
+    const value = [email];
+    const result = await client.query(SQL, value);
+    if(result.rows.length>0) return true;
+    else return false;
+  }
 }
 
 module.exports = new AuthHelper();
