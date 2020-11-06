@@ -16,7 +16,6 @@ app.use(express.json());
 app.use(morgan('dev'));
 app.use(express.static('./public'));
 
-
 const communityRouter = require('./routes/community');
 const companyRouter = require('./routes/company');
 const homepageRouter = require('./routes/homepage');
@@ -24,7 +23,6 @@ const searchRouter = require('./routes/search');
 const userRouter = require('./routes/user');
 const authRouter = require('./routes/auth');
 const adminRouter = require('./routes/admin');
-
 
 app.use('/', homepageRouter);
 app.use('/', authRouter);
