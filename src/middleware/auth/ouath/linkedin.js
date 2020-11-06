@@ -5,8 +5,8 @@ const authHelpers = require('../../../models/auth-helpers');
 const tokenServerUrl = 'https://www.linkedin.com/oauth/v2/accessToken';
 const remoteAPIemail = 'https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))';
 const remoteAPIprofile = 'https://api.linkedin.com/v2/me?projection=(id,firstName,lastName,profilePicture(displayImage~:playableStreams))';
-const CLIENT_ID = process.env.CLIENT_ID;
-const CLIENT_SECRET = process.env.CLIENT_SECRET;
+const CLIENT_ID = process.env.CLIENT_ID_LINKEDIN;
+const CLIENT_SECRET = process.env.CLIENT_SECRET_LINKEDIN;
 const API_SERVER = 'http://localhost:3000/oauth-linkedin';
 
 module.exports = async function authorize(req, res, next) {
@@ -37,7 +37,6 @@ module.exports = async function authorize(req, res, next) {
 };
 
 async function exchangeCodeForToken(code) {
-  //   console.log('Moh', code);
   let tokenResponse = await superagent.post(tokenServerUrl).set('Host', 'www.linkedin.com').set('Content-Type', 'application/x-www-form-urlencoded').send({
     code: code,
     client_id: CLIENT_ID,
@@ -74,6 +73,3 @@ async function getUser(remoteUser) {
   console.log(userRecord);
   return userRecord;
 }
-// avatar:
-// remoteUser.remoteUserProfile.profilePicture['displayImage~'].elements[0]
-//   .identifiers[0].identifier,
