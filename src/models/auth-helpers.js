@@ -16,9 +16,9 @@ class AuthHelper {
     if (check.rows.length > 0) {
       return Promise.reject('Email already registered');
     } else {
-      const { email, password, account_type, first_name, last_name, phone, job_title, country, company_name, logo, company_url } = payload;
+      let { email, password, account_type, first_name, last_name, phone, job_title, country, company_name, logo, company_url } = payload;
       if ((email) && (password) && (account_type)) {
-        payload.password = await bcrypt.hash(payload.password, 5);
+        password = await bcrypt.hash(password, 5);
         const SQL2 = `INSERT INTO auth (email,password,account_type) VALUES ($1,$2,$3);`;
         const values = [email, password, account_type];
         await client.query(SQL2, values);
@@ -30,12 +30,12 @@ class AuthHelper {
           const SQL3 = `INSERT INTO person (first_name,last_name,phone,job_title,country,auth_id) VALUES ($1,$2,$3,$4,$5,$6);`;
           const values2 = [first_name, last_name, phone, job_title, country, id];
           await client.query(SQL3, values2);
-          return Promise.resolve({ id, email: email, type: account_type });
+          return Promise.resolve({ id, account_type });
         } else if ((account_type == 'c') && ((company_name) && (logo) && (company_url) && (phone) && (country))) {
           const SQL3 = `INSERT INTO company (company_name,phone,logo,country,company_url,auth_id) VALUES ($1,$2,$3,$4,$5,$6);`;
           const values2 = [company_name, phone, logo, country, company_url, id];
           await client.query(SQL3, values2);
-          return Promise.resolve({ id, email: email, account_type: account_type });
+          return Promise.resolve({ id, account_type });
         }
         // console.log('Missing data from payload');
         return Promise.reject('Fill all required data');
@@ -67,8 +67,7 @@ class AuthHelper {
 
   async authenticateToken(token) {
     try {
-      const tokenObject = await jwt.verify(token, SECRET);
-      console.log(tokenObject);
+      const tokenObject = jwt.verify(token, SECRET);
       const SQL = `SELECT * FROM auth WHERE id=$1`;
       const value = [tokenObject.userID];
       const check = await client.query(SQL, value);
