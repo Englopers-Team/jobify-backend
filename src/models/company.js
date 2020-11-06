@@ -1,6 +1,5 @@
 'use strict';
 
-// const { company } = require('faker');
 const client = require('../models/database');
 
 class Company {
@@ -8,8 +7,11 @@ class Company {
 
   }
 
-  dashboard(company) {
-
+  async dashboard(company) {
+    const offers = await this.companyOffers(company);
+    const apps = await this.companyApps(company);
+    console.log(offers, apps);
+    return { offers, apps };
   }
 
   async jobs(company) {
@@ -20,7 +22,7 @@ class Company {
   }
 
   async submitJob(company, payload) {
-    let id = company;
+    let id = company.id;
     let { title, location, type, description } = payload;
     let SQL = `INSERT INTO jobs (company_id,title,location,type,description) VALUES ($1,$2,$3,$4,$5);`;
     let value = [id, title, location, type, description];
@@ -43,7 +45,7 @@ class Company {
   }
 
   async companyApps(company) {
-    let SQL =`SELECT * FROM applications WHERE company_id=$1`;
+    let SQL = `SELECT * FROM applications WHERE company_id=$1`;
     let value = [company.id];
     const data = await client.query(SQL, value);
     return data.rows;
@@ -56,7 +58,7 @@ class Company {
   }
 
   async companyOffers(company) {
-    let SQL =`SELECT * FROM job_offers WHERE company_id=$1`;
+    let SQL = `SELECT * FROM job_offers WHERE company_id=$1`;
     let value = [company.id];
     const data = await client.query(SQL, value);
     return data.rows;
@@ -91,6 +93,12 @@ class Company {
     let value = [job_title, country];
     const result = await client.query(SQL, value);
     return result.rows[0];
+  }
+  async sendReport(user, payload) {
+    let report = payload.description;
+    let SQL = `INSERT INTO admin_reports (description,account_type,company_id,person_id) VALUES ($1,$2,$3,$4);`;
+    let value = [report, user.account_type, user.id, null];
+    await client.query(SQL, value);
   }
 
 }

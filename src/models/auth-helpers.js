@@ -59,7 +59,7 @@ class AuthHelper {
   }
 
   generateToken(user) {
-    let token = jwt.sign({ userID: user.id, account_type: user.account_type }, SECRET, {
+    let token = jwt.sign({ id: user.id, account_type: user.account_type }, SECRET, {
       expiresIn: `60min`,
     });
     return token;
@@ -69,7 +69,7 @@ class AuthHelper {
     try {
       const tokenObject = jwt.verify(token, SECRET);
       const SQL = `SELECT * FROM auth WHERE id=$1`;
-      const value = [tokenObject.userID];
+      const value = [tokenObject.id];
       const check = await client.query(SQL, value);
 
       if (check.rows[0].account_type == tokenObject.account_type) {

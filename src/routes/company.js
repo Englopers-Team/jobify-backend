@@ -19,7 +19,7 @@ router.delete('/jobs/:id', async (req, res) => {
 });
 
 router.post('/submit', async (req, res) => {
-  await company.submitJob(1, req.body);
+  await company.submitJob(req.user, req.body);
   res.status(201).json({});
 });
 
