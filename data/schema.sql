@@ -3,8 +3,7 @@ CREATE TABLE IF NOT EXISTS auth (
     id SERIAL PRIMARY KEY,
     email VARCHAR(255) UNIQUE,
     password VARCHAR(255),
-    account_type VARCHAR(255),
-    session_id VARCHAR(255) UNIQUE
+    account_type VARCHAR(255)
 );
 CREATE TABLE IF NOT EXISTS person (
     id SERIAL PRIMARY KEY,
@@ -53,8 +52,8 @@ CREATE TABLE IF NOT EXISTS job_offers (
     person_id INT REFERENCES person (id),
     company_id INT REFERENCES company (id)
 );
-INSERT INTO auth (email,password,account_type,session_id) VALUES('demop@gmail.com','123456','p','xxx3215315gew');
-INSERT INTO auth (email,password,account_type,session_id) VALUES('democ@gmail.com','123456','c','xxx3215rgagagrga');
+INSERT INTO auth (email,password,account_type) VALUES('demop@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p');
+INSERT INTO auth (email,password,account_type) VALUES('democ@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','c');
 INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Malek','Ahmed','0790278534','Developer','Jordan','24','https://library.kissclipart.com/20180929/ooq/kissclipart-avatar-person-clipart-avatar-computer-icons-person-87355c56a1748473.jpg', '5','https://www.docdroid.net/izBd6Li/cv-pdf', 1);
 INSERT INTO company (company_name,phone,company_url,logo,country,auth_id) VALUES ('Demo Company', '079028555', 'www.demo.com', 'https://www.flaticon.com/svg/static/icons/svg/993/993891.svg', 'Jordan', 2);
 INSERT INTO jobs (title,location,type,description,company_id) VALUES ('Developer','Jordan','Full Time','A full time job with 900jd salary.',1);
