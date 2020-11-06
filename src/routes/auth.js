@@ -6,6 +6,18 @@ const basicAuth = require('../middleware/auth/authentication/basic-auth');
 const bearerAuth = require('../middleware/auth/authentication/bearer-auth');
 const linkedin = require('../middleware/auth/ouath/linkedin');
 const google = require('../middleware/auth/ouath/google');
+const passport = require('../middleware/auth/ouath/facebook');
+
+router.use(passport.initialize());
+router.use(passport.session());
+
+passport.serializeUser(function (user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function (user, done) {
+  done(null, user);
+});
 
 router.post('/signup', (req, res) => {
   authHelpers
@@ -38,4 +50,10 @@ router.get('/oauth-linkedin', linkedin, (req, res) => {
 router.get('/oauth-google', google, (req, res) => {
   res.status(200).cookie('token', req.token).json({ token: req.token, userinfo: req.user });
 });
+router.get('/oauth-facebook', passport.authenticate('facebook', { failureRedirect: '/login' }), function (req, res) {
+  console.log('req', req.user);
+  res.status(200).cookie('token', req.user.token).json({ token: req.user.token, userinfo: req.user });
+});
+
+router.get('/auth/facebook', passport.authenticate('facebook'));
 module.exports = router;
