@@ -34,4 +34,10 @@ router.patch('/report/:id', async (req, res) => {
   res.status(201).json({});
 });
 
+router.post('/seed/:id',async (req,res)=>{
+  const arr = await helper.generateJobs(req.params.id);
+  await helper.seedDB(arr);
+  res.status(200).json('seeded db');
+});
+
 module.exports = router;
