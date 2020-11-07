@@ -33,7 +33,6 @@ class Admin {
       numOfJobs += Number(item.number_of_each_jobstitle);
     });
 
-
     SQL = `SELECT COUNT(*) AS number_of_accepted_apps,status FROM applications GROUP BY status;`;
     data = await client.query(SQL);
     let statusApps = data.rows;
@@ -63,14 +62,8 @@ class Admin {
     numberCompanyEachCountry.forEach((item) => {
       numCompany += Number(item.number_company_ofeach_country);
     });
-    
-    let totalUser = numCompany+numPerson;
 
-   
-  }
-
-
-
+    let totalUser = numCompany + numPerson;
 
     SQL = `SELECT COUNT(*) AS number_of_offers,status FROM job_offers GROUP BY status;`;
     data = await client.query(SQL);
@@ -100,10 +93,11 @@ class Admin {
     data = await client.query(SQL);
     const numOfCompanyOffersEach = data.rows;
 
-    return { avgAge, numOfReports, numOfReportsEach, numOfReportsOpen, numOfReportsCloesd, numOfJobs, numOfJobsEach, numOfOffers, offersStatus, numOfOfferEach, numOfApp, numOfAppEach, numOfCompanyAppEach, numOfCompanyOffersEach };
+    return { totalUser, numCompany, numPerson, avgAge, numOfReports, numOfReportsEach, numOfReportsOpen, numOfReportsCloesd, numOfJobs, numOfJobsEach, numOfApps, statusApps, numOfOffers, offersStatus, numOfOfferEach, numOfApp, numOfAppEach, numOfCompanyAppEach, numOfCompanyOffersEach, numberPersonEachJobTitle, numberPersonEachCountry, numberCompanyEachCountry };
   }
 
   block() {}
+
   async reports() {
     let SQL = `SELECT * FROM admin_reports;`;
     const data = await client.query(SQL);
@@ -136,5 +130,4 @@ class Admin {
     await client.query(SQL, value);
   }
 }
-
 module.exports = new Admin();
