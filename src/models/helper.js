@@ -3,7 +3,7 @@ const superagent = require('superagent');
 const client = require('../models/database');
 
 class Helper {
-  constructor() {}
+  constructor() { }
 
   async location(ip) {
     try {
@@ -43,15 +43,22 @@ class Helper {
     console.log(result.rows[0]);
     return result.rows[0].auth_id;
   }
-  
-  async sendReport(user, payload) {
+
+    async sendReport(user, payload) {
     let report = payload.description;
     let SQL = `INSERT INTO admin_reports (description, response, auth_id) VALUES ($1,$2,$3);`;
     let value = [report, null, user.id];
     await client.query(SQL, value);
   }
 
-  pdfScanner(file) {}
+  async reports(user) {
+    let SQL = `SELECT * FROM admin_reports WHERE auth_id=$1;`;
+    let value = [user.id];
+    const data = await client.query(SQL, value);
+    return data.rows;
+  }
+
+  pdfScanner(file) { }
 
   // get all jobs from database
   async jobsApi() {

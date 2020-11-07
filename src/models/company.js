@@ -1,6 +1,8 @@
 'use strict';
 
 const client = require('../models/database');
+
+
 const notifi = require('../models/notifications');
 const helpers  = require('./helper');
 
@@ -10,19 +12,19 @@ class Company {
   async dashboard(company) {
     const offers = await this.companyOffers(company);
     const apps = await this.companyApps(company);
-    console.log(offers, apps);
     return { offers, apps };
   }
 
   async jobs(company) {
+    const id = helper.getID(company.id, 'company');
     let SQL = `SELECT * FROM jobs WHERE company_id=$1;`;
-    let value = [company.id];
+    let value = [id];
     const data = await client.query(SQL, value);
     return data.rows;
   }
 
   async submitJob(company, payload) {
-    let id = company.id;
+    const id = helper.getID(company.id, 'company');
     let { title, location, type, description } = payload;
     let SQL = `INSERT INTO jobs (company_id,title,location,type,description) VALUES ($1,$2,$3,$4,$5);`;
     let value = [id, title, location, type, description];
@@ -45,8 +47,9 @@ class Company {
   }
 
   async companyApps(company) {
+    const id = helper.getID(company.id, 'company');
     let SQL = `SELECT * FROM applications WHERE company_id=$1`;
-    let value = [company.id];
+    let value = [id];
     const data = await client.query(SQL, value);
     return data.rows;
   }
@@ -58,16 +61,18 @@ class Company {
   }
 
   async companyOffers(company) {
+    const id = helper.getID(company.id, 'company');
     let SQL = `SELECT * FROM job_offers WHERE company_id=$1`;
-    let value = [company.id];
+    let value = [id];
     const data = await client.query(SQL, value);
     return data.rows;
   }
 
-  async sendOffer(company, userID, payload) {
-    let person_id = userID;
-    let person_auth_id = await helpers.getAuthID(userID,'person');
-    let company_id = await helpers.getID(company.id,'company');
+
+  async sendOffer(company, user, payload) {
+    const id = helper.getID(company.id, 'company');
+    let person_id = user;
+    let company_id = id;
     let { title, location, type, description } = payload;
     let SQL = `INSERT INTO job_offers (person_id,company_id,title,location,type,description) VALUES ($1,$2,$3,$4,$5,$6);`;
     let value = [person_id, company_id, title, location, type, description];
@@ -83,7 +88,7 @@ class Company {
   }
 
   async editProfile(company, payload) {
-    let id = company.id;
+    const id = helper.getID(company.id, 'company');
     let { company_name, phone, logo, country, company_url } = payload;
     let SQL = `UPDATE company SET company_name=$1,phone=$2,logo=$3,country=$4,company_url=$5 WHERE id=$6;`;
     let value = [company_name, phone, logo, country, company_url, id];
