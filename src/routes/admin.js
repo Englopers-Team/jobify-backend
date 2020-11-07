@@ -2,21 +2,20 @@
 const express = require('express');
 const router = express.Router();
 const admin = require('../models/admin');
+const helper = require('../models/helper');
 
 router.get('/', async (req, res) => {
   const data = await admin.dashboard();
   res.status(200).json(data);
 });
 
-router.post('/block/:id', (req, res) => {
+router.post('/block/:id', (req, res) => {});
 
-});
+router.get('/posts', (req, res) => {});
 
-router.get('/posts', (req, res) => { });
+router.delete('/posts/:id', (req, res) => {});
 
-router.delete('/posts/:id', (req, res) => { });
-
-router.delete('/comments/:id', (req, res) => { });
+router.delete('/comments/:id', (req, res) => {});
 
 // router.post('/approve/:id', (req, res) => {});
 
@@ -35,7 +34,7 @@ router.patch('/report/:id', async (req, res) => {
   res.status(201).json({});
 });
 
-router.post('/seed/:id',async (req,res)=>{
+router.post('/seed/:id', async (req, res) => {
   const arr = await helper.generateJobs(req.params.id);
   await helper.seedDB(arr);
   res.status(200).json('seeded db');

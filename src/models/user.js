@@ -3,10 +3,10 @@
 const client = require('../models/database');
 const superagent = require('superagent');
 const notifi = require('../models/notifications');
-const helpers  = require('./helper');
+const helper = require('./helper');
 
 class User {
-  constructor() { }
+  constructor() {}
 
   async dashboard(user) {
     const id = helper.getID(user.id, 'person');
@@ -25,15 +25,15 @@ class User {
 
   async applyDB(user, payload) {
     let { jobID, companyID } = payload;
-    let personID = await helpers.getID(user.id,'person');
+    let personID = await helper.getID(user.id, 'person');
     let SQL = `INSERT INTO applications (person_id,job_id,company_id) VALUES ($1,$2,$3);`;
     let value = [personID, jobID, companyID];
     await client.query(SQL, value);
-    const data = {id:user.id,title:'Application',description:`recevied application to ${jobID} job`};
+    const data = { id: user.id, title: 'Application', description: `recevied application to ${jobID} job` };
     await notifi.addNotification(data);
   }
 
-  applyAPI(user, email) { }
+  applyAPI(user, email) {}
 
   async userApps(user) {
     const id = helper.getID(user.id, 'person');
