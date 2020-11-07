@@ -3,7 +3,7 @@ const superagent = require('superagent');
 const client = require('../models/database');
 
 class Helper {
-  constructor() {}
+  constructor() { }
 
   async location(ip) {
     try {
@@ -51,14 +51,13 @@ class Helper {
   }
 
   async reports(user) {
-    let { id, account_type } = user;
-    let SQL = `SELECT * FROM admin_reports WHERE account_type=$1 AND person_id=$2;`;
-    let value = [id, account_type];
+    let SQL = `SELECT * FROM admin_reports WHERE auth_id=$1;`;
+    let value = [user.id];
     const data = await client.query(SQL, value);
     return data.rows;
   }
 
-  pdfScanner(file) {}
+  pdfScanner(file) { }
 
   api() {
     // get all jobs from database

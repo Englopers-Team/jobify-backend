@@ -5,32 +5,38 @@ const client = require('../models/database');
 class Admin {
   constructor() { }
   async dashboard() {
+    let SQL;
+    let data;
 
-    // const SQL =`SELECT COUNT(*) as number_of_reportS FROM admin_reports;`;
-    // const SQL =`SELECT COUNT(*) as number_of_jobs FROM jobs;`;
-    // const SQL =`SELECT COUNT(*) as number_of_offers FROM job_offers;`;
-    // const SQL =`SELECT COUNT(*) as number_of_apps FROM applications;`;
-    // const SQL =`SELECT COUNT(*) as number_of_person FROM person;`;
-    // const SQL =`SELECT COUNT(*) as number_of_company FROM company;`;
+    // SQL =`SELECT COUNT(*) as number_of_reports FROM admin_reports;`;
+    // data = await client.query(SQL);
+    // const numOfReports = data.rows[0].number_of_reports;
 
-    // const SQL2 = `SELECT title, COUNT(id) as num_each_jobs
-    // FROM jobs
-    // GROUP BY title;`;
-    // const data2 = await client.query(SQL);
-    // const numJobByTitle = data2.rows;
+    SQL = `SELECT COUNT(*) AS number_of_reports,account_type FROM admin_reports JOIN auth ON admin_reports.auth_id=auth.id GROUP BY auth.account_type;`;
+    data = await client.query(SQL);
+    const numOfReportsEach = data.rows;
+    let numOfReports = 0;
+    numOfReportsEach.forEach(item => {
+      numOfReports += Number(item.number_of_reports);
+    });
 
-    // const SQL3 = `SELECT job_title, COUNT(id) as num_person_jobs_title
-    // FROM person
-    // GROUP BY job_title;`;
-    // const data3 = await client.query(SQL3);
-    // const numPersonByJob = data3.rows;
+    SQL = `SELECT COUNT(*) AS number_of_open_reports FROM admin_reports WHERE response IS NULL;`;
+    data = await client.query(SQL);
+    let numOfReportsOpen = data.rows[0].number_of_open_reports;
+    let numOfReportsCloesd = numOfReports - Number(numOfReportsOpen);
 
-    // const SQL4 = `SELECT AVG(age) as average_age FROM person`;
-    // const data4 = await client.query(SQL4);
-    // const avgPersonAge = data4.rows[0].average_age;
+    SQL = `SELECT AVG(age) AS average_age FROM person;`;
+    data = await client.query(SQL);
+    let avgAge = Math.floor(data.rows[0].average_age);
 
-  
-    // return { reportsNum, numJobByTitle, numPersonByJob, avgPersonAge };
+    SQL = `SELECT COUNT(*) AS number_of_each_jobstitle,title FROM jobs GROUP BY title ORDER BY number_of_each_jobstitle DESC;`;
+    data = await client.query(SQL);
+    let numOfJobsEach = data.rows;
+    let numOfJobs = 0;
+    numOfJobsEach.forEach(item => {
+      numOfJobs += Number(item.number_of_each_jobstitle);
+    });
+    return { avgAge, numOfReports, numOfReportsEach, numOfReportsOpen, numOfReportsCloesd, numOfJobs, numOfJobsEach };
   }
   block() {
 

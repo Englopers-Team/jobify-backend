@@ -2,13 +2,14 @@
 
 const client = require('../models/database');
 const superagent = require('superagent');
-
+const helper = require('./helper');
 class User {
-  constructor() {}
+  constructor() { }
 
   async dashboard(user) {
+    const id = helper.getID(user.id, 'person');
     let SQL = `SELECT job_title ,country  FROM person WHERE id=$1;`;
-    let value = [user.id];
+    let value = [id];
     const data = await client.query(SQL, value);
     const title = data.job_title;
     const location = data.country;
@@ -21,18 +22,20 @@ class User {
   }
 
   async applyDB(user, payload) {
+    const id = helper.getID(user.id, 'person');
     let { jobID, companyID } = payload;
-    let personID = user.id;
+    let personID = id;
     let SQL = `INSERT INTO applications (person_id,job_id,company_id) VALUES ($1,$2,$3);`;
     let value = [personID, jobID, companyID];
     await client.query(SQL, value);
   }
 
-  applyAPI(user, email) {}
+  applyAPI(user, email) { }
 
   async userApps(user) {
+    const id = helper.getID(user.id, 'person');
     let SQL = `SELECT * FROM applications JOIN jobs ON applications.job_id=jobs.id JOIN company ON applications.company_id=company.id WHERE person_id= $1;`;
-    let value = [user.id];
+    let value = [id];
     const data = await client.query(SQL, value);
     return data.rows;
   }
@@ -44,8 +47,9 @@ class User {
   }
 
   async userOffers(user) {
+    const id = helper.getID(user.id, 'person');
     let SQL = `SELECT * FROM job_offers JOIN company ON job_offers.company_id=company.id WHERE person_id=$1;`;
-    let value = [user.id];
+    let value = [id];
     const data = await client.query(SQL, value);
     return data.rows;
   }
@@ -57,9 +61,10 @@ class User {
   }
 
   async editProfile(user, payload) {
+    const id = helper.getID(user.id, 'person');
     let { first_name, last_name, phone, job_title, country, age, avatar, experince, cv } = payload;
     let SQL = `UPDATE person SET first_name=$1,last_name=$2,phone=$3,job_title=$4,country=$5,age=$6,avatar=$7,experince=$8,cv=$9 WHERE id=$10;`;
-    let value = [first_name, last_name, phone, job_title, country, age, avatar, experince, cv, user.id];
+    let value = [first_name, last_name, phone, job_title, country, age, avatar, experince, cv, id];
     await client.query(SQL, value);
   }
 

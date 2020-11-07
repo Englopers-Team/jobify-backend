@@ -23,8 +23,8 @@ router.post('/report', bearerAuth, async (req, res) => {
 
 router.get('/report', bearerAuth, async (req, res) => {
   let data;
-  if (req.user.account_type === 'p') { data = await user.reports(req.user); }
-  else if (req.user.account_type === 'c') { data = await company.reports(req.user); }
+  if (req.user.account_type === 'p') { data = await helper.reports(req.user); }
+  else if (req.user.account_type === 'c') { data = await helper.reports(req.user); }
   res.status(200).json(data);
 });
 

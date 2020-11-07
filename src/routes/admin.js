@@ -1,8 +1,6 @@
 'use strict';
 const express = require('express');
 const router = express.Router();
-const helper = require('../models/helper');
-const ip = require('../middleware/location');
 const admin = require('../models/admin');
 
 router.get('/', async (req, res) => {
