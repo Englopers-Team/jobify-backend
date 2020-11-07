@@ -2,10 +2,9 @@
 const superagent = require('superagent');
 const client = require('../models/database');
 const faker = require('faker');
-const { lorem } = require('faker');
 
 class Helper {
-  constructor() { }
+  constructor() {}
 
   async location(ip) {
     try {
@@ -46,7 +45,7 @@ class Helper {
     return result.rows[0].auth_id;
   }
 
-    async sendReport(user, payload) {
+  async sendReport(user, payload) {
     let report = payload.description;
     let SQL = `INSERT INTO admin_reports (description, response, auth_id) VALUES ($1,$2,$3);`;
     let value = [report, null, user.id];
@@ -60,7 +59,7 @@ class Helper {
     return data.rows;
   }
 
-  pdfScanner(file) { }
+  pdfScanner(file) {}
 
   // get all jobs from database
   async jobsApi() {
@@ -86,21 +85,21 @@ class Helper {
     return { count, data: data.rows };
   }
 
-  async generateJobs(num){
+  async generateJobs(num) {
     const arr = [];
-    for(let i = 0;i<num;i++){
-      const obj = {title:faker.name.jobTitle(),location:faker.address.country(),type:'Full Time',description:`contact ${faker.internet.email()}`,company_id:1};
+    for (let i = 0; i < num; i++) {
+      const obj = { title: faker.name.jobTitle(), location: faker.address.country(), type: 'Full Time', description: `contact ${faker.internet.email()}`, company_id: 1 };
       arr.push(obj);
     }
     return arr;
   }
 
-  async seedDB(arr){
-    arr.forEach(async (job)=>{
-      const {title,location,type,description,company_id} = job;
+  async seedDB(arr) {
+    arr.forEach(async (job) => {
+      const { title, location, type, description, company_id } = job;
       const SQL = 'INSERT INTO jobs (title,location,type,description,company_id) VALUES ($1,$2,$3,$4,$5)';
-      const values = [title,location,type,description,company_id];
-      await client.query(SQL,values);
+      const values = [title, location, type, description, company_id];
+      await client.query(SQL, values);
     });
   }
 }
