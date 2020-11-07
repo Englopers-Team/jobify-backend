@@ -53,8 +53,28 @@ class Helper {
 
   pdfScanner(file) {}
 
-  api() {
-    // get all jobs from database
+  // get all jobs from database
+  async jobsApi() {
+    let SQL = 'SELECT title,location,type,description FROM jobs;';
+    let data = await client.query(SQL);
+    const count = data.rows.length;
+    return { count, data: data.rows };
+  }
+
+  // get all companies from database
+  async companiesApi() {
+    let SQL = 'SELECT company_name,phone,company_url,logo,country FROM company;';
+    let data = await client.query(SQL);
+    const count = data.rows.length;
+    return { count, data: data.rows };
+  }
+
+  // get all users from database
+  async usersApi() {
+    let SQL = 'SELECT first_name,last_name,phone,job_title,country,age,avatar,experince,cv FROM person;';
+    let data = await client.query(SQL);
+    const count = data.rows.length;
+    return { count, data: data.rows };
   }
 }
 
