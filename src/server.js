@@ -26,11 +26,11 @@ const adminRouter = require('./routes/admin');
 
 app.use('/', homepageRouter);
 app.use('/', authRouter);
-app.use('/company', bearerAuth, authorize('c'), companyRouter);
-app.use('/user', bearerAuth, authorize('p'), userRouter);
+app.use('/company', bearerAuth, authorize(['c']), companyRouter);
+app.use('/user', bearerAuth, authorize(['p']), userRouter);
 app.use('/search', searchRouter);
 app.use('/community', bearerAuth, communityRouter);
-app.use('/admin', bearerAuth, authorize('admin'), adminRouter);
+app.use('/admin', bearerAuth, authorize(['admin', 'editor']), adminRouter);
 
 app.use('*', notFoundHandler);
 app.use(errorHandler);

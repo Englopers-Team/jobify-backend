@@ -23,6 +23,7 @@ router.post('/signup', (req, res) => {
   authHelpers
     .signup(req.body)
     .then((data) => {
+      console.log(data);
       req.token = authHelpers.generateToken(data);
       res.status(201).cookie('token', req.token).json({ token: req.token });
     })
