@@ -1,8 +1,8 @@
 'use strict';
 const express = require('express');
+const helper = require('../models/helper');
 const router = express.Router();
 const user = require('../models/user');
-
 
 router.get('/app', async (req, res) => {
   const data = await user.userApps(req.user);
@@ -31,6 +31,12 @@ router.put('/edit', async (req, res) => {
 
 router.post('/apply/:id', async (req, res) => {
   await user.applyDB(req.user, { jobID: req.params.id, companyID: req.body.company_id });
+  res.status(201).json({});
+});
+
+router.post('/sendReport', async (req, res) => {
+  console.log(req.body);
+  await helper.sendReport(req.user, req.body);
   res.status(201).json({});
 });
 

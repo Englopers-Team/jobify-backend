@@ -5,9 +5,7 @@ const notifi = require('../models/notifications');
 const helpers  = require('./helper');
 
 class Company {
-  constructor() {
-
-  }
+  constructor() {}
 
   async dashboard(company) {
     const offers = await this.companyOffers(company);
@@ -99,13 +97,6 @@ class Company {
     const result = await client.query(SQL, value);
     return result.rows[0];
   }
-  async sendReport(user, payload) {
-    let report = payload.description;
-    let SQL = `INSERT INTO admin_reports (description,account_type,company_id,person_id) VALUES ($1,$2,$3,$4);`;
-    let value = [report, user.account_type, user.id, null];
-    await client.query(SQL, value);
-  }
-
 }
 
 module.exports = new Company();
