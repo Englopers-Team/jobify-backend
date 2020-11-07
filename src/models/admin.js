@@ -8,10 +8,6 @@ class Admin {
     let SQL;
     let data;
 
-    // SQL =`SELECT COUNT(*) as number_of_reports FROM admin_reports;`;
-    // data = await client.query(SQL);
-    // const numOfReports = data.rows[0].number_of_reports;
-
     SQL = `SELECT COUNT(*) AS number_of_reports,account_type FROM admin_reports JOIN auth ON admin_reports.auth_id=auth.id GROUP BY auth.account_type;`;
     data = await client.query(SQL);
     const numOfReportsEach = data.rows;
@@ -36,7 +32,40 @@ class Admin {
     numOfJobsEach.forEach(item => {
       numOfJobs += Number(item.number_of_each_jobstitle);
     });
-    return { avgAge, numOfReports, numOfReportsEach, numOfReportsOpen, numOfReportsCloesd, numOfJobs, numOfJobsEach };
+
+    SQL = `SELECT COUNT(*) AS number_of_accepted_apps,status FROM applications GROUP BY status;`;
+    data = await client.query(SQL);
+    let statusApps = data.rows;
+    let numOfApps = 0;
+    statusApps.forEach((item) => {
+      numOfApps += Number(item.number_of_accepted_apps);
+    });
+
+    SQL = `SELECT COUNT(*) AS number_person_ofeach_jobtilte,job_title FROM person GROUP BY job_title ORDER BY number_person_ofeach_jobtilte DESC;`;
+    data = await client.query(SQL);
+    let numberPersonEachJobTitle = data.rows;
+
+    SQL = `SELECT COUNT(*) AS number_person_ofeach_country,country FROM person GROUP BY country ORDER BY number_person_ofeach_country DESC;`;
+    data = await client.query(SQL);
+    let numberPersonEachCountry = data.rows;
+
+    SQL = `SELECT COUNT(*) AS number_company_ofeach_country,country FROM company GROUP BY country ORDER BY number_company_ofeach_country DESC;`;
+    data = await client.query(SQL);
+    let numberCompanyEachCountry = data.rows;
+
+    let numPerson = 0;
+    numberPersonEachCountry.forEach((item) => {
+      numPerson += Number(item.number_person_ofeach_country);
+    });
+
+    let numCompany = 0;
+    numberCompanyEachCountry.forEach((item) => {
+      numCompany += Number(item.number_company_ofeach_country);
+    });
+    
+    let totalUser = numCompany+numPerson;
+
+    return { totalUser, numCompany , numPerson ,avgAge, numOfReports, numOfReportsEach, numOfReportsOpen, numOfReportsCloesd, numOfJobs, numOfJobsEach, numOfApps, statusApps, numberPersonEachJobTitle, numberPersonEachCountry, numberCompanyEachCountry };
   }
   block() {
 
