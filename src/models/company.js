@@ -1,6 +1,8 @@
 'use strict';
 
 const client = require('../models/database');
+const notifi = require('../models/notifications');
+const helpers  = require('./helper');
 
 class Company {
   constructor() {
@@ -64,13 +66,16 @@ class Company {
     return data.rows;
   }
 
-  async sendOffer(company, user, payload) {
-    let person_id = user;
-    let company_id = company.id;
+  async sendOffer(company, userID, payload) {
+    let person_id = userID;
+    let person_auth_id = await helpers.getAuthID(userID,'person');
+    let company_id = await helpers.getID(company.id,'company');
     let { title, location, type, description } = payload;
     let SQL = `INSERT INTO job_offers (person_id,company_id,title,location,type,description) VALUES ($1,$2,$3,$4,$5,$6);`;
     let value = [person_id, company_id, title, location, type, description];
     await client.query(SQL, value);
+    const data = {id:person_auth_id,title:'offer',description:`${title} from company number ${company_id}`};
+    await notifi.addNotification(data);
   }
 
   async deleteOffer(offerID) {

@@ -2,10 +2,8 @@
 <html>
 
 <head>
-  <meta
-  name="google-signin-client_id"
-  content="845374033514-cipcled8idbs9bg1qml9agt38bbappek.apps.googleusercontent.com"
-/>
+  <meta name="google-signin-client_id"
+    content="845374033514-cipcled8idbs9bg1qml9agt38bbappek.apps.googleusercontent.com" />
   <title>Auth Test</title>
 </head>
 
@@ -17,6 +15,17 @@
     <a id="facebook-oauth" href="auth/facebook">Facebook</a>
 
   </main>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io('/notification');
+    const token = document.cookie.slice(6);
+    socket.emit('join', token);
+    socket.on('notification',(payload)=>{
+      console.log(payload.auth_id, payload.title, payload.description);
+    })
+    socket.emit('checkNotif', { token })
+
+  </script>
   <script src="https://apis.google.com/js/platform.js" async defer></script>
   <script>
     let linkedinURL = "https://www.linkedin.com/oauth/v2/authorization";
@@ -31,11 +40,11 @@
     }
 
     let options2 = {
-      client_id:'845374033514-cipcled8idbs9bg1qml9agt38bbappek.apps.googleusercontent.com',
+      client_id: '845374033514-cipcled8idbs9bg1qml9agt38bbappek.apps.googleusercontent.com',
       redirect_uri: 'http://localhost:3000/oauth-google',
       response_type: 'code',
       scope: 'profile email',
-     fetch_basic_profile: true,
+      fetch_basic_profile: true,
     }
 
     let QueryString1 = Object.keys(options1).map((key) => {
@@ -51,7 +60,6 @@
     let linkedinAuthURL = `${linkedinURL}?${QueryString1}`;
     let googleAuthURL = `${googleURL}?${QueryString2}`;
 
-    console.log(linkedinURL);
     let link1 = document.getElementById('linkedin-oauth');
     link1.setAttribute('href', linkedinAuthURL);
 

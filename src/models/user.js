@@ -2,6 +2,8 @@
 
 const client = require('../models/database');
 const superagent = require('superagent');
+const notifi = require('../models/notifications');
+const helpers  = require('./helper');
 
 class User {
   constructor() {
@@ -24,10 +26,12 @@ class User {
 
   async applyDB(user, payload) {
     let { jobID, companyID } = payload;
-    let personID = user.id;
+    let personID = await helpers.getID(user.id,'person');
     let SQL = `INSERT INTO applications (person_id,job_id,company_id) VALUES ($1,$2,$3);`;
     let value = [personID, jobID, companyID];
     await client.query(SQL, value);
+    const data = {id:user.id,title:'Application',description:`recevied application to ${jobID} job`};
+    await notifi.addNotification(data);
   }
 
   applyAPI(user, email) {

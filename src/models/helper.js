@@ -1,5 +1,6 @@
 'use strict';
 const superagent = require('superagent');
+const client = require('../models/database');
 
 class Helper {
   constructor() {}
@@ -29,6 +30,21 @@ class Helper {
       data.body.countryCode == '' ? 'JO' : data.body.countryCode;
     let flag = `https://www.countryflags.io/${countryCode}/Shiny/64.png`;
     return flag;
+  }
+
+  async getID(authID, table) {
+    const SQL = `SELECT id FROM ${table} WHERE auth_id=$1`;
+    const values = [authID];
+    const result = await client.query(SQL, values);
+    return result.rows[0].id;
+  }
+
+  async getAuthID(id, table) {
+    const SQL = `SELECT auth_id FROM ${table} WHERE id=$1`;
+    const values = [id];
+    const result = await client.query(SQL, values);
+    console.log(result.rows[0]);
+    return result.rows[0].auth_id;
   }
 
   pdfScanner(file) {}

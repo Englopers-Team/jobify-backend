@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS auth, person, company, applications, jobs, job_offers;
+DROP TABLE IF EXISTS auth, person, company, applications, jobs, job_offers, admin_reports, notifications;
 CREATE TABLE IF NOT EXISTS auth (
     id SERIAL PRIMARY KEY,
     email VARCHAR(255) UNIQUE,
@@ -60,6 +60,13 @@ CREATE TABLE IF NOT EXISTS admin_reports (
     company_id INT REFERENCES company (id),
     person_id INT REFERENCES person (id)
 );
+CREATE TABLE IF NOT EXISTS notifications (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255),
+    description TEXT,
+    seen VARCHAR(255),
+    auth_id INT REFERENCES auth (id)
+);
 INSERT INTO auth (email,password,account_type) VALUES('demop@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p');
 INSERT INTO auth (email,password,account_type) VALUES('democ@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','c');
 INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Malek','Ahmed','0790278534','Developer','Jordan','24','https://library.kissclipart.com/20180929/ooq/kissclipart-avatar-person-clipart-avatar-computer-icons-person-87355c56a1748473.jpg', '5','https://www.docdroid.net/izBd6Li/cv-pdf', 1);
@@ -70,4 +77,4 @@ INSERT INTO applications (status,person_id,job_id,company_id) VALUES ('Pending',
 INSERT INTO job_offers (title,location,type,description,status,person_id,company_id) VALUES ('Web Dev','Jordan','Full Time','500 salary','Pending',1,1);
 INSERT INTO admin_reports (description,account_type,company_id,response,person_id) VALUES ('i am report from user','p',null,null,1);
 INSERT INTO admin_reports (description,account_type,company_id,response,person_id) VALUES ('i am report from company','c',null,1,null);
-
+INSERT INTO notifications (title,description,seen,auth_id) VALUES ('Offer','You got an offer from company name','false',1);

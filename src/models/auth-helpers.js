@@ -10,10 +10,8 @@ class AuthHelper {
   }
 
   async signup(payload) {
-    const SQL = `SELECT * FROM auth WHERE email=$1`;
-    const value = [payload.email];
-    const check = await client.query(SQL, value);
-    if (check.rows.length > 0) {
+    const check = await this.checkEmail(payload.email);
+    if (check) {
       return Promise.reject('Email already registered');
     } else {
       let { email, password, account_type, first_name, last_name, phone, job_title, country, company_name, logo, company_url } = payload;
@@ -82,11 +80,12 @@ class AuthHelper {
       throw new Error('Invalid token');
     }
   }
+
   async checkEmail(email) {
     const SQL = `SELECT * FROM auth WHERE email=$1`;
     const value = [email];
     const result = await client.query(SQL, value);
-    if(result.rows.length>0) return true;
+    if (result.rows.length > 0) return true;
     else return false;
   }
 }
