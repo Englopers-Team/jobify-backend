@@ -20,16 +20,12 @@ passport.deserializeUser(function (user, done) {
 });
 
 router.post('/signup', (req, res) => {
-  authHelpers
-    .signup(req.body)
-    .then((data) => {
-      console.log(data);
-      req.token = authHelpers.generateToken(data);
-      res.status(201).cookie('token', req.token).json({ token: req.token });
-    })
-    .catch((err) => {
-      res.status(500).json(err);
-    });
+  authHelpers.signup(req.body).then((data) => {
+    req.token = authHelpers.generateToken(data);
+    res.status(201).cookie('token', req.token).json({ token: req.token });
+  }).catch((err) => {
+    res.status(500).json(err);
+  });
 });
 
 router.post('/signin', basicAuth, (req, res) => {
