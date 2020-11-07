@@ -23,6 +23,7 @@ const searchRouter = require('./routes/search');
 const userRouter = require('./routes/user');
 const authRouter = require('./routes/auth');
 const adminRouter = require('./routes/admin');
+const apiRouter = require('./routes/api');
 
 app.use('/', homepageRouter);
 app.use('/', authRouter);
@@ -31,6 +32,7 @@ app.use('/user', bearerAuth, authorize(['p']), userRouter);
 app.use('/search', searchRouter);
 app.use('/community', bearerAuth, communityRouter);
 app.use('/admin', bearerAuth, authorize(['admin', 'editor']), adminRouter);
+app.use('/api/v1', apiRouter);
 
 app.use('*', notFoundHandler);
 app.use(errorHandler);
