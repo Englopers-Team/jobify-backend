@@ -7,6 +7,7 @@ const authHelpers = require('../models/auth-helpers');
 
 notification.on('connection', (socket) => {
   console.log('connected to notification namespace', socket.id);
+
   socket.on('join', async (room) => {
     console.log(room);
     const tokenObject = await authHelpers.authenticateToken(room);

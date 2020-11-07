@@ -35,6 +35,12 @@ router.patch('/report/:id', async (req, res) => {
   res.status(201).json({});
 });
 
+router.post('/seed/:id',async (req,res)=>{
+  const arr = await helper.generateJobs(req.params.id);
+  await helper.seedDB(arr);
+  res.status(200).json('seeded db');
+});
+
 router.delete('/report/:id', async (req, res) => {
   await admin.deleteReport(req.params.id);
   res.status(202).json({});

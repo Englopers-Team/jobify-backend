@@ -1,6 +1,8 @@
 'use strict';
 const superagent = require('superagent');
 const client = require('../models/database');
+const faker = require('faker');
+const { lorem } = require('faker');
 
 class Helper {
   constructor() { }
@@ -82,6 +84,24 @@ class Helper {
     let data = await client.query(SQL);
     const count = data.rows.length;
     return { count, data: data.rows };
+  }
+
+  async generateJobs(num){
+    const arr = [];
+    for(let i = 0;i<num;i++){
+      const obj = {title:faker.name.jobTitle(),location:faker.address.country(),type:'Full Time',description:`contact ${faker.internet.email()}`,company_id:1};
+      arr.push(obj);
+    }
+    return arr;
+  }
+
+  async seedDB(arr){
+    arr.forEach(async (job)=>{
+      const {title,location,type,description,company_id} = job;
+      const SQL = 'INSERT INTO jobs (title,location,type,description,company_id) VALUES ($1,$2,$3,$4,$5)';
+      const values = [title,location,type,description,company_id];
+      await client.query(SQL,values);
+    });
   }
 }
 
