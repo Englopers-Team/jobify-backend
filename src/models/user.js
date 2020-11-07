@@ -4,9 +4,7 @@ const client = require('../models/database');
 const superagent = require('superagent');
 
 class User {
-  constructor() {
-
-  }
+  constructor() {}
 
   async dashboard(user) {
     let SQL = `SELECT job_title ,country  FROM person WHERE id=$1;`;
@@ -30,9 +28,7 @@ class User {
     await client.query(SQL, value);
   }
 
-  applyAPI(user, email) {
-
-  }
+  applyAPI(user, email) {}
 
   async userApps(user) {
     let SQL = `SELECT * FROM applications JOIN jobs ON applications.job_id=jobs.id JOIN company ON applications.company_id=company.id WHERE person_id= $1;`;
@@ -75,7 +71,7 @@ class User {
     const result1 = await client.query(SQL, value);
     const resultDB = result1.rows;
     const result2 = await superagent.get(URL);
-    const resultAPI = result2.body.map(item => {
+    const resultAPI = result2.body.map((item) => {
       return new JOB(item);
     });
     return { resultDB, resultAPI };
@@ -88,13 +84,6 @@ class User {
     const result = await client.query(SQL, value);
     return result.rows[0];
   }
-  async sendReport(user, payload) {
-    let report = payload.description;
-    let SQL = `INSERT INTO admin_reports (description,account_type,company_id,person_id) VALUES ($1,$2,$3,$4);`;
-    let value = [report, user.account_type, null, user.id];
-    await client.query(SQL, value);
-  }
-
 }
 
 const JOB = function (data) {

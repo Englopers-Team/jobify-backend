@@ -8,7 +8,7 @@ module.exports = (role) => {
     }
     const tokenObject = await authHelpers.authenticateToken(req.cookies.token);
 
-    if (tokenObject.account_type == role) {
+    if (tokenObject.account_type == role[0] || tokenObject.account_type == role[1]) {
       next();
     } else {
       next('Access Denied');
