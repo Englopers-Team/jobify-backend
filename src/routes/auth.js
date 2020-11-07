@@ -7,15 +7,12 @@ const bearerAuth = require('../middleware/auth/authentication/bearer-auth');
 const linkedin = require('../middleware/auth/ouath/linkedin');
 
 router.post('/signup', (req, res) => {
-  authHelpers
-    .signup(req.body)
-    .then((data) => {
-      req.token = authHelpers.generateToken(data);
-      res.status(201).cookie('token', req.token).json({ token: req.token });
-    })
-    .catch((err) => {
-      res.status(500).json(err);
-    });
+  authHelpers.signup(req.body).then((data) => {
+    req.token = authHelpers.generateToken(data);
+    res.status(201).cookie('token', req.token).json({ token: req.token });
+  }).catch((err) => {
+    res.status(500).json(err);
+  });
 });
 
 router.post('/signin', basicAuth, (req, res) => {
@@ -31,9 +28,6 @@ router.get('/test', bearerAuth, (req, res) => {
 });
 
 router.get('/oauth-linkedin', linkedin, (req, res) => {
-  res
-    .status(200)
-    .cookie('token', req.token)
-    .json({ token: req.token, userinfo: req.user });
+  res.status(200).cookie('token', req.token).json({ token: req.token, userinfo: req.user });
 });
 module.exports = router;
