@@ -1,9 +1,19 @@
 'use strict';
-
 require('dotenv').config();
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://heroku:heroku1337@cluster0.1i1ry.mongodb.net/authServer?retryWrites=true&w=majority' || 'mongodb://localhost:27017/authServer';
+const mongoose = require('mongoose');
 const client = require('./src/models/database');
 const server = require('./src/server');
 const PORT = process.env.PORT;
-client.connect().then(() => {
-  server.start(PORT);
+
+mongoose.connect(MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+}).then(()=>{
+  client.connect().then(() => {
+    server.start(PORT);
+  }).catch((err) => {
+    console.error(err.message);
+  });
 });
