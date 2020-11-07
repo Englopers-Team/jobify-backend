@@ -3,7 +3,7 @@
 const client = require('../models/database');
 
 class Admin {
-  constructor() { }
+  constructor() {}
   async dashboard() {
     let SQL;
     let data;
@@ -12,7 +12,7 @@ class Admin {
     data = await client.query(SQL);
     const numOfReportsEach = data.rows;
     let numOfReports = 0;
-    numOfReportsEach.forEach(item => {
+    numOfReportsEach.forEach((item) => {
       numOfReports += Number(item.number_of_reports);
     });
 
@@ -29,9 +29,10 @@ class Admin {
     data = await client.query(SQL);
     let numOfJobsEach = data.rows;
     let numOfJobs = 0;
-    numOfJobsEach.forEach(item => {
+    numOfJobsEach.forEach((item) => {
       numOfJobs += Number(item.number_of_each_jobstitle);
     });
+
 
     SQL = `SELECT COUNT(*) AS number_of_accepted_apps,status FROM applications GROUP BY status;`;
     data = await client.query(SQL);
@@ -65,11 +66,44 @@ class Admin {
     
     let totalUser = numCompany+numPerson;
 
-    return { totalUser, numCompany , numPerson ,avgAge, numOfReports, numOfReportsEach, numOfReportsOpen, numOfReportsCloesd, numOfJobs, numOfJobsEach, numOfApps, statusApps, numberPersonEachJobTitle, numberPersonEachCountry, numberCompanyEachCountry };
+   
   }
-  block() {
 
+
+
+
+    SQL = `SELECT COUNT(*) AS number_of_offers,status FROM job_offers GROUP BY status;`;
+    data = await client.query(SQL);
+    let offersStatus = data.rows;
+    let numOfOffers = 0;
+    offersStatus.forEach((item) => {
+      numOfOffers += Number(item.number_of_offers);
+    });
+
+    SQL = `SELECT COUNT(*) AS number_of_each_offerTitle,title FROM job_offers GROUP BY title ORDER BY number_of_each_offerTitle DESC;`;
+    data = await client.query(SQL);
+    let numOfOfferEach = data.rows;
+
+    SQL = `SELECT COUNT(*) AS number_of_each_app,title FROM applications JOIN jobs ON applications.job_id=jobs.id GROUP BY jobs.title ORDER BY number_of_each_app DESC;`;
+    data = await client.query(SQL);
+    const numOfAppEach = data.rows;
+    let numOfApp = 0;
+    numOfAppEach.forEach((item) => {
+      numOfApp += Number(item.number_of_each_app);
+    });
+
+    SQL = `SELECT COUNT(*) AS number_of_each_companyApp,company_name FROM applications JOIN company ON applications.company_id=company.id GROUP BY company.company_name ORDER BY number_of_each_companyApp DESC;`;
+    data = await client.query(SQL);
+    const numOfCompanyAppEach = data.rows;
+
+    SQL = `SELECT COUNT(*) AS number_of_each_companyOffers,company_name FROM job_offers JOIN company ON job_offers.company_id=company.id GROUP BY company.company_name ORDER BY number_of_each_companyOffers DESC;`;
+    data = await client.query(SQL);
+    const numOfCompanyOffersEach = data.rows;
+
+    return { avgAge, numOfReports, numOfReportsEach, numOfReportsOpen, numOfReportsCloesd, numOfJobs, numOfJobsEach, numOfOffers, offersStatus, numOfOfferEach, numOfApp, numOfAppEach, numOfCompanyAppEach, numOfCompanyOffersEach };
   }
+
+  block() {}
   async reports() {
     let SQL = `SELECT * FROM admin_reports;`;
     const data = await client.query(SQL);
