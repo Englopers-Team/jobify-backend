@@ -5,7 +5,7 @@ const faker = require('faker');
 const { lorem } = require('faker');
 
 class Helper {
-  constructor() {}
+  constructor() { }
 
   async location(ip) {
     try {
@@ -45,18 +45,45 @@ class Helper {
     console.log(result.rows[0]);
     return result.rows[0].auth_id;
   }
-  
-  async sendReport(user, payload) {
+
+    async sendReport(user, payload) {
     let report = payload.description;
     let SQL = `INSERT INTO admin_reports (description, response, auth_id) VALUES ($1,$2,$3);`;
     let value = [report, null, user.id];
     await client.query(SQL, value);
   }
 
-  pdfScanner(file) {}
+  async reports(user) {
+    let SQL = `SELECT * FROM admin_reports WHERE auth_id=$1;`;
+    let value = [user.id];
+    const data = await client.query(SQL, value);
+    return data.rows;
+  }
 
-  api() {
-    // get all jobs from database
+  pdfScanner(file) { }
+
+  // get all jobs from database
+  async jobsApi() {
+    let SQL = 'SELECT title,location,type,description FROM jobs;';
+    let data = await client.query(SQL);
+    const count = data.rows.length;
+    return { count, data: data.rows };
+  }
+
+  // get all companies from database
+  async companiesApi() {
+    let SQL = 'SELECT company_name,phone,company_url,logo,country FROM company;';
+    let data = await client.query(SQL);
+    const count = data.rows.length;
+    return { count, data: data.rows };
+  }
+
+  // get all users from database
+  async usersApi() {
+    let SQL = 'SELECT first_name,last_name,phone,job_title,country,age,avatar,experince,cv FROM person;';
+    let data = await client.query(SQL);
+    const count = data.rows.length;
+    return { count, data: data.rows };
   }
 
   async generateJobs(num){
