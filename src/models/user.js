@@ -94,7 +94,13 @@ class User {
     let value = [report, user.account_type, null, user.id];
     await client.query(SQL, value);
   }
-
+  async reports(user) {
+    let { id, account_type } = user;
+    let SQL = `SELECT * FROM admin_reports WHERE account_type=$1 AND person_id=$2;`;
+    let value = [id, account_type];
+    const data = await client.query(SQL, value);
+    return data.rows;
+  }
 }
 
 const JOB = function (data) {

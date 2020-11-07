@@ -18,5 +18,12 @@ router.post('/report', bearerAuth, async (req, res) => {
   res.status(201).json({});
 });
 
+router.get('/report', bearerAuth, async (req, res) => {
+  let data;
+  if (req.user.account_type === 'p') { data = await user.reports(req.user); }
+  else if (req.user.account_type === 'c') { data = await company.reports(req.user); }
+  res.status(200).json(data);
+});
+
 module.exports = router;
 
