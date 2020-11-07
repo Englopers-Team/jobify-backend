@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS auth, person, company, applications, jobs, job_offers, admin_reports;
+DROP TABLE IF EXISTS auth, person, company, applications, jobs, job_offers, admin_reports, notifications;
 CREATE TABLE IF NOT EXISTS auth (
     id SERIAL PRIMARY KEY,
     email VARCHAR(255) UNIQUE,
@@ -59,13 +59,31 @@ CREATE TABLE IF NOT EXISTS admin_reports (
     response TEXT,
     auth_id INT REFERENCES auth (id)
 );
+<<<<<<< HEAD
+CREATE TABLE IF NOT EXISTS notifications (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255),
+    description TEXT,
+    seen VARCHAR(255),
+    auth_id INT REFERENCES auth (id)
+);
+INSERT INTO auth (email,password,account_type) VALUES('demop@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p');
+INSERT INTO auth (email,password,account_type) VALUES('democ@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','c');
+=======
 INSERT INTO auth (email,password,account_type,account_status) VALUES('demop@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','active');
 INSERT INTO auth (email,password,account_type,account_status) VALUES('democ@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','c','active');
+>>>>>>> 389a5471a994bc30a3fe359314e8600e07b336fa
 INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Malek','Ahmed','0790278534','Developer','Jordan','24','https://library.kissclipart.com/20180929/ooq/kissclipart-avatar-person-clipart-avatar-computer-icons-person-87355c56a1748473.jpg', '5','https://www.docdroid.net/izBd6Li/cv-pdf', 1);
 INSERT INTO company (company_name,phone,company_url,logo,country,auth_id) VALUES ('Demo Company', '079028555', 'www.demo.com', 'https://www.flaticon.com/svg/static/icons/svg/993/993891.svg', 'Jordan', 2);
 INSERT INTO jobs (title,location,type,description,company_id) VALUES ('Developer','Jordan','Full Time','A full time job with 900jd salary.',1);
 INSERT INTO jobs (title,location,type,description,company_id) VALUES ('Developer','usa','Full Time (iam from database)','A full time job with 900jd salary.',1);
 INSERT INTO applications (status,person_id,job_id,company_id) VALUES ('Pending', 1,1,1);
 INSERT INTO job_offers (title,location,type,description,status,person_id,company_id) VALUES ('Web Dev','Jordan','Full Time','500 salary','Pending',1,1);
+<<<<<<< HEAD
+INSERT INTO admin_reports (description,account_type,company_id,response,person_id) VALUES ('i am report from user','p',null,null,1);
+INSERT INTO admin_reports (description,account_type,company_id,response,person_id) VALUES ('i am report from company','c',null,1,null);
+INSERT INTO notifications (title,description,seen,auth_id) VALUES ('Offer','You got an offer from company name','false',1);
+=======
 INSERT INTO admin_reports (description,response,auth_id) VALUES ('i am report from company',null,1);
 
+>>>>>>> 389a5471a994bc30a3fe359314e8600e07b336fa

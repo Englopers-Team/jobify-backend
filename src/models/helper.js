@@ -29,6 +29,21 @@ class Helper {
     return flag;
   }
 
+  async getID(authID, table) {
+    const SQL = `SELECT id FROM ${table} WHERE auth_id=$1`;
+    const values = [authID];
+    const result = await client.query(SQL, values);
+    return result.rows[0].id;
+  }
+
+  async getAuthID(id, table) {
+    const SQL = `SELECT auth_id FROM ${table} WHERE id=$1`;
+    const values = [id];
+    const result = await client.query(SQL, values);
+    console.log(result.rows[0]);
+    return result.rows[0].auth_id;
+  }
+  
   async sendReport(user, payload) {
     let report = payload.description;
     let SQL = `INSERT INTO admin_reports (description, response, auth_id) VALUES ($1,$2,$3);`;
