@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS auth, person, company, applications, jobs, job_offers, admin_reports, notifications, applications_api;
+DROP TABLE IF EXISTS auth, person, company, applications, jobs, job_offers, admin_reports, notifications, applications_api,saved_jobs;
 CREATE TABLE IF NOT EXISTS auth (
     id SERIAL PRIMARY KEY,
     email VARCHAR(255) UNIQUE,
@@ -54,6 +54,21 @@ CREATE TABLE IF NOT EXISTS applications (
     job_id INT REFERENCES jobs (id),
     company_id INT REFERENCES company (id)
 );
+CREATE TABLE IF NOT EXISTS saved_jobs (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255),
+    location VARCHAR(255),
+    type VARCHAR(255),
+    description TEXT,
+    company_name VARCHAR(255),
+    phone VARCHAR(255),
+    company_url VARCHAR(255),
+    logo VARCHAR(255) DEFAULT 'https://www.flaticon.com/svg/static/icons/svg/993/993891.svg',
+    country VARCHAR(255),
+    job_id INT REFERENCES jobs (id) UNIQUE,
+    person_id INT REFERENCES person (id)
+);
+
 CREATE TABLE IF NOT EXISTS job_offers (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255),
