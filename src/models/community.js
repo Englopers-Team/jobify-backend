@@ -6,20 +6,12 @@ const post = mongoose.model('post', mongoose.Schema({
   title: { type: String, required: true },
   body: { type: String, require: true },
   comments: { type: [] },
-  likes: { type: Number, default: 0 },
+  likes: { type: [] },
   pinned: { type: String, default: 'false' },
   auth_id: { type: Number, require: true },
   profile: mongoose.Schema.Types.Mixed,
   date: { type: Date, default: Date.now },
 }));
-
-// const record = {
-//   title: 'test',
-//   body: 'testrt tae abr ba bab arb ababab',
-//   auth_id: 1,
-//   profile:{test:'here'},
-// };
-
 
 
 class Community {
@@ -58,7 +50,11 @@ class Community {
   }
 
   async deletePost(user, postID) {
-    await post.findByIdAndDelete({ auth_id: user.id, _id: postID });
+    if (user.account_type == 'p') {
+      await post.findByIdAndDelete({ auth_id: user.id, _id: postID });
+    } else {
+      await post.findByIdAndDelete({ _id: postID });
+    }
   }
 
   async updatePost(user, postID, payload) {
@@ -67,7 +63,7 @@ class Community {
       await post.findByIdAndUpdate(postID, payload, { new: true });
     }
   }
-
+  // real event
   async addComment(user, postID, payload) {
 
     const idPerson = await helper.getID(user.id, 'person');
@@ -111,22 +107,31 @@ class Community {
     );
     return result;
   }
+  // real event
+  async likePost(user, postID) {
+
+    const targetPost = await this.getPost(postID);
+    const likes = targetPost.likes;
+    let status = 'like';
+    likes.forEach((like, index) => {
+      if (like == user.id) {
+        delete likes[index];
+        status = 'dislike';
+      }
+    });
+    if (status == 'like') {
+      likes.push(user.id);
+    }
+    targetPost.likes = likes;
+    await targetPost.save();
+  }
+  async pin(postID) {
+    const targetPost = await this.getPost(postID);
+    targetPost.pinned = 'true';
+    await targetPost.save();
+  }
 }
 
 module.exports = new Community();
 
-// tests--------
-// function test() {
-// const newR = new post(record);
-// newR.save();
-// 5fa702a089dcd943290dc5cf
-// async function test() {
-//   const x = await post.find({ _id: '5fa702a089dcd943290dc5cf' });
-//   console.log(x);
-//   x[0].comments.push({by:'auth_id',comment:'g',like:0});
-//   x[0].save();
-// }
-// test();
-// newR.findByIdAndUpdate('5fa7018ee7312742eb3f1bc0', record, { new: true });
-// }
 
