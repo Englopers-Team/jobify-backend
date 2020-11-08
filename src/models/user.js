@@ -4,6 +4,7 @@ const client = require('../models/database');
 const superagent = require('superagent');
 const notifi = require('../models/notifications');
 const helper = require('./helper');
+// const { patch } = require('../routes/user');
 
 class User {
   constructor() {}
@@ -42,6 +43,31 @@ class User {
     let userData = await helper.getProfile(personID, 'person');
     const record = { company: payload, person: userData };
     helper.sendEmail(email, record);
+  }
+
+  async saveJob(user, payload) {
+    const id = await helper.getID(user.id, 'person');
+    if (!payload.api) {
+      let SQL = `INSERT INTO saved_jobs (job_id,person_id) VALUES ($1,$2);`;
+      let Values = [payload.jobID, id];
+      await client.query(SQL, Values);
+    } else {
+      let { title, location, type, description, company_name, phone, company_url, logo, country } = payload;
+      let SQL = `INSERT INTO saved_jobs (title, location, type, description, company_name, phone, company_url, logo, country,person_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10);`;
+      let value = [title, location, type, description, company_name, phone, company_url, logo, country, id];
+      await client.query(SQL, value);
+    }
+  }
+
+  async savedJobs(user) {
+    const id = await helper.getID(user.id, 'person');
+    let SQL = `SELECT * FROM saved_jobs WHERE person_id=$1 AND job_id IS null;`;
+    let SQL2 = `SELECT * FROM saved_jobs JOIN jobs ON saved_jobs.job_id=jobs.id JOIN company ON jobs.company_id=company.id WHERE person_id=$1;`;
+    let value = [id];
+    let dataApi = await client.query(SQL, value);
+    let dataDB = await client.query(SQL2, value);
+
+    return { data_Api: dataApi.rows, data_DB: dataDB.rows };
   }
 
   async userApps(user) {

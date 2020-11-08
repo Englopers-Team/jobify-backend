@@ -9,6 +9,16 @@ router.get('/app', async (req, res) => {
   res.status(200).json(data);
 });
 
+router.get('/saved', async (req, res) => {
+  const data = await user.savedJobs(req.user);
+  res.status(200).json(data);
+});
+
+router.post('/save', async (req, res) => {
+  const data = await user.saveJob(req.user, req.body);
+  res.status(201).json(data);
+});
+
 router.delete('/app/:id', async (req, res) => {
   await user.deleteApp(req.params.id);
   res.status(202).json({});
