@@ -102,6 +102,13 @@ class Helper {
       await client.query(SQL, values);
     });
   }
+
+  async getProfile(id,table){
+    const SQL = `SELECT * FROM ${table} WHERE id=$1;`;
+    const value = [id];
+    const result = await client.query(SQL,value);
+    return result.rows[0];
+  }
 }
 
 module.exports = new Helper();
