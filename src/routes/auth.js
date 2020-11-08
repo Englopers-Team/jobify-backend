@@ -7,6 +7,7 @@ const bearerAuth = require('../middleware/auth/authentication/bearer-auth');
 const linkedin = require('../middleware/auth/ouath/linkedin');
 const google = require('../middleware/auth/ouath/google');
 const passport = require('../middleware/auth/ouath/facebook');
+const emailAuth = require('../middleware/auth/authentication/email-auth');
 
 router.use(passport.initialize());
 router.use(passport.session());
@@ -19,13 +20,26 @@ passport.deserializeUser(function (user, done) {
   done(null, user);
 });
 
+router.get('/verify/:token', emailAuth, async (req, res) => {
+  console.log('email', req.user);
+  try {
+    let result = await authHelpers.verify(req.user, req.params.token);
+    res.status(201).json({ result });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
 router.post('/signup', (req, res) => {
-  authHelpers.signup(req.body).then((data) => {
-    req.token = authHelpers.generateToken(data);
-    res.status(201).cookie('token', req.token).json({ token: req.token });
-  }).catch((err) => {
-    res.status(500).json(err);
-  });
+  authHelpers
+    .signup(req.body)
+    .then((data) => {
+      req.token = authHelpers.generateToken(data);
+      res.status(201).cookie('token', req.token).json({ token: req.token });
+    })
+    .catch((err) => {
+      res.status(500).json(err);
+    });
 });
 
 router.post('/signin', basicAuth, (req, res) => {

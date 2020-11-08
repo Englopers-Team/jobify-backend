@@ -142,6 +142,44 @@ class Helper {
     });
   }
 
+  async sendVerifyEmail(payload) {
+    let random = faker.random.number();
+    let SQL = 'UPDATE auth SET verify_token=$1 WHERE email=$2;';
+    let values = [random, payload.email];
+    await client.query(SQL, values);
+    console.log('verify', payload);
+    const transporter = nodemailer.createTransport({
+      service: 'zoho',
+      auth: {
+        user: 'electrical@perfectsolutionco.com',
+        pass: 'Perfect.Sol.777!',
+      },
+    });
+    let name;
+    if (payload.account_type == 'p') {
+      name = `${payload.first_name} ${payload.last_name}`;
+    } else {
+      name = payload.company_name;
+    }
+
+    const mailOptions = {
+      from: 'electrical@perfectsolutionco.com',
+      to: payload.email,
+      cc: 'mohammad.esseili@gmail.com',
+      subject: `VERIFICATION EMAIL for ${name}`,
+      text: `VERIFICATION Link : http://localhost:3000/verify/${random}`,
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+    return random;
+  }
+
   async getProfile(id, table) {
     const SQL = `SELECT * FROM ${table} WHERE id=$1;`;
     const value = [id];

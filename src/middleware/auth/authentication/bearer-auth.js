@@ -16,7 +16,10 @@ module.exports = (req, res, next) => {
         if (account_status == 'active') {
           req.user = data;
           next();
-        } else {
+        } else if (account_status == 'pending') {
+          req.user = data;
+          throw new Error(`Your account is not active please verify your email`);
+        } else if (account_status == 'blocked') {
           throw new Error(`You are banned`);
         }
       })
