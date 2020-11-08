@@ -9,18 +9,31 @@ class User {
   constructor() {}
 
   async dashboard(user) {
-    const id = helper.getID(user.id, 'person');
-    let SQL = `SELECT job_title ,country  FROM person WHERE id=$1;`;
+    const id = await helper.getID(user.id, 'person');
+    // console.log(user.id);
+    let SQL = `SELECT job_title,country FROM person WHERE id=$1;`;
     let value = [id];
-    const data = await client.query(SQL, value);
-    const title = data.job_title;
-    const location = data.country;
-    const job = await this.searchJob({ title, location });
-    const suggJob = { resultDB: job.resultDB.splice(5), resultAPI: job.resultAPI.splice(5) };
-    const apps = await this.userApps(user);
-    const offer = await this.userOffers(user);
+    // console.log(value);
 
-    return { suggJob, numOfApp: apps.length, numOfOffer: offer.length };
+    const data = await client.query(SQL, value);
+    // console.log(data);
+    const title = data.rows[0].job_title;
+    // console.log(title);
+    const location = data.rows[0].country;
+    // console.log(location);
+    const job = await this.searchJob({ title, location });
+    console.log('jooooob', job);
+
+    const suggJob = { resultDB: job.resultDB.splice(5), resultAPI: job.resultAPI.splice(5) };
+    console.log('suggJobbbbbbbb', suggJob);
+
+    const apps = await this.userApps(user);
+    console.log('appssssssssssss', apps);
+
+    const offer = await this.userOffers(user);
+    console.log('offerrrrrrrrrrrrrrrr', offer);
+
+    return { suggJob, numOfApp: Number(apps.DB.length) + Number(apps.API.length), numOfOffer: offer.length };
   }
 
   async applyDB(user, payload) {
@@ -46,11 +59,15 @@ class User {
   }
 
   async userApps(user) {
-    const id = helper.getID(user.id, 'person');
+    const id = await helper.getID(user.id, 'person');
     let SQL = `SELECT * FROM applications JOIN jobs ON applications.job_id=jobs.id JOIN company ON applications.company_id=company.id WHERE person_id= $1;`;
     let value = [id];
-    const data = await client.query(SQL, value);
-    return data.rows;
+    let SQL2 = `SELECT * FROM applications_api WHERE person_id= $1;`;
+    let value2 = [id];
+    const dataDB = await client.query(SQL, value);
+    const dataApi = await client.query(SQL2, value2);
+
+    return { DB: dataDB.rows, API: dataApi.rows };
   }
 
   async deleteApp(appID) {
@@ -60,7 +77,7 @@ class User {
   }
 
   async userOffers(user) {
-    const id = helper.getID(user.id, 'person');
+    const id = await helper.getID(user.id, 'person');
     let SQL = `SELECT * FROM job_offers JOIN company ON job_offers.company_id=company.id WHERE person_id=$1;`;
     let value = [id];
     const data = await client.query(SQL, value);
@@ -74,7 +91,7 @@ class User {
   }
 
   async editProfile(user, payload) {
-    const id = helper.getID(user.id, 'person');
+    const id = await helper.getID(user.id, 'person');
     let { first_name, last_name, phone, job_title, country, age, avatar, experince, cv } = payload;
     let SQL = `UPDATE person SET first_name=$1,last_name=$2,phone=$3,job_title=$4,country=$5,age=$6,avatar=$7,experince=$8,cv=$9 WHERE id=$10;`;
     let value = [first_name, last_name, phone, job_title, country, age, avatar, experince, cv, id];
