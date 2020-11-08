@@ -11,7 +11,7 @@ module.exports = (role) => {
     if (tokenObject.account_type == role[0] || tokenObject.account_type == role[1]) {
       next();
     } else {
-      next('Access Denied');
+      next('Access Denied, You are not Authorized');
     }
   };
 };

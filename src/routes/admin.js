@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const admin = require('../models/admin');
 const helper = require('../models/helper');
+const authorize = require('../middleware/auth/authorization/authorize');
 
 router.get('/', async (req, res) => {
   const data = await admin.dashboard();
@@ -34,13 +35,13 @@ router.patch('/report/:id', async (req, res) => {
   res.status(201).json({});
 });
 
-router.post('/seed/:id', async (req, res) => {
+router.post('/seed/:id', authorize(['admin']), async (req, res) => {
   const arr = await helper.generateJobs(req.params.id);
   await helper.seedDB(arr);
   res.status(200).json('seeded db');
 });
 
-router.delete('/report/:id', async (req, res) => {
+router.delete('/report/:id', authorize(['admin']), async (req, res) => {
   await admin.deleteReport(req.params.id);
   res.status(202).json({});
 });
