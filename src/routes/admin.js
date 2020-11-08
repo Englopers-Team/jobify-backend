@@ -25,11 +25,11 @@ router.patch('/removeBlock/:id', async (req, res) => {
   res.status(201).json({ status: 'block removed' });
 });
 
-router.get('/posts', (req, res) => {});
+router.get('/posts', (req, res) => { });
 
-router.delete('/posts/:id', (req, res) => {});
+router.delete('/posts/:id', (req, res) => { });
 
-router.delete('/comments/:id', (req, res) => {});
+router.delete('/comments/:id', (req, res) => { });
 
 // router.post('/approve/:id', (req, res) => {});
 
@@ -71,7 +71,7 @@ router.get('/posts/:id', async (req, res) => {
 });
 
 router.patch('/posts/:id', async (req, res) => {
-  await community.pin(req.params.id, req.body.response);
+  await community.pin(req.params.id);
   res.status(201).json({});
 });
 
