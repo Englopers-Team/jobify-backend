@@ -2,11 +2,11 @@
 const client = require('../models/database');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const helper = require('./helper');
 const SECRET = process.env.SECRET || 'z1337z';
 
 class AuthHelper {
   constructor() {}
-
   async signup(payload) {
     const check = await this.checkEmail(payload.email);
     if (check) {
@@ -21,20 +21,22 @@ class AuthHelper {
         const SQL3 = `SELECT * FROM auth WHERE email=$1`;
         const value2 = [email];
         const getID = await client.query(SQL3, value2);
-        const account_status = getID.rows[0].account_status;
+        // const account_status = getID.rows[0].account_status;
         const id = getID.rows[0].id;
         if (account_type == 'p' && first_name && last_name && phone && job_title && country) {
           const SQL3 = `INSERT INTO person (first_name,last_name,phone,job_title,country,auth_id) VALUES ($1,$2,$3,$4,$5,$6);`;
           const values2 = [first_name, last_name, phone, job_title, country, id];
           await client.query(SQL3, values2);
-          return Promise.resolve({ id, account_type, account_status });
+          await helper.sendVerifyEmail(payload);
+          return Promise.resolve({ id, account_type });
         } else if (account_type == 'c' && company_name && logo && company_url && phone && country) {
           const SQL3 = `INSERT INTO company (company_name,phone,logo,country,company_url,auth_id) VALUES ($1,$2,$3,$4,$5,$6);`;
           const values2 = [company_name, phone, logo, country, company_url, id];
           await client.query(SQL3, values2);
-          return Promise.resolve({ id, account_type, account_status });
+          await helper.sendVerifyEmail(payload);
+          return Promise.resolve({ id, account_type });
         } else if (account_type == 'admin' || account_type == 'editor') {
-          return Promise.resolve({ id, account_type, account_status });
+          return Promise.resolve({ id, account_type });
         } else {
           // console.log('Missing data from payload');
           let SQL4 = 'DELETE FROM auth WHERE id=$1;';
@@ -62,7 +64,7 @@ class AuthHelper {
 
   generateToken(user) {
     console.log(user);
-    let token = jwt.sign({ id: user.id, account_type: user.account_type, account_status: user.account_status, capabilities: this.capabilities(user.account_type) }, SECRET, {
+    let token = jwt.sign({ id: user.id, account_type: user.account_type }, SECRET, {
       expiresIn: `6000min`,
     });
     return token;
@@ -93,14 +95,29 @@ class AuthHelper {
     else return false;
   }
 
-  capabilities(account_type) {
-    if (account_type === 'admin') {
-      return ['read', 'create', 'update', 'delete'];
-    }
-    if (account_type === 'editor') {
-      return ['read', 'create', 'update'];
+  async verify(user, payload) {
+    let SQL = 'SELECT verify_token FROM auth where id=$1;';
+    let value = [user.id];
+    let data = await client.query(SQL, value);
+    let verify_token = data.rows[0].verify_token;
+    if (payload == verify_token) {
+      let SQL = 'UPDATE auth SET account_status=$1 where id=$2;';
+      let value = ['active', user.id];
+      await client.query(SQL, value);
+      return 'Your account verified successfully';
+    } else {
+      return 'Please Check the sent code';
     }
   }
+
+  // capabilities(account_type) {
+  //   if (account_type === 'admin') {
+  //     return ['read', 'create', 'update', 'delete'];
+  //   }
+  //   if (account_type === 'editor') {
+  //     return ['read', 'create', 'update'];
+  //   }
+  // }
 }
 
 module.exports = new AuthHelper();

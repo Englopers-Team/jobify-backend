@@ -4,7 +4,8 @@ CREATE TABLE IF NOT EXISTS auth (
     email VARCHAR(255) UNIQUE,
     password VARCHAR(255),
     account_type VARCHAR(255),
-    account_status VARCHAR(255) DEFAULT 'active'
+    account_status VARCHAR(255) DEFAULT 'pending',
+    verify_token VARCHAR(255)
 );
 CREATE TABLE IF NOT EXISTS person (
     id SERIAL PRIMARY KEY,
