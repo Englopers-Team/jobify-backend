@@ -2,6 +2,7 @@
 const superagent = require('superagent');
 const client = require('../models/database');
 const faker = require('faker');
+const nodemailer = require('nodemailer');
 
 class Helper {
   constructor() {}
@@ -88,7 +89,14 @@ class Helper {
   async generateJobs(num) {
     const arr = [];
     for (let i = 0; i < num; i++) {
-      const obj = { title: faker.name.jobTitle(), location: faker.address.country(), type: 'Full Time', description: `contact ${faker.internet.email()}`, company_id: 1 };
+      const obj = {
+        title: faker.name.jobTitle(),
+        location: faker.address.country(),
+        type: 'Full Time',
+        email: faker.internet.email(),
+        description: `contact ${faker.name.jobTitle()} ${faker.internet.email()} ${faker.address.country()}`,
+        company_id: 1,
+      };
       arr.push(obj);
     }
     return arr;
@@ -100,6 +108,35 @@ class Helper {
       const SQL = 'INSERT INTO jobs (title,location,type,description,company_id) VALUES ($1,$2,$3,$4,$5)';
       const values = [title, location, type, description, company_id];
       await client.query(SQL, values);
+    });
+  }
+
+  sendEmail(email, payload) {
+    const transporter = nodemailer.createTransport({
+      service: 'zoho',
+      auth: {
+        user: 'electrical@perfectsolutionco.com',
+        pass: 'Perfect.Sol.777!',
+      },
+    });
+
+    const mailOptions = {
+      from: 'electrical@perfectsolutionco.com',
+      to: email,
+      subject: `${payload.person.first_name} ${payload.person.last_name} ${payload.company.title} Job Application`,
+      text: `Dear Sir,
+      I’m writing in response to your recently advertised position as an ${payload.company.title} I am very interested in this opportunity with you, and i believe that my qualifications, education, and professional experience would make me a strong candidate for the position.
+      Enclosed is my resume that more fully details my background and work experience, and how they relate to your position.
+      Thank you in advance for your consideration.
+      Best regards.`,
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
     });
   }
 }

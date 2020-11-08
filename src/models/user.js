@@ -33,7 +33,16 @@ class User {
     await notifi.addNotification(data);
   }
 
-  applyAPI(user, email) {}
+  async applyAPI(user, payload) {
+    let { title, location, type, company_name, status, logo, email } = payload;
+    let personID = await helper.getID(user.id, 'person');
+    let SQL = `INSERT INTO applications_api (title, location, type, company_name, status, logo, person_id) VALUES ($1,$2,$3,$4,$5,$6,$7);`;
+    let value = [title, location, type, company_name, status, logo, personID];
+    await client.query(SQL, value);
+    let userData = await helper.getProfile(personID, 'person');
+    const record = { company: payload, person: userData };
+    helper.sendEmail(email, record);
+  }
 
   async userApps(user) {
     const id = helper.getID(user.id, 'person');
@@ -95,12 +104,14 @@ class User {
 }
 
 const JOB = function (data) {
-  this.title = data.title;
-  this.location = data.location;
-  this.type = data.type;
-  this.description = data.description;
+  this.title = data.title ? data.title : 'There is no job title';
+  this.location = data.location ? data.location : 'Amman';
+  this.type = data.type ? data.type : 'Full-time';
+  this.company_name = data.company ? data.company : 'Company Name';
+  this.description = data.description ? data.description : 'There is no description';
   this.logo = data.company_logo || 'https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png';
   this.company_url = data.company_url;
+  this.email = data.email ? data.email : 'mohammad.esseili@gamil.com';
 };
 
 module.exports = new User();
