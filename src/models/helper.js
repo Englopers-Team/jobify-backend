@@ -112,6 +112,8 @@ class Helper {
   }
 
   sendEmail(email, payload) {
+    console.log('Email sent successfully');
+    console.log(email, payload);
     const transporter = nodemailer.createTransport({
       service: 'zoho',
       auth: {
@@ -138,6 +140,13 @@ class Helper {
         console.log('Email sent: ' + info.response);
       }
     });
+  }
+
+  async getProfile(id, table) {
+    const SQL = `SELECT * FROM ${table} WHERE id=$1;`;
+    const value = [id];
+    const result = await client.query(SQL, value);
+    return result.rows[0];
   }
 }
 

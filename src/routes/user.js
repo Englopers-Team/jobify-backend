@@ -30,7 +30,11 @@ router.put('/edit', async (req, res) => {
 });
 
 router.post('/apply/:id', async (req, res) => {
-  await user.applyDB(req.user, { jobID: req.params.id, companyID: req.body.company_id });
+  if (req.body.api) {
+    await user.applyAPI(req.user, req.body);
+  } else {
+    await user.applyDB(req.user, { jobID: req.params.id, companyID: req.body.company_id });
+  }
   res.status(201).json({});
 });
 

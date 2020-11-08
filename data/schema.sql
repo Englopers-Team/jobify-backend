@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS auth, person, company, applications, jobs, job_offers, admin_reports, notifications,applications_api;
+DROP TABLE IF EXISTS auth, person, company, applications, jobs, job_offers, admin_reports, notifications, applications_api;
 CREATE TABLE IF NOT EXISTS auth (
     id SERIAL PRIMARY KEY,
     email VARCHAR(255) UNIQUE,
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS applications_api (
     company_name VARCHAR(255),
     logo VARCHAR(255),
     status VARCHAR(255) DEFAULT 'Submitted',
-    person_id INT REFERENCES person (id),
+    person_id INT REFERENCES person (id)
 );
 CREATE TABLE IF NOT EXISTS applications (
     id SERIAL PRIMARY KEY,
