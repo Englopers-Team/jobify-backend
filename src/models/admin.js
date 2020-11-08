@@ -93,10 +93,43 @@ class Admin {
     data = await client.query(SQL);
     const numOfCompanyOffersEach = data.rows;
 
-    return { totalUser, numCompany, numPerson, avgAge, numOfReports, numOfReportsEach, numOfReportsOpen, numOfReportsCloesd, numOfJobs, numOfJobsEach, numOfApps, statusApps, numOfOffers, offersStatus, numOfOfferEach, numOfApp, numOfAppEach, numOfCompanyAppEach, numOfCompanyOffersEach, numberPersonEachJobTitle, numberPersonEachCountry, numberCompanyEachCountry };
+    return {
+      totalUser,
+      numCompany,
+      numPerson,
+      avgAge,
+      numOfReports,
+      numOfReportsEach,
+      numOfReportsOpen,
+      numOfReportsCloesd,
+      numOfJobs,
+      numOfJobsEach,
+      numOfApps,
+      statusApps,
+      numOfOffers,
+      offersStatus,
+      numOfOfferEach,
+      numOfApp,
+      numOfAppEach,
+      numOfCompanyAppEach,
+      numOfCompanyOffersEach,
+      numberPersonEachJobTitle,
+      numberPersonEachCountry,
+      numberCompanyEachCountry,
+    };
   }
 
-  block() {}
+  async block(id) {
+    let SQL = `UPDATE auth SET account_status=$1 WHERE id=$2;`;
+    let values = ['Blocked', id];
+    await client.query(SQL, values);
+  }
+
+  async removeBlock(id) {
+    let SQL = `UPDATE auth SET account_status=$1 WHERE id=$2;`;
+    let values = ['active', id];
+    await client.query(SQL, values);
+  }
 
   async reports() {
     let SQL = `SELECT * FROM admin_reports;`;
