@@ -112,10 +112,10 @@ class User {
 
   async searchJob(payload) {
     let { title, location } = payload;
-    let SQL = `SELECT * FROM jobs JOIN company ON jobs.company_id=company.id WHERE title=$1 AND location=$2;`;
+    let SQL = `SELECT * FROM jobs JOIN company ON jobs.company_id=company.id WHERE title ~* $1 AND location ~* $2;`;
     let value = [title, location];
     let URL = `https://jobs.github.com/positions.json?description=${title}&location=${location}&?markdown=true`;
-    const result1 = await client.query(SQL, value);
+    const result1 = await client.query(SQL,value);
     const resultDB = result1.rows;
     const result2 = await superagent.get(URL);
     const resultAPI = result2.body.map((item) => {
@@ -126,7 +126,7 @@ class User {
 
   async searchCompany(payload) {
     let { company_name, country } = payload;
-    let SQL = `SELECT * FROM company WHERE company_name=$1 AND country=$2;`;
+    let SQL = `SELECT * FROM company WHERE company_name ~* $1 AND country ~* $2;`;
     let value = [company_name, country];
     const result = await client.query(SQL, value);
     return result.rows[0];

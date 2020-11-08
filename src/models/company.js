@@ -96,7 +96,7 @@ class Company {
 
   async searchEmployee(payload) {
     let { job_title, country } = payload;
-    let SQL = `SELECT * FROM person WHERE job_title=$1 AND country=$2;`;
+    let SQL = `SELECT * FROM person WHERE job_title ~* $1 AND country ~* $2;`;
     let value = [job_title, country];
     const result = await client.query(SQL, value);
     return result.rows[0];
