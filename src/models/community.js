@@ -34,6 +34,11 @@ class Community {
     return { pinned, personPost, communityPosts };
   }
 
+  async getPost(postID) {
+    const result = await post.find({ _id: postID });
+    return result[0];
+  }
+
   async submitPost(user, payload) {
     if (user.account_type === 'c') {
       return;
@@ -52,44 +57,59 @@ class Community {
     await newPost.save();
   }
 
-  async deletePost(user, id) {
-    await post.findByIdAndDelete({ auth_id: user.id, id });
+  async deletePost(user, postID) {
+    await post.findByIdAndDelete({ auth_id: user.id, _id: postID });
   }
 
-  async updatePost(user, id, payload) {
-    const check = await post.find({ auth_id: user.id, id });
+  async updatePost(user, postID, payload) {
+    const check = await post.find({ auth_id: user.id, _id: postID });
     if (check.length > 0) {
-      await post.findByIdAndUpdate(id, payload, { new: true });
+      await post.findByIdAndUpdate(postID, payload, { new: true });
     }
   }
 
-  async addComment(user, id, payload) {
+  async addComment(user, postID, payload) {
+
     const idPerson = await helper.getID(user.id, 'person');
     const profile = await helper.getProfile(idPerson, 'person');
     const newComment = {
       writerID: user.id,
-      comment: payload,
+      comment: payload.comment,
       profile: `${profile.first_name} ${profile.last_name}`, avatar: profile.avatar, job_title: profile.job_title,
+      date: (new Date()).toString(),
     };
-    const targetPost = await post.find({ id });
-    const comments = targetPost[0].comments;
-    comments.push(newComment);
-    await post.findByIdAndUpdate(id, comments, { new: true });
+    const targetPost = await this.getPost(postID);
+    targetPost.comments.push(newComment);
+    await targetPost.save();
+
   }
-  
+
   async deleteComment(user, postID, commentID) {
-    const targetPost = await post.find({ postID });
-    const comments = targetPost[0].comments;
+    const targetPost = await this.getPost(postID);
+    if (!targetPost.comments[commentID]) {
+      throw new Error('Comment not found');
+    }
+    const comments = targetPost.comments;
     const check = comments[commentID].writerID == user.id;
     const newComments = [];
     if (check) {
       comments.forEach((item, index) => {
-        if (index !== commentID) {
+        if (index != commentID) {
           newComments.push(item);
         }
       });
-      await post.findByIdAndUpdate(postID, newComments, { new: true });
+      targetPost.comments = newComments;
+      targetPost.save();
     }
+  }
+
+  async searchPosts(title) {
+    const result = await post.find(
+      { 'title': { '$regex': `${title}`, '$options': 'i' } },
+      function (err, docs) {
+      },
+    );
+    return result;
   }
 }
 
