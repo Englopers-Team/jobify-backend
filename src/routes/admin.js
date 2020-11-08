@@ -11,6 +11,29 @@ router.get('/', async (req, res) => {
   res.status(200).json(data);
 });
 
+
+
+router.patch('/block/:id', async (req, res) => {
+  let id = req.params.id;
+  await admin.block(id);
+  res.status(201).json({ status: 'block done' });
+});
+
+router.patch('/removeBlock/:id', async (req, res) => {
+  let id = req.params.id;
+  await admin.removeBlock(id);
+  res.status(201).json({ status: 'block removed' });
+});
+
+router.get('/posts', (req, res) => {});
+
+router.delete('/posts/:id', (req, res) => {});
+
+router.delete('/comments/:id', (req, res) => {});
+
+// router.post('/approve/:id', (req, res) => {});
+
+
 router.get('/report', async (req, res) => {
   const data = await admin.reports();
   res.status(200).json(data);
