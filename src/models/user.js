@@ -10,29 +10,15 @@ class User {
 
   async dashboard(user) {
     const id = await helper.getID(user.id, 'person');
-    // console.log(user.id);
     let SQL = `SELECT job_title,country FROM person WHERE id=$1;`;
     let value = [id];
-    // console.log(value);
-
     const data = await client.query(SQL, value);
-    // console.log(data);
     const title = data.rows[0].job_title;
-    // console.log(title);
     const location = data.rows[0].country;
-    // console.log(location);
     const job = await this.searchJob({ title, location });
-    console.log('jooooob', job);
-
     const suggJob = { resultDB: job.resultDB.splice(5), resultAPI: job.resultAPI.splice(5) };
-    console.log('suggJobbbbbbbb', suggJob);
-
     const apps = await this.userApps(user);
-    console.log('appssssssssssss', apps);
-
     const offer = await this.userOffers(user);
-    console.log('offerrrrrrrrrrrrrrrr', offer);
-
     return { suggJob, numOfApp: Number(apps.DB.length) + Number(apps.API.length), numOfOffer: offer.length };
   }
 
