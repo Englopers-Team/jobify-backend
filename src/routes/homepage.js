@@ -6,7 +6,7 @@ const user = require('../models/user');
 const bearerAuth = require('../middleware/auth/authentication/bearer-auth');
 const helper = require('../models/helper');
 
-router.get('/', bearerAuth, async (req, res) => {
+router.get('/a', bearerAuth, async (req, res) => {
   let data;
   if (req.user.account_type === 'p') {
     data = await user.dashboard(req.user);
@@ -23,8 +23,11 @@ router.post('/report', bearerAuth, async (req, res) => {
 
 router.get('/report', bearerAuth, async (req, res) => {
   let data;
-  if (req.user.account_type === 'p') { data = await helper.reports(req.user); }
-  else if (req.user.account_type === 'c') { data = await helper.reports(req.user); }
+  if (req.user.account_type === 'p') {
+    data = await helper.reports(req.user);
+  } else if (req.user.account_type === 'c') {
+    data = await helper.reports(req.user);
+  }
   res.status(200).json(data);
 });
 

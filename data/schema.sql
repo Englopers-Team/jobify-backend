@@ -112,6 +112,16 @@ INSERT INTO applications (status,person_id,job_id,company_id) VALUES ('Pending',
 INSERT INTO applications (status,person_id,job_id,company_id) VALUES ('Pending', 1,4,3);
 INSERT INTO applications (status,person_id,job_id,company_id) VALUES ('Pending', 1,5,1);
 
+
+INSERT INTO applications_api (title,location,type,company_name,person_id) VALUES ('developer','jordan','full time','zeko co',1);
+
+
+
+ 
+
+
+
+
 INSERT INTO job_offers (title,location,type,description,status,person_id,company_id) VALUES ('Web Dev','Jordan','Full Time','500 salary','Pending',1,2);
 INSERT INTO job_offers (title,location,type,description,status,person_id,company_id) VALUES ('Web Dev','Jordan','Full Time','500 salary','Accepted',1,1);
 INSERT INTO job_offers (title,location,type,description,status,person_id,company_id) VALUES ('backEnd Dev','Jordan','Full Time','500 salary','Accepted',1,3);
