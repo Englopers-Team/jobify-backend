@@ -36,10 +36,6 @@ class Admin {
     SQL = `SELECT COUNT(*) AS number_of_accepted_apps,status FROM applications GROUP BY status;`;
     data = await client.query(SQL);
     let statusApps = data.rows;
-    let numOfApps = 0;
-    statusApps.forEach((item) => {
-      numOfApps += Number(item.number_of_accepted_apps);
-    });
 
     SQL = `SELECT COUNT(*) AS number_person_ofeach_jobtilte,job_title FROM person GROUP BY job_title ORDER BY number_person_ofeach_jobtilte DESC;`;
     data = await client.query(SQL);
@@ -80,10 +76,14 @@ class Admin {
     SQL = `SELECT COUNT(*) AS number_of_each_app,title FROM applications JOIN jobs ON applications.job_id=jobs.id GROUP BY jobs.title ORDER BY number_of_each_app DESC;`;
     data = await client.query(SQL);
     const numOfAppEach = data.rows;
-    let numOfApp = 0;
+    let numOfDbApp = 0;
     numOfAppEach.forEach((item) => {
-      numOfApp += Number(item.number_of_each_app);
+      numOfDbApp += Number(item.number_of_each_app);
     });
+
+    SQL = ` SELECT COUNT(*) As num_of_api_app FROM applications_api;`;
+    data = await client.query(SQL);
+    const numOfApiApp = data.rows[0].num_of_api_app;
 
     SQL = `SELECT COUNT(*) AS number_of_each_companyApp,company_name FROM applications JOIN company ON applications.company_id=company.id GROUP BY company.company_name ORDER BY number_of_each_companyApp DESC;`;
     data = await client.query(SQL);
@@ -104,13 +104,14 @@ class Admin {
       numOfReportsCloesd,
       numOfJobs,
       numOfJobsEach,
-      numOfApps,
       statusApps,
       numOfOffers,
       offersStatus,
       numOfOfferEach,
-      numOfApp,
+      numOfTotalApp: Number(numOfApiApp) + Number(numOfDbApp),
+      numOfDbApp,
       numOfAppEach,
+      numOfApiApp,
       numOfCompanyAppEach,
       numOfCompanyOffersEach,
       numberPersonEachJobTitle,
