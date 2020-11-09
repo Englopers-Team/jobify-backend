@@ -13,13 +13,14 @@ module.exports = (req, res, next) => {
         let values = [data.id];
         let data2 = await client.query(SQL, values);
         let account_status = data2.rows[0].account_status;
+        console.log(account_status);
         if (account_status == 'active') {
           req.user = data;
           next();
         } else if (account_status == 'pending') {
           req.user = data;
           throw new Error(`Your account is not active please verify your email`);
-        } else if (account_status == 'blocked') {
+        } else {
           throw new Error(`You are banned`);
         }
       })
