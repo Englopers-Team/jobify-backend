@@ -13,7 +13,7 @@ module.exports = (req, res, next) => {
         let values = [data.id];
         let data2 = await client.query(SQL, values);
         let account_status = data2.rows[0].account_status;
-        console.log(account_status);
+        // console.log(account_status);
         if (account_status == 'active') {
           req.user = data;
           next();
