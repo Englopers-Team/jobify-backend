@@ -20,12 +20,12 @@ passport.deserializeUser(function (user, done) {
   done(null, user);
 });
 
-router.get('/verify/:token', emailAuth, async (req, res) => {
+router.get('/verify/:token', emailAuth, async (req, res,next) => {
   try {
     let result = await authHelpers.verify(req.user, req.params.token);
     res.status(201).json({ result });
   } catch (error) {
-    res.status(500).json({ error });
+    next(error);
   }
 });
 
