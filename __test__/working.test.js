@@ -21,6 +21,10 @@ describe('routes tests', () => {
     return pg.connect();
   });
 
+  afterAll(()=>{
+    pg.end();
+  });
+
 
 
 
