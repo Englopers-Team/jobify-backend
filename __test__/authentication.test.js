@@ -74,7 +74,7 @@ describe('Authentication', () => {
 
   it('Verfiy email with wrong token', async () => {
     return mockRequest.get(`/verify/134`).set('Cookie', [`token=${signupToken}`]).then((result) => {
-      expect(result.status).toEqual(201);
+      expect(result.status).toEqual(500);
     });
   });
 

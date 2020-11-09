@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "jest --coverage --verbose",
+    "test": "jest --coverage --verbose --passWithNoTests 'src/middleware/auth/ouath'",
     "lint": "eslint '**/*.js'",
     "watch": "jest --verbose --coverage --watchAll "
   },
