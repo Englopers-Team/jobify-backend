@@ -21,7 +21,6 @@ passport.deserializeUser(function (user, done) {
 });
 
 router.get('/verify/:token', emailAuth, async (req, res) => {
-  console.log('email', req.user);
   try {
     let result = await authHelpers.verify(req.user, req.params.token);
     res.status(201).json({ result });
@@ -46,7 +45,7 @@ router.post('/signin', basicAuth, (req, res) => {
   res.status(202).cookie('token', req.token).send({ token: req.token });
 });
 
-router.post('/logout', (req, res) => {
+router.get('/logout', (req, res) => {
   res.status(202).clearCookie('token').json('Logged out');
 });
 

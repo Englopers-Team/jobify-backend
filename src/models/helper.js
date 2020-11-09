@@ -172,7 +172,7 @@ class Helper {
 
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
-        console.log(error);
+        throw new Error(`Can't send email`);
       } else {
         console.log('Email sent: ' + info.response);
       }
