@@ -27,6 +27,7 @@ const userRouter = require('./routes/user');
 const authRouter = require('./routes/auth');
 const adminRouter = require('./routes/admin');
 const apiRouter = require('./routes/api');
+const uploadRouter = require('./routes/upload');
 
 // test
 const socketio = require('socket.io');
@@ -37,6 +38,16 @@ notification.on('connection', (socket) => {
   require('./socket.io/notification');
 });
 
+// app.post('/upload-profile-pic', (req, res) => {
+//   // 'profile_pic' is the name of our file input field in the HTML form
+//   let upload = multer({ storage: storage, fileFilter: imageFilter }).single('profile_pic');
+
+//   upload(req, res, function (err) {
+//     // req.file contains information of uploaded file
+//     // req.body contains information of text fields, if there were any
+
+//   });
+// });
 
 app.use('/', homepageRouter);
 app.use('/', authRouter);
@@ -46,6 +57,7 @@ app.use('/search', searchRouter);
 app.use('/community', bearerAuth, communityRouter);
 app.use('/admin', bearerAuth, authorize(['admin', 'editor']), adminRouter);
 app.use('/api/v1', apiRouter);
+app.use('/upload', bearerAuth, uploadRouter);
 
 app.use('*', notFoundHandler);
 app.use(errorHandler);
@@ -57,6 +69,6 @@ module.exports = {
       console.log(`up and running on ${port}`);
     });
   },
-  notifi:notification,
-  io:io,
+  notifi: notification,
+  io: io,
 };
