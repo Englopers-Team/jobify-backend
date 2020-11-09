@@ -14,14 +14,36 @@ router.get('/saved', async (req, res) => {
   res.status(200).json(data);
 });
 
-router.post('/save', async (req, res) => {
-  const data = await user.saveJob(req.user, req.body);
-  res.status(201).json(data);
+router.post('/save', async (req, res, next) => {
+  try {
+    const data = await user.saveJob(req.user, req.body);
+    res.status(201).json(data);
+  } catch (err) {
+    next(`Can't save app`);
+  }
 });
 
+<<<<<<< HEAD
 router.delete('/app/:id', async (req, res) => {
   await user.deleteApp(req.params.id);
   res.status(202).json({});zz
+=======
+router.get('/app/:id', async (req, res, next) => {
+  try {
+    const data = await user.userApp(req.user, req.params.id);
+    res.status(200).json(data);
+  } catch (err) {
+    next(`Can't show app`);
+  }
+});
+router.delete('/app/:id', async (req, res, next) => {
+  try {
+    await user.deleteApp(req.user, req.params.id);
+    res.status(202).json('Deleted post');
+  } catch (err) {
+    next(`Can't delete app`);
+  }
+>>>>>>> b1929dbe7faed7661f15dabc25094a992965d1c9
 });
 
 router.get('/offers', async (req, res) => {

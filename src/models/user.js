@@ -26,8 +26,11 @@ class User {
     let { jobID, companyID } = payload;
     let personID = await helper.getID(user.id, 'person');
     let SQL = `INSERT INTO applications (person_id,job_id,company_id) VALUES ($1,$2,$3);`;
+    let SQL2 = `UPDATE jobs SET applicants_num=applicants_num+1 WHERE id=$1;`;
     let value = [personID, jobID, companyID];
+    let value2 = [jobID];
     await client.query(SQL, value);
+    await client.query(SQL2, value2);
     const data = { id: user.id, title: 'Application', description: `recevied application to ${jobID} job` };
     await notifi.addNotification(data);
   }
@@ -80,7 +83,18 @@ class User {
 
     return { DB: dataDB.rows, API: dataApi.rows };
   }
+  async userApp(user, appID) {
+    const id = await helper.getID(user.id, 'person');
+    let SQL = `SELECT * FROM applications WHERE id=$1 AND person_id=$2;`;
+    let value = [appID, id];
+    const data = await client.query(SQL, value);
+    if (data.rows[0].length) {
+      throw new Error();
+    }
+    return data.rows[0];
+  }
 
+<<<<<<< HEAD
   async userApp(user, appID) {
     const id = await helper.getID(user.id, 'person');
     let SQL = `SELECT * FROM applications WHERE id=$1 AND person_id=$2;`;
@@ -98,6 +112,22 @@ class User {
     let SQL = `DELETE FROM applications WHERE id=$1 AND person_id=$2;`;
     let value = [appID, id];
     await client.query(SQL, value);
+=======
+  async deleteApp(user, appID) {
+    await this.userApp(user, appID);
+    let SQL = `SELECT job_id FROM applications WHERE id=$1;`;
+    let value = [appID];
+    const data = await client.query(SQL, value);
+    console.log(data.rows[0]);
+    let jobID = data.rows[0].job_id;
+    let SQL2 = `UPDATE jobs SET applicants_num=applicants_num-1 WHERE id=$1;`;
+    let value2 = [jobID];
+    await client.query(SQL2, value2);
+    const id = await helper.getID(user.id, 'person');
+    let SQL3 = `DELETE FROM applications WHERE id=$1 AND person_id=$2;`;
+    let value3 = [appID, id];
+    await client.query(SQL3, value3);
+>>>>>>> b1929dbe7faed7661f15dabc25094a992965d1c9
   }
 
   async userOffers(user) {

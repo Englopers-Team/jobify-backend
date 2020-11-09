@@ -47,7 +47,11 @@ class Helper {
   }
 
   async sendReport(user, payload) {
+<<<<<<< HEAD
     if(!payload.description){
+=======
+    if (!payload.description) {
+>>>>>>> b1929dbe7faed7661f15dabc25094a992965d1c9
       throw new Error();
     }
     let report = payload.description;
