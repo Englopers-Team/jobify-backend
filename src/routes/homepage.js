@@ -29,4 +29,8 @@ router.get('/report', bearerAuth, async (req, res) => {
   res.status(200).json(data);
 });
 
+router.get('/test500',()=>{
+  throw new Error('500');
+});
+
 module.exports = router;

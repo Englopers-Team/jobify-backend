@@ -51,12 +51,12 @@ app.use('*', notFoundHandler);
 app.use(errorHandler);
 
 module.exports = {
-  server: server,
+  server: app,
   start: (port) => {
     server.listen(port, () => {
       console.log(`up and running on ${port}`);
     });
   },
   notifi:notification,
-  // io:io,
+  io:server,
 };
