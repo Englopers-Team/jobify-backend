@@ -23,11 +23,6 @@ router.post('/save', async (req, res, next) => {
   }
 });
 
-<<<<<<< HEAD
-router.delete('/app/:id', async (req, res) => {
-  await user.deleteApp(req.params.id);
-  res.status(202).json({});zz
-=======
 router.get('/app/:id', async (req, res, next) => {
   try {
     const data = await user.userApp(req.user, req.params.id);
@@ -43,7 +38,6 @@ router.delete('/app/:id', async (req, res, next) => {
   } catch (err) {
     next(`Can't delete app`);
   }
->>>>>>> b1929dbe7faed7661f15dabc25094a992965d1c9
 });
 
 router.get('/offers', async (req, res) => {

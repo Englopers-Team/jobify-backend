@@ -94,25 +94,6 @@ class User {
     return data.rows[0];
   }
 
-<<<<<<< HEAD
-  async userApp(user, appID) {
-    const id = await helper.getID(user.id, 'person');
-    let SQL = `SELECT * FROM applications WHERE id=$1 AND person_id=$2;`;
-    let value = [appID, id];
-    const data = await client.query(SQL, value);
-    if (data.rows[0].length) {
-      throw new Error();
-    }
-    return data.rows[0];
-  }
-
-  async deleteApp(user, appID) {
-    await this.userApp(user, appID);
-    const id = await helper.getID(user.id, 'person');
-    let SQL = `DELETE FROM applications WHERE id=$1 AND person_id=$2;`;
-    let value = [appID, id];
-    await client.query(SQL, value);
-=======
   async deleteApp(user, appID) {
     await this.userApp(user, appID);
     let SQL = `SELECT job_id FROM applications WHERE id=$1;`;
@@ -127,7 +108,6 @@ class User {
     let SQL3 = `DELETE FROM applications WHERE id=$1 AND person_id=$2;`;
     let value3 = [appID, id];
     await client.query(SQL3, value3);
->>>>>>> b1929dbe7faed7661f15dabc25094a992965d1c9
   }
 
   async userOffers(user) {
