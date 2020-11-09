@@ -36,6 +36,9 @@ notification.on('connection', (socket) => {
   // console.log(socket.id);
   require('./socket.io/notification');
 });
+notification.on('test',()=>{
+  console.log('se');
+});
 
 
 app.use('/', homepageRouter);
@@ -58,5 +61,5 @@ module.exports = {
     });
   },
   notifi:notification,
-  io:server,
+  // io:server,
 };

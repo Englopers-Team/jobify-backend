@@ -21,6 +21,7 @@
     const token = document.cookie.slice(6);
     socket.emit('join', token);
     socket.on('notification',(payload)=>{
+      // console.log('cry')
       console.log(payload.auth_id, payload.title, payload.description);
     })
     socket.emit('checkNotif', { token })
