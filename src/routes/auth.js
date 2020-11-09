@@ -43,7 +43,7 @@ router.post('/signup', (req, res) => {
 });
 
 router.post('/signin', basicAuth, (req, res) => {
-  res.status(202).cookie('token', req.token).json({ token: req.token });
+  res.status(202).cookie('token', req.token).send({ token: req.token });
 });
 
 router.post('/logout', (req, res) => {
