@@ -38,17 +38,6 @@ notification.on('connection', (socket) => {
   require('./socket.io/notification');
 });
 
-// app.post('/upload-profile-pic', (req, res) => {
-//   // 'profile_pic' is the name of our file input field in the HTML form
-//   let upload = multer({ storage: storage, fileFilter: imageFilter }).single('profile_pic');
-
-//   upload(req, res, function (err) {
-//     // req.file contains information of uploaded file
-//     // req.body contains information of text fields, if there were any
-
-//   });
-// });
-
 app.use('/', homepageRouter);
 app.use('/', authRouter);
 app.use('/company', bearerAuth, authorize(['c']), companyRouter);
