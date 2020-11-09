@@ -5,8 +5,8 @@ const authHelpers = require('../../../models/auth-helpers');
 const tokenServerUrl = 'https://www.linkedin.com/oauth/v2/accessToken';
 const remoteAPIemail = 'https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))';
 const remoteAPIprofile = 'https://api.linkedin.com/v2/me?projection=(id,firstName,lastName,profilePicture(displayImage~:playableStreams))';
-const CLIENT_ID = process.env.CLIENT_ID_LINKEDIN;
-const CLIENT_SECRET = process.env.CLIENT_SECRET_LINKEDIN;
+const CLIENT_ID = process.env.CLIENT_ID_LINKEDIN || '77ja8aiam3pogu';
+const CLIENT_SECRET = process.env.CLIENT_SECRET_LINKEDIN || 'QWiWlZa8Dmk28AT6';
 const API_SERVER = 'http://localhost:3000/oauth-linkedin';
 
 module.exports = async function authorize(req, res, next) {

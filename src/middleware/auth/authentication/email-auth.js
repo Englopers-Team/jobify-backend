@@ -14,8 +14,5 @@ module.exports = (req, res, next) => {
         req.user = data;
         next();
       }
-    })
-    .catch((err) => {
-      next(err);
     });
 };
