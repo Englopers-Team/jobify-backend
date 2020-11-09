@@ -47,6 +47,9 @@ class Helper {
   }
 
   async sendReport(user, payload) {
+    if (!payload.description) {
+      throw new Error();
+    }
     let report = payload.description;
     let SQL = `INSERT INTO admin_reports (description, response, auth_id) VALUES ($1,$2,$3);`;
     let value = [report, null, user.id];

@@ -4,7 +4,6 @@ const client = require('../models/database');
 const superagent = require('superagent');
 const notifi = require('../models/notifications');
 const helper = require('./helper');
-// const { patch } = require('../routes/user');
 
 class User {
   constructor() {}
@@ -27,8 +26,11 @@ class User {
     let { jobID, companyID } = payload;
     let personID = await helper.getID(user.id, 'person');
     let SQL = `INSERT INTO applications (person_id,job_id,company_id) VALUES ($1,$2,$3);`;
+    let SQL2 = `UPDATE jobs SET applicants_num=applicants_num+1 WHERE id=$1;`;
     let value = [personID, jobID, companyID];
+    let value2 = [jobID];
     await client.query(SQL, value);
+    await client.query(SQL2, value2);
     const data = { id: user.id, title: 'Application', description: `recevied application to ${jobID} job` };
     await notifi.addNotification(data);
   }
@@ -81,11 +83,31 @@ class User {
 
     return { DB: dataDB.rows, API: dataApi.rows };
   }
+  async userApp(user, appID) {
+    const id = await helper.getID(user.id, 'person');
+    let SQL = `SELECT * FROM applications WHERE id=$1 AND person_id=$2;`;
+    let value = [appID, id];
+    const data = await client.query(SQL, value);
+    if (data.rows[0].length) {
+      throw new Error();
+    }
+    return data.rows[0];
+  }
 
-  async deleteApp(appID) {
-    let SQL = `DELETE FROM applications WHERE id=$1;`;
+  async deleteApp(user, appID) {
+    await this.userApp(user, appID);
+    let SQL = `SELECT job_id FROM applications WHERE id=$1;`;
     let value = [appID];
-    await client.query(SQL, value);
+    const data = await client.query(SQL, value);
+    console.log(data.rows[0]);
+    let jobID = data.rows[0].job_id;
+    let SQL2 = `UPDATE jobs SET applicants_num=applicants_num-1 WHERE id=$1;`;
+    let value2 = [jobID];
+    await client.query(SQL2, value2);
+    const id = await helper.getID(user.id, 'person');
+    let SQL3 = `DELETE FROM applications WHERE id=$1 AND person_id=$2;`;
+    let value3 = [appID, id];
+    await client.query(SQL3, value3);
   }
 
   async userOffers(user) {
@@ -115,7 +137,7 @@ class User {
     let SQL = `SELECT * FROM jobs JOIN company ON jobs.company_id=company.id WHERE title ~* $1 AND location ~* $2;`;
     let value = [title, location];
     let URL = `https://jobs.github.com/positions.json?description=${title}&location=${location}&?markdown=true`;
-    const result1 = await client.query(SQL,value);
+    const result1 = await client.query(SQL, value);
     const resultDB = result1.rows;
     const result2 = await superagent.get(URL);
     const resultAPI = result2.body.map((item) => {

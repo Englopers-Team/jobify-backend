@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS jobs (
     location VARCHAR(255),
     type VARCHAR(255),
     description TEXT,
+    applicants_num INT DEFAULT 0,
     company_id INT REFERENCES company (id)
 );
 
@@ -57,13 +58,13 @@ CREATE TABLE IF NOT EXISTS applications (
 );
 CREATE TABLE IF NOT EXISTS saved_jobs (
     id SERIAL PRIMARY KEY,
-    title VARCHAR(255),
+    title VARCHAR(255) NOT NULL,
     location VARCHAR(255),
     type VARCHAR(255),
-    description TEXT,
-    company_name VARCHAR(255),
+    description TEXT NOT NULL,
+    company_name VARCHAR(255) NOT NULL,
     phone VARCHAR(255),
-    company_url VARCHAR(255),
+    company_url VARCHAR(255) NOT NULL,
     logo VARCHAR(255) DEFAULT 'https://www.flaticon.com/svg/static/icons/svg/993/993891.svg',
     country VARCHAR(255),
     job_id INT REFERENCES jobs (id) UNIQUE,
@@ -112,6 +113,7 @@ INSERT INTO company (company_name,phone,company_url,logo,country,auth_id) VALUES
 
 
 INSERT INTO jobs (title,location,type,description,company_id) VALUES ('Developer','Jordan','Full Time','A full time job with 900jd salary.',1);
+
 INSERT INTO jobs (title,location,type,description,company_id) VALUES ('Developer','usa','Full Time (iam from database)','A full time job with 900jd salary.',3);
 INSERT INTO jobs (title,location,type,description,company_id) VALUES ('civil eng','Jordan','Full Time (iam from database)','A full time job with 100jd salary 24hour wooork.',2);
 INSERT INTO jobs (title,location,type,description,company_id) VALUES ('civil eng','ksa','Full Time (iam from database)','A full time job with 900jd salary 24hour wooork.',2);
