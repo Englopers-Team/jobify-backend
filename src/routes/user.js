@@ -21,7 +21,7 @@ router.post('/save', async (req, res) => {
 
 router.delete('/app/:id', async (req, res) => {
   await user.deleteApp(req.params.id);
-  res.status(202).json({});
+  res.status(202).json({});zz
 });
 
 router.get('/offers', async (req, res) => {

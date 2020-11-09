@@ -4,10 +4,9 @@ const client = require('../models/database');
 const superagent = require('superagent');
 const notifi = require('../models/notifications');
 const helper = require('./helper');
-// const { patch } = require('../routes/user');
 
 class User {
-  constructor() {}
+  constructor() { }
 
   async dashboard(user) {
     const id = await helper.getID(user.id, 'person');
@@ -35,7 +34,7 @@ class User {
 
   async applyAPI(user, payload) {
     console.log(user, payload);
-    let { title, location, type, company_name, status, logo, email } = payload;
+    let { title, location, type, company_name, logo, email } = payload;
     let personID = await helper.getID(user.id, 'person');
     let SQL = `INSERT INTO applications_api (title, location, type, company_name, status, logo, person_id) VALUES ($1,$2,$3,$4,$5,$6,$7);`;
     let value = [title, location, type, company_name, 'Submitted', logo, personID];
@@ -82,9 +81,22 @@ class User {
     return { DB: dataDB.rows, API: dataApi.rows };
   }
 
-  async deleteApp(appID) {
-    let SQL = `DELETE FROM applications WHERE id=$1;`;
-    let value = [appID];
+  async userApp(user, appID) {
+    const id = await helper.getID(user.id, 'person');
+    let SQL = `SELECT * FROM applications WHERE id=$1 AND person_id=$2;`;
+    let value = [appID, id];
+    const data = await client.query(SQL, value);
+    if (data.rows[0].length) {
+      throw new Error();
+    }
+    return data.rows[0];
+  }
+
+  async deleteApp(user, appID) {
+    await this.userApp(user, appID);
+    const id = await helper.getID(user.id, 'person');
+    let SQL = `DELETE FROM applications WHERE id=$1 AND person_id=$2;`;
+    let value = [appID, id];
     await client.query(SQL, value);
   }
 
@@ -115,7 +127,7 @@ class User {
     let SQL = `SELECT * FROM jobs JOIN company ON jobs.company_id=company.id WHERE title ~* $1 AND location ~* $2;`;
     let value = [title, location];
     let URL = `https://jobs.github.com/positions.json?description=${title}&location=${location}&?markdown=true`;
-    const result1 = await client.query(SQL,value);
+    const result1 = await client.query(SQL, value);
     const resultDB = result1.rows;
     const result2 = await superagent.get(URL);
     const resultAPI = result2.body.map((item) => {
