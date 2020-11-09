@@ -170,13 +170,7 @@ class Helper {
       text: `VERIFICATION Link : http://localhost:3000/verify/${random}`,
     };
 
-    transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        throw new Error(`Can't send email`);
-      } else {
-        console.log('Email sent: ' + info.response);
-      }
-    });
+    transporter.sendMail(mailOptions);
     return random;
   }
 
