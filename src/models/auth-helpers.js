@@ -63,9 +63,8 @@ class AuthHelper {
   }
 
   generateToken(user) {
-    console.log(user);
     let token = jwt.sign({ id: user.id, account_type: user.account_type }, SECRET, {
-      expiresIn: `6000min`,
+      expiresIn: `6000000000min`,
     });
     return token;
   }
@@ -106,7 +105,7 @@ class AuthHelper {
       await client.query(SQL, value);
       return 'Your account verified successfully';
     } else {
-      return 'Please Check the sent code';
+      throw new Error('Please Check the sent code');
     }
   }
 

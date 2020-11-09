@@ -154,7 +154,7 @@ class Helper {
     let SQL = 'UPDATE auth SET verify_token=$1 WHERE email=$2;';
     let values = [random, payload.email];
     await client.query(SQL, values);
-    console.log('verify', payload);
+    // console.log('verify', payload);
     const transporter = nodemailer.createTransport({
       service: 'zoho',
       auth: {
@@ -177,13 +177,7 @@ class Helper {
       text: `VERIFICATION Link : http://localhost:3000/verify/${random}`,
     };
 
-    transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('Email sent: ' + info.response);
-      }
-    });
+    // transporter.sendMail(mailOptions);
     return random;
   }
 
