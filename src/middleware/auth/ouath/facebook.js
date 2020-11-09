@@ -3,8 +3,8 @@ const passport = require('passport');
 const FacebookStrategy = require('passport-facebook').Strategy;
 const authHelpers = require('../../../models/auth-helpers');
 
-const CLIENT_ID = process.env.CLIENT_ID_FACEBOOK;
-const CLIENT_SECRET = process.env.CLIENT_SECRET_FACEBOOK;
+const CLIENT_ID = process.env.CLIENT_ID_FACEBOOK || '3764129010266543';
+const CLIENT_SECRET = process.env.CLIENT_SECRET_FACEBOOK || 'a01a2595620ed60e2ff43d7442af3be4';
 
 passport.use(
   new FacebookStrategy(
