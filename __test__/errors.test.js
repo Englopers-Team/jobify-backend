@@ -12,12 +12,12 @@ describe('Error Handling middlewares',()=>{
     pg.end();
   });
   it('404 error handler', () => {
-    mockRequest.get('/test404',(result)=>{
+    return mockRequest.get('/test404',(result)=>{
       expect(result.status).toBe(404);
     });
   });
   it('500 error handler', () => {
-    mockRequest.get('/test500',(result)=>{
+    return mockRequest.get('/test500',(result)=>{
       expect(result.status).toBe(500);
     });
   });
