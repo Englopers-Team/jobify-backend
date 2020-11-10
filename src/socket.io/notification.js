@@ -124,7 +124,5 @@ notification.on('connection', (socket) => {
     } catch (err) {
       throw new Error('Invalid token to check messages');
     }
-  socket.on('test',()=>{
-    console.log('Good morning');
   });
 });
