@@ -1,8 +1,8 @@
 'use strict';
 const authHelpers = require('../../../models/auth-helpers');
 
-module.exports = (role) => {
-  return async (req, res, next) => {
+module.exports = async (role) => {
+  async (req, res, next) => {
     try {
       if (!req.cookies.token) {
         next('Access Denied');
