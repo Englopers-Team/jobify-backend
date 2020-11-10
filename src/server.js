@@ -31,9 +31,15 @@ const uploadRouter = require('./routes/upload');
 
 const socketio = require('socket.io');
 const io = socketio(server);
+
 const notification = io.of('/notification');
 notification.on('connection', (socket) => {
   require('./socket.io/notification');
+});
+
+const messages = io.of('/messages');
+messages.on('connection', (socket) => {
+  require('./socket.io/messages');
 });
 
 app.use('/', homepageRouter);
@@ -57,5 +63,6 @@ module.exports = {
     });
   },
   notifi: notification,
+  messages : messages,
   io: io,
 };

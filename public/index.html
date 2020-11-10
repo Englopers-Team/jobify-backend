@@ -53,17 +53,23 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script>
-    const socket = io('/notification');
+    const socketNotifi = io('/notification');
+    const socketMessg= io('/messages');
+
     const token = document.cookie.slice(6);
-    socket.emit('join', token);
-    socket.on('notification', (payload) => {
+    socketNotifi.emit('join', token);
+    socketMessg.emit('join', token);
+
+    socketNotifi.on('notification', (payload) => {
       console.log(payload.auth_id, payload.title, payload.description);
     })
-    socket.on('message', (payload) => {
+    socketMessg.on('message', (payload) => {
       console.log(payload);
     })
-    socket.emit('checkNotif', { token })
-    socket.emit('checkMsg', { token })
+
+    socketNotifi.emit('checkNotif', { token })
+    socketMessg.emit('checkMsg', { token })
+
     function getMessage() {
       let body = document.getElementById('body')
       let receiver = document.getElementById('receiver')
@@ -74,7 +80,7 @@
         token: token,
         type : type.value
       }
-      socket.emit('message', message)
+      socketMessg.emit('message', message)
     }
   </script>
   <script src="https://apis.google.com/js/platform.js" async defer></script>
