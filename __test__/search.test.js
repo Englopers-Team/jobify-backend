@@ -9,10 +9,10 @@ let token;
 
 describe('API', () => {
   beforeAll(async () => {
-    pg.connect();
+    await pg.connect();
   });
   afterAll(async () => {
-    pg.end();
+    await pg.end();
   });
 
   it('Any one can for a job and get results', () => {
