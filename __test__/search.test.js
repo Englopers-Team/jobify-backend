@@ -7,7 +7,7 @@ const pg = require('../src/models/database');
 
 let token;
 
-describe('API', () => {
+xdescribe('API', () => {
   beforeAll(async () => {
     await pg.connect();
   });

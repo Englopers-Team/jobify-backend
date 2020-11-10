@@ -4,7 +4,7 @@ const app = require('../src/server');
 const mockRequest = supergoose(app.server);
 const pg = require('../src/models/database');
 
-describe('Report', () => {
+xdescribe('Report', () => {
 
   beforeAll(async () => {
     await pg.connect();
