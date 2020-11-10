@@ -32,7 +32,8 @@ describe('Search', () => {
       .send({ email: 'democ@gmail.com', password: '123456' })
       .then((result) => {
         token = result.body.token;
-      }).then(()=>{
+      })
+      .then(() => {
         return mockRequest
           .get('/search/employee')
           .set('Cookie', [`token=${token}`])
@@ -41,13 +42,14 @@ describe('Search', () => {
           });
       });
   });
-  it('Normal users cannot search for employees', async () => {
+  it('Normal users can not search for employees', async () => {
     return mockRequest
       .post('/signin')
       .send({ email: 'demop@gmail.com', password: '123456' })
       .then((result) => {
         token = result.body.token;
-      }).then(()=>{
+      })
+      .then(() => {
         return mockRequest.get('/search/employee').then((result) => {
           expect(result.status).toBe(500);
           expect(result.text).toBe('{"error":"Access denied"}');
@@ -55,7 +57,7 @@ describe('Search', () => {
       });
   });
 
-  it('Unregistered users cannot search for employees', async () => {
+  it('Unregistered users can not search for employees', async () => {
     return mockRequest.get('/search/employee').then((result) => {
       expect(result.status).toBe(500);
       expect(result.text).toBe('{"error":"Access denied"}');
