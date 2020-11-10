@@ -45,7 +45,7 @@ messages.on('connection', (socket) => {
 app.use('/', homepageRouter);
 app.use('/', authRouter);
 app.use('/company', bearerAuth, authorize(['c']), companyRouter);
-app.use('/user', bearerAuth, authorize(['p']), userRouter);
+app.use('/user', bearerAuth, userRouter);
 app.use('/search', searchRouter);
 app.use('/community', bearerAuth, communityRouter);
 app.use('/admin', bearerAuth, authorize(['admin', 'editor']), adminRouter);
