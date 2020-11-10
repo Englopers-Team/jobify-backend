@@ -1,8 +1,15 @@
 'use strict';
+
+//------------------------------// Third Party Resources \\----------------------------\\
 const express = require('express');
-const router = express.Router();
+
+//---------------------------------// Import Resources \\-------------------------------\\
 const company = require('../models/company');
 
+//-------------------------------// App Level Middleware \\-----------------------------\\
+const router = express.Router();
+
+//--------------------------------------// Routes \\--------------------------------------\\
 router.get('/jobs', async (req, res) => {
   const data = await company.jobs(req.user);
   res.status(200).json(data);
@@ -69,4 +76,7 @@ router.put('/edit', async (req, res) => {
   res.status(202).json({});
 });
 
+//-----------------------------------// Export Module \\-----------------------------------\\
 module.exports = router;
+
+//-----------------------------------------------------------------------------------------\\

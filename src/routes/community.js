@@ -1,8 +1,15 @@
 'use strict';
+
+//------------------------------// Third Party Resources \\----------------------------\\
 const express = require('express');
-const router = express.Router();
+
+//---------------------------------// Import Resources \\-------------------------------\\
 const community = require('../models/community');
 
+//-------------------------------// App Level Middleware \\-----------------------------\\
+const router = express.Router();
+
+//--------------------------------------// Routes \\--------------------------------------\\
 router.get('/', async (req, res) => {
   const result = await community.posts(req.user);
   res.status(200).json(result);
@@ -78,4 +85,7 @@ router.patch('/like/:id', async (req, res, next) => {
   }
 });
 
+//-----------------------------------// Export Module \\-----------------------------------\\
 module.exports = router;
+
+//-----------------------------------------------------------------------------------------\\

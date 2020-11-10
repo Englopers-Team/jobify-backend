@@ -1,11 +1,18 @@
 'use strict';
+
+//------------------------------// Third Party Resources \\----------------------------\\
 const express = require('express');
-const router = express.Router();
+
+//---------------------------------// Import Resources \\-------------------------------\\
 const admin = require('../models/admin');
 const helper = require('../models/helper');
 const authorize = require('../middleware/auth/authorization/authorize');
 const community = require('../models/community');
 
+//-------------------------------// App Level Middleware \\-----------------------------\\
+const router = express.Router();
+
+//--------------------------------------// Routes \\--------------------------------------\\
 router.get('/', async (req, res) => {
   const data = await admin.dashboard();
   res.status(200).json(data);
@@ -38,15 +45,15 @@ router.patch('/report/:id', async (req, res) => {
   res.status(201).json({});
 });
 
+router.delete('/report/:id', authorize(['admin']), async (req, res) => {
+  await admin.deleteReport(req.params.id);
+  res.status(202).json({});
+});
+
 router.post('/seed/:id', authorize(['admin']), async (req, res) => {
   const arr = await helper.generateJobs(req.params.id);
   await helper.seedDB(arr);
   res.status(200).json('seeded db');
-});
-
-router.delete('/report/:id', authorize(['admin']), async (req, res) => {
-  await admin.deleteReport(req.params.id);
-  res.status(202).json({});
 });
 
 router.get('/posts', async (req, res) => {
@@ -69,4 +76,9 @@ router.delete('/posts/:id', async (req, res) => {
   res.status(201).json({});
 });
 
+//-----------------------------------// Export Module \\-----------------------------------\\
 module.exports = router;
+
+//-----------------------------------------------------------------------------------------\\
+
+

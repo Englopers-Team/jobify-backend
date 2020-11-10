@@ -1,6 +1,9 @@
 'use strict';
+
+//------------------------------// Third Party Resources \\----------------------------\\
 const express = require('express');
-const router = express.Router();
+
+//---------------------------------// Import Resources \\-------------------------------\\
 const authHelpers = require('../models/auth-helpers');
 const basicAuth = require('../middleware/auth/authentication/basic-auth');
 const bearerAuth = require('../middleware/auth/authentication/bearer-auth');
@@ -9,9 +12,12 @@ const google = require('../middleware/auth/ouath/google');
 const passport = require('../middleware/auth/ouath/facebook');
 const emailAuth = require('../middleware/auth/authentication/email-auth');
 
+//-------------------------------// App Level Middleware \\-----------------------------\\
+const router = express.Router();
 router.use(passport.initialize());
 router.use(passport.session());
 
+//---------------------------------// Passport Handling\\-------------------------------\\
 passport.serializeUser(function (user, done) {
   done(null, user);
 });
@@ -20,6 +26,7 @@ passport.deserializeUser(function (user, done) {
   done(null, user);
 });
 
+//--------------------------------------// Routes \\--------------------------------------\\
 router.get('/verify/:token', emailAuth, async (req, res,next) => {
   try {
     let result = await authHelpers.verify(req.user, req.params.token);
@@ -66,4 +73,6 @@ router.get('/oauth-facebook', passport.authenticate('facebook', { failureRedirec
 });
 
 router.get('/auth/facebook', passport.authenticate('facebook'));
+
+
 module.exports = router;

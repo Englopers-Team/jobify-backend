@@ -1,8 +1,15 @@
 'use strict';
+
+//------------------------------// Third Party Resources \\----------------------------\\
 const express = require('express');
-const router = express.Router();
+
+//---------------------------------// Import Resources \\-------------------------------\\
 const helper = require('../models/helper');
 
+//-------------------------------// App Level Middleware \\-----------------------------\\
+const router = express.Router();
+
+//--------------------------------------// Routes \\--------------------------------------\\
 router.get('/jobs', async (req, res) => {
   res.status(200).json(await helper.jobsApi());
 });
@@ -20,4 +27,7 @@ router.get('/mockApi', async (req, res) => {
   res.status(200).json({ data });
 });
 
+//-----------------------------------// Export Module \\-----------------------------------\\
 module.exports = router;
+
+//-----------------------------------------------------------------------------------------\\

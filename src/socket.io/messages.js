@@ -1,11 +1,13 @@
 'use strict';
 
+//---------------------------------// Import Resources \\-------------------------------\\
 const client = require('../models/database');
 const app = require('../server');
 const messages = app.messages;
 const authHelpers = require('../models/auth-helpers');
 const helper = require('../models/helper');
 
+//--------------------------------// Messages Namespace \\--------------------------------\\
 messages.on('connection', (socket) => {
   console.log('connected to messages namespace', socket.id);
 
@@ -89,3 +91,5 @@ messages.on('connection', (socket) => {
     }
   });
 });
+
+//-----------------------------------------------------------------------------------------\\
