@@ -40,7 +40,8 @@ describe('Admin', () => {
         .send({ email: 'demop@gmail.com', password: '123456' })
         .then((result) => {
           token = result.body.token;
-        }).then(() => {
+        })
+        .then(() => {
           return mockRequest.get('/search/employee').then((result) => {
             expect(result.status).toBe(500);
             expect(result.text).toBe('{"error":"Access denied"}');
@@ -50,7 +51,7 @@ describe('Admin', () => {
   });
   it('Admins only can block users and companies', () => {
     return mockRequest
-      .patch('/admin/block/10')
+      .patch('/admin/block/4')
       .set('Cookie', [`token=${token}`])
       .then((result) => {
         expect(result.status).toBe(201);
@@ -58,20 +59,20 @@ describe('Admin', () => {
   });
   it('Admins only can unblock users and companies', () => {
     return mockRequest
-      .patch('/admin/removeBlock/10')
+      .patch('/admin/removeBlock/4')
       .set('Cookie', [`token=${token}`])
       .then((result) => {
         expect(result.status).toBe(201);
       });
   });
   it('Editors cannot block users or companies', () => {
-
     return mockRequest
       .post('/signin')
       .send({ email: 'demoeditor@gmail.com', password: '123456' })
       .then((result) => {
         token = result.body.token;
-      }).then(() => {
+      })
+      .then(() => {
         return mockRequest
           .patch('/admin/block/3')
           .set('Cookie', [`token=${token}`])
@@ -81,7 +82,7 @@ describe('Admin', () => {
           });
       });
   });
-  it('Admins can see all reports from users and companies', () => {
+  it('Admins can see all the reports from users and companies', () => {
     return mockRequest
       .get('/admin/report')
       .set('Cookie', [`token=${token}`])
@@ -89,7 +90,7 @@ describe('Admin', () => {
         expect(result.status).toBe(200);
       });
   });
-  it('Admins can see certain report from users and companies', () => {
+  it('Admins can see certain the report from users and companies', () => {
     return mockRequest
       .get('/admin/report/2')
       .set('Cookie', [`token=${token}`])
@@ -98,7 +99,7 @@ describe('Admin', () => {
       });
   });
 
-  it('Admins can delete certain report', () => {
+  it('Admins can delete a certain report', () => {
     return mockRequest
       .delete('/admin/report/1')
       .set('Cookie', [`token=${token}`])
@@ -107,7 +108,7 @@ describe('Admin', () => {
       });
   });
 
-  it('Admins can reply to certain report from users and companies', () => {
+  it('Admins can reply to a certain report from users and companies', () => {
     return mockRequest
       .patch('/admin/report/1')
       .set('Cookie', [`token=${token}`])
@@ -148,7 +149,8 @@ describe('Admin', () => {
       .send({ email: 'demop@gmail.com', password: '123456' })
       .then((result) => {
         token = result.body.token;
-      }).then(() => {
+      })
+      .then(() => {
         return mockRequest
           .post('/community/submit')
           .set('Cookie', [`token=${token}`])
@@ -162,7 +164,8 @@ describe('Admin', () => {
               .send({ email: 'demoadmin@gmail.com', password: '123456' })
               .then((result) => {
                 token = result.body.token;
-              }).then(() => {
+              })
+              .then(() => {
                 return mockRequest
                   .patch(`/admin/posts/${results.body._id}`)
                   .set('Cookie', [`token=${token}`])
@@ -172,7 +175,6 @@ describe('Admin', () => {
                   });
               });
           });
-
       });
   });
 
@@ -182,7 +184,8 @@ describe('Admin', () => {
       .send({ email: 'demop@gmail.com', password: '123456' })
       .then((result) => {
         token = result.body.token;
-      }).then(() => {
+      })
+      .then(() => {
         return mockRequest
           .post('/community/submit')
           .set('Cookie', [`token=${token}`])
@@ -196,7 +199,8 @@ describe('Admin', () => {
               .send({ email: 'demoadmin@gmail.com', password: '123456' })
               .then((result) => {
                 token = result.body.token;
-              }).then(() => {
+              })
+              .then(() => {
                 return mockRequest
                   .delete(`/admin/posts/${results.body._id}`)
                   .set('Cookie', [`token=${token}`])
