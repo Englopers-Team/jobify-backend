@@ -1,11 +1,7 @@
 'use strict';
 
 const client = require('../models/database');
-
 const io = require('socket.io-client');
-// const notifi = io.connect('http://localhost:3000/notification');
-
-
 
 class Notificaion {
   constructor() {
@@ -29,11 +25,5 @@ class Notificaion {
     notifi.emit('notification', { id });
   }
 }
-
-// notifi.on('connect', () => {
-//   notifi.emit('test');
-//   console.log('omg');
-// });
-// notifi.emit('test');
 
 module.exports = new Notificaion();
