@@ -26,31 +26,33 @@ describe('API', () => {
     });
   });
 
-  it('Only registered companies can search roe employees', async () => {
-    await mockRequest
+  it('Only registered companies can search roe employees', () => {
+    return mockRequest
       .post('/signin')
       .send({ email: 'democ@gmail.com', password: '123456' })
       .then((result) => {
         token = result.body.token;
-      });
-    return mockRequest
-      .get('/search/employee')
-      .set('Cookie', [`token=${token}`])
-      .then((result) => {
-        expect(result.status).toBe(200);
+      }).then(()=>{
+        return mockRequest
+          .get('/search/employee')
+          .set('Cookie', [`token=${token}`])
+          .then((result) => {
+            expect(result.status).toBe(200);
+          });
       });
   });
   it('Normal users cannot search for employees', async () => {
-    await mockRequest
+    return mockRequest
       .post('/signin')
       .send({ email: 'demop@gmail.com', password: '123456' })
       .then((result) => {
         token = result.body.token;
+      }).then(()=>{
+        return mockRequest.get('/search/employee').then((result) => {
+          expect(result.status).toBe(500);
+          expect(result.text).toBe('{"error":"Access denied"}');
+        });
       });
-    return mockRequest.get('/search/employee').then((result) => {
-      expect(result.status).toBe(500);
-      expect(result.text).toBe('{"error":"Access denied"}');
-    });
   });
 
   it('Unregistered users cannot search for employees', async () => {
