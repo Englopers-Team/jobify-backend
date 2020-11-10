@@ -10,17 +10,42 @@
 <body>
   <main>
 
+    <div>
+    <form method="POST" action="/upload/profile_pic" enctype="multipart/form-data">
+      <div> 
+         <label>Select your profile picture:</label> <input type="file"   name="profile_pic" />
+      </div>
+      <div> 
+          <input type="submit" name="btn_upload_profile_pic" value="Upload" /> 
+      </div>
+      </form>
+    </div>
+
+    <div>
+      <form method="POST" action="/upload/cv" enctype="multipart/form-data">
+        <div> 
+           <label>Select your CV:</label> <input type="file"   name="cv" />
+        </div>
+        <div> 
+            <input type="submit" name="btn_upload_cv" value="Upload" /> 
+        </div>
+        </form>
+      </div>
+
+
     <a id="linkedin-oauth" href="">linkedin</a>
     <a id="google-oauth" href="">Google</a>
     <a id="facebook-oauth" href="auth/facebook">Facebook</a>
-
+  
   </main>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script>
     const socket = io('/notification');
     const token = document.cookie.slice(6);
     socket.emit('join', token);
     socket.on('notification',(payload)=>{
+      // console.log('cry')
       console.log(payload.auth_id, payload.title, payload.description);
     })
     socket.emit('checkNotif', { token })
