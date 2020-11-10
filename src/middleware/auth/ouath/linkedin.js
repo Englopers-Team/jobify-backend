@@ -12,7 +12,7 @@ const remoteAPIemail = 'https://api.linkedin.com/v2/emailAddress?q=members&proje
 const remoteAPIprofile = 'https://api.linkedin.com/v2/me?projection=(id,firstName,lastName,profilePicture(displayImage~:playableStreams))';
 const CLIENT_ID = process.env.CLIENT_ID_LINKEDIN || '77ja8aiam3pogu';
 const CLIENT_SECRET = process.env.CLIENT_SECRET_LINKEDIN || 'QWiWlZa8Dmk28AT6';
-const API_SERVER = 'http://localhost:3000/oauth-linkedin';
+const API_SERVER = 'https://jobify-app-v2.herokuapp.com/oauth-linkedin';
 
 //----------------------------------// Helper Function \\---------------------------------\\
 async function exchangeCodeForToken(code) {

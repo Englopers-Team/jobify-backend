@@ -11,7 +11,7 @@ const tokenServerUrl = 'https://oauth2.googleapis.com/token';
 const remoteAPI = 'https://www.googleapis.com/oauth2/v2/userinfo';
 const CLIENT_ID = process.env.CLIENT_ID_GOOGLE || '845374033514-cipcled8idbs9bg1qml9agt38bbappek.apps.googleusercontent.com';
 const CLIENT_SECRET = process.env.CLIENT_SECRET_GOOGLE || '6I86RhRUr09bL2feCmDqiGDx';
-const API_SERVER = 'http://localhost:3000/oauth-google';
+const API_SERVER = 'https://jobify-app-v2.herokuapp.com/oauth-google';
 
 //----------------------------------// Helper Function \\---------------------------------\\
 async function exchangeCodeForToken(code) {
