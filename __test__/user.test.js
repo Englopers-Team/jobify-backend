@@ -1,6 +1,7 @@
-const supertest = require('supertest');
+'use strict';
+const supergoose = require('@code-fellows/supergoose');
 const app = require('../src/server');
-const mockRequest = supertest(app.server);
+const mockRequest = supergoose(app.server);
 const pg = require('../src/models/database');
 
 describe('User', () => {

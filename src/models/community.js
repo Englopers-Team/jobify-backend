@@ -33,7 +33,7 @@ class Community {
 
   async submitPost(user, payload) {
     if (user.account_type === 'c') {
-      return;
+      throw new Error(`You need to be employee`);
     }
     const id = await helper.getID(user.id, 'person');
     const profile = await helper.getProfile(id, 'person');
@@ -47,6 +47,7 @@ class Community {
 
     const newPost = new post(record);
     await newPost.save();
+    return newPost;
   }
 
   async deletePost(user, postID) {
@@ -77,6 +78,7 @@ class Community {
     const targetPost = await this.getPost(postID);
     targetPost.comments.push(newComment);
     await targetPost.save();
+    return targetPost.comments.length;
   }
 
   async deleteComment(user, postID, commentID) {

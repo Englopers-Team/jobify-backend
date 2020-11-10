@@ -13,9 +13,13 @@ router.get('/search', async (req, res) => {
   res.status(200).json(result);
 });
 
-router.post('/submit', async (req, res) => {
-  await community.submitPost(req.user, req.body);
-  res.status(201).json('submited job');
+router.post('/submit', async (req, res,next) => {
+  try {
+    const result = await community.submitPost(req.user, req.body);
+    res.status(201).json(result);
+  } catch (err) {
+    next(err);
+  }
 });
 
 router.get('/post/:id', async (req, res, next) => {
@@ -47,8 +51,8 @@ router.patch('/post/:id', async (req, res, next) => {
 
 router.post('/comment/:id', async (req, res, next) => {
   try {
-    await community.addComment(req.user, req.params.id, req.body);
-    res.status(201).json('Commented');
+    const result = await community.addComment(req.user, req.params.id, req.body);
+    res.status(201).json({commentID:result-1});
   } catch (err) {
     next(`Can't submit comment`);
   }
