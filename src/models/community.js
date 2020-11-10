@@ -2,22 +2,22 @@
 const mongoose = require('mongoose');
 const helper = require('./helper');
 
-const post = mongoose.model('post', mongoose.Schema({
-  title: { type: String, required: true },
-  body: { type: String, require: true },
-  comments: { type: [] },
-  likes: { type: [] },
-  pinned: { type: String, default: 'false' },
-  auth_id: { type: Number, require: true },
-  profile: mongoose.Schema.Types.Mixed,
-  date: { type: Date, default: Date.now },
-}));
-
+const post = mongoose.model(
+  'post',
+  mongoose.Schema({
+    title: { type: String, required: true },
+    body: { type: String, require: true },
+    comments: { type: [] },
+    likes: { type: [] },
+    pinned: { type: String, default: 'false' },
+    auth_id: { type: Number, require: true },
+    profile: mongoose.Schema.Types.Mixed,
+    date: { type: Date, default: Date.now },
+  }),
+);
 
 class Community {
-  constructor() {
-
-  }
+  constructor() {}
 
   async posts(user) {
     const pinned = await post.find({ pinned: 'true' });
@@ -28,6 +28,7 @@ class Community {
 
   async getPost(postID) {
     const result = await post.find({ _id: postID });
+    console.log(result[0]);
     return result[0];
   }
 
@@ -66,14 +67,15 @@ class Community {
   }
   // real event
   async addComment(user, postID, payload) {
-
     const idPerson = await helper.getID(user.id, 'person');
     const profile = await helper.getProfile(idPerson, 'person');
     const newComment = {
       writerID: user.id,
       comment: payload.comment,
-      profile: `${profile.first_name} ${profile.last_name}`, avatar: profile.avatar, job_title: profile.job_title,
-      date: (new Date()).toString(),
+      profile: `${profile.first_name} ${profile.last_name}`,
+      avatar: profile.avatar,
+      job_title: profile.job_title,
+      date: new Date().toString(),
     };
     const targetPost = await this.getPost(postID);
     targetPost.comments.push(newComment);
@@ -97,20 +99,17 @@ class Community {
       });
       targetPost.comments = newComments;
       targetPost.save();
-    }else{
-      throw new Error(`Comment is not yours`);}
+    } else {
+      throw new Error(`Comment is not yours`);
+    }
   }
 
   async searchPosts(title) {
-    const result = await post.find(
-      { 'title': { '$regex': `${title}`, '$options': 'i' } },
-      function (err, docs) {
-      },
-    );
+    const result = await post.find({ title: { $regex: `${title}`, $options: 'i' } }, function (err, docs) {});
     return result;
   }
   // real event
-  
+
   async likePost(user, postID) {
     const targetPost = await this.getPost(postID);
     const likes = targetPost.likes;
@@ -129,11 +128,11 @@ class Community {
   }
   async pin(postID) {
     const targetPost = await this.getPost(postID);
+    console.log(postID);
+    console.log(targetPost);
     targetPost.pinned = 'true';
     await targetPost.save();
   }
 }
 
 module.exports = new Community();
-
-

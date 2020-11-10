@@ -1,6 +1,7 @@
 'use strict';
 
 const client = require('../models/database');
+const helper = require('./helper');
 
 class Admin {
   constructor() {}
@@ -138,17 +139,18 @@ class Admin {
     return data.rows;
   }
   async report(payload) {
-    let SQL = `SELECT * FROM admin_reports WHERE id=$1;`;
+    let SQL = `SELECT * FROM admin_reports JOIN auth ON admin_reports.auth_id=auth.id WHERE admin_reports.id=$1;`;
     let value = [payload];
     const data = await client.query(SQL, value);
     let SQL2, value2;
-
     if (data.rows[0].account_type === 'c') {
+      let id = await helper.getID(data.rows[0].auth_id, 'company');
       SQL2 = `SELECT * FROM company WHERE id=$1;`;
-      value2 = [data.rows[0].company_id];
+      value2 = [id];
     } else if (data.rows[0].account_type === 'p') {
+      let id = await helper.getID(data.rows[0].auth_id, 'person');
       SQL2 = `SELECT * FROM person WHERE id=$1;`;
-      value2 = [data.rows[0].person_id];
+      value2 = [id];
     }
     const data2 = await client.query(SQL2, value2);
     return { report: data.rows[0], sender: data2.rows[0] };
