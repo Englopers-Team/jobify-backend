@@ -45,7 +45,7 @@ class Helper {
     const SQL = `SELECT auth_id FROM ${table} WHERE id=$1`;
     const values = [id];
     const result = await client.query(SQL, values);
-    console.log(result.rows[0]);
+    // console.log(result.rows[0]);
     return result.rows[0].auth_id;
   }
 
@@ -147,7 +147,7 @@ class Helper {
 
   sendEmail(email, payload) {
     console.log('Email sent successfully');
-    console.log(email, payload);
+    // console.log(email, payload);
     const transporter = nodemailer.createTransport({
       service: 'zoho',
       auth: {

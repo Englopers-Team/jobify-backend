@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "jest --coverage --verbose --detectOpenHandles",
+    "test": "jest --coverage --verbose",
     "lint": "eslint '**/*.js'",
     "watch": "jest --verbose --coverage --watchAll "
   },
