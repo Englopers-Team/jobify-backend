@@ -77,7 +77,6 @@ class Community {
     const targetPost = await this.getPost(postID);
     targetPost.comments.push(newComment);
     await targetPost.save();
-
   }
 
   async deleteComment(user, postID, commentID) {
@@ -97,8 +96,7 @@ class Community {
       targetPost.comments = newComments;
       targetPost.save();
     }else{
-      throw new Error(`Comment is not yours`);
-    }
+      throw new Error(`Comment is not yours`);}
   }
 
   async searchPosts(title) {
@@ -110,8 +108,8 @@ class Community {
     return result;
   }
   // real event
+  
   async likePost(user, postID) {
-
     const targetPost = await this.getPost(postID);
     const likes = targetPost.likes;
     let status = 'like';

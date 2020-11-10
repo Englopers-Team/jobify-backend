@@ -61,7 +61,7 @@ module.exports = {
       console.log(`up and running on ${port}`);
     });
   },
+  notifi: notification,
+  io: io,
 
-  notifi:notification,
-  // io:server,
 };

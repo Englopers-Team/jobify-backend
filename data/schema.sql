@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS auth, person, company, applications, jobs, job_offers, admin_reports, notifications, applications_api,saved_jobs;
+DROP TABLE IF EXISTS auth, person, company, applications, jobs, job_offers, admin_reports, notifications, applications_api, saved_jobs, messages;
 CREATE TABLE IF NOT EXISTS auth (
     id SERIAL PRIMARY KEY,
     email VARCHAR(255) UNIQUE,
@@ -38,7 +38,6 @@ CREATE TABLE IF NOT EXISTS jobs (
     applicants_num INT DEFAULT 0,
     company_id INT REFERENCES company (id)
 );
-
 CREATE TABLE IF NOT EXISTS applications_api (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255),
@@ -70,7 +69,6 @@ CREATE TABLE IF NOT EXISTS saved_jobs (
     job_id INT REFERENCES jobs (id) UNIQUE,
     person_id INT REFERENCES person (id)
 );
-
 CREATE TABLE IF NOT EXISTS job_offers (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255),
@@ -94,6 +92,13 @@ CREATE TABLE IF NOT EXISTS notifications (
     seen VARCHAR(255),
     auth_id INT REFERENCES auth (id)
 );
+CREATE TABLE IF NOT EXISTS messages (
+    id SERIAL PRIMARY KEY,
+    body TEXT NOT NULL,
+    person_id INT REFERENCES person (id),
+    company_id INT REFERENCES company (id)
+);
+
 
 INSERT INTO auth (email,password,account_type,account_status) VALUES('demop@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','active');
 INSERT INTO auth (email,password,account_type,account_status) VALUES('democ@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','c','active');
@@ -134,12 +139,6 @@ INSERT INTO applications (status,person_id,job_id,company_id) VALUES ('Pending',
 INSERT INTO applications_api (title,location,type,company_name,person_id) VALUES ('developer','jordan','full time','zeko co',1);
 
 
-
- 
-
-
-
-
 INSERT INTO job_offers (title,location,type,description,status,person_id,company_id) VALUES ('Web Dev','Jordan','Full Time','500 salary','Pending',1,2);
 INSERT INTO job_offers (title,location,type,description,status,person_id,company_id) VALUES ('Web Dev','Jordan','Full Time','500 salary','Accepted',1,1);
 INSERT INTO job_offers (title,location,type,description,status,person_id,company_id) VALUES ('backEnd Dev','Jordan','Full Time','500 salary','Accepted',1,3);
@@ -150,5 +149,19 @@ INSERT INTO admin_reports (description,response,auth_id) VALUES ('i am report fr
 INSERT INTO admin_reports (description,response,auth_id) VALUES ('i am report from company num1',null,2);
 INSERT INTO admin_reports (description,response,auth_id) VALUES ('i am report from company num2',null,2);
 INSERT INTO notifications (title,description,seen,auth_id) VALUES ('Offer','You got an offer from company name','false',1);
+
+
+INSERT INTO messages (body,person_id,company_id) VALUES ('this is message from company 1 to person 2',2,1);
+INSERT INTO messages (body,person_id,company_id) VALUES ('this is message from company 2 to person 2',2,2);
+INSERT INTO messages (body,person_id,company_id) VALUES ('this is message from company 3 to person 2',2,3);
+
+INSERT INTO messages (body,person_id,company_id) VALUES ('this is message from company 1 to person 1',1,1);
+INSERT INTO messages (body,person_id,company_id) VALUES ('this is message from company 2 to person 1',1,2);
+INSERT INTO messages (body,person_id,company_id) VALUES ('this is message from company 3 to person 1',1,3);
+
+INSERT INTO messages (body,person_id,company_id) VALUES ('this is message from company 1 to person 2',2,1);
+INSERT INTO messages (body,person_id,company_id) VALUES ('this is message from company 2 to person 2',2,2);
+INSERT INTO messages (body,person_id,company_id) VALUES ('this is message from company 3 to person 2',2,3);
+
 
 

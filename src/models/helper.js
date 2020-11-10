@@ -5,6 +5,7 @@ const faker = require('faker');
 const nodemailer = require('nodemailer');
 const multer = require('multer');
 const path = require('path');
+const pdfreader = require('pdfreader');
 
 class Helper {
   constructor() {}
@@ -65,7 +66,28 @@ class Helper {
     return data.rows;
   }
 
-  pdfScanner(file) {}
+  pdfScanner(file) {
+    let rows = {}; // indexed by y-position
+
+    function printRows() {
+      Object.keys(rows) // => array of y-positions (type: float)
+        .sort((y1, y2) => parseFloat(y1) - parseFloat(y2)) // sort float positions
+        .forEach((y) => (rows[y] || []).join(''));
+    }
+
+    new pdfreader.PdfReader().parseFileItems(`./uploads/cv/${file}`, function (err, item) {
+      if (!item || item.page) {
+        // end of file, or page
+        printRows();
+        // console.log('PAGE:', item.page);
+        rows = {}; // clear rows for next page
+      } else if (item.text) {
+        // accumulate text items into rows object, per line
+        (rows[item.y] = rows[item.y] || []).push(item.text);
+      }
+    });
+    return rows;
+  }
 
   // get all jobs from database
   async jobsApi() {
