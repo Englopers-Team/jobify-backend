@@ -105,7 +105,7 @@ class AuthHelper {
       await client.query(SQL, value);
       return 'Your account verified successfully';
     } else {
-      return 'Please Check the sent code';
+      throw new Error('Please Check the sent code');
     }
   }
 

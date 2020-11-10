@@ -37,6 +37,9 @@ notification.on('connection', (socket) => {
   // console.log(socket.id);
   require('./socket.io/notification');
 });
+notification.on('test',()=>{
+  console.log('se');
+});
 
 app.use('/', homepageRouter);
 app.use('/', authRouter);
@@ -52,7 +55,7 @@ app.use('*', notFoundHandler);
 app.use(errorHandler);
 
 module.exports = {
-  server: server,
+  server: app,
   start: (port) => {
     server.listen(port, () => {
       console.log(`up and running on ${port}`);
