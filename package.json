@@ -44,6 +44,7 @@
     "passport-facebook": "^3.0.0",
     "pg": "^8.4.2",
     "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0",
     "superagent": "^6.1.0"
   },
   "devDependencies": {
