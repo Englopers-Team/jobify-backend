@@ -95,7 +95,8 @@ class Community {
       });
       targetPost.comments = newComments;
       targetPost.save();
-    }
+    }else{
+      throw new Error(`Comment is not yours`)};
   }
 
   async searchPosts(title) {
