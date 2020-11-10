@@ -18,7 +18,7 @@ router.post('/profile_pic', helper.uploader().single('profile_pic'), async (req,
     } else if (!req.file) {
       return res.send('Please select an image to upload');
     } else if (req.file.size > 3000000) {
-      const path = `./uploads/profile-pictures/${req.file.filename}`;
+      const path = req.file.path;
       fs.unlink(path, (err) => {
         if (err) {
           throw new Error(err);
@@ -43,7 +43,7 @@ router.post('/cv', helper.uploader().single('cv'), async (req, res) => {
     } else if (!req.file) {
       return res.send('Please select a pdf or doc file to upload');
     } else if (req.file.size > 6000000) {
-      const path = `./uploads/cv/${req.file.filename}`;
+      const path = req.file.path;
       fs.unlink(path, (err) => {
         if (err) {
           return;
