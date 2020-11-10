@@ -9,10 +9,10 @@ const pg = require('../src/models/database');
 
 describe('Authorization', () => {
   beforeAll(async () => {
-    pg.connect();
+    await pg.connect();
   });
   afterAll(async () => {
-    pg.end();
+    await pg.end();
   });
   it('Authorize middlewares with allowed authorize', () => {
     return mockRequest.post('/signin').send({ email: 'demop@gmail.com', password: '123456' }).then((data) => {

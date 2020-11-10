@@ -13,12 +13,12 @@ describe('Community', () => {
     });
   });
 
-  beforeAll(() => {
-    pg.connect();
+  beforeAll(async () => {
+    await pg.connect();
   });
 
   afterAll(async () => {
-    pg.end();
+    await pg.end();
   });
 
   it('Community homepage', () => {

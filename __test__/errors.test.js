@@ -8,8 +8,11 @@ const pg = require('../src/models/database');
 
 
 describe('Error Handling middlewares',()=>{
+  beforeAll(async () => {
+    await pg.connect();
+  });
   afterAll(async () => {
-    pg.end();
+    await pg.end();
   });
   it('404 error handler', () => {
     return mockRequest.get('/test404',(result)=>{

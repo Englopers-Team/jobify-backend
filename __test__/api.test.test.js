@@ -7,10 +7,10 @@ const pg = require('../src/models/database');
 
 describe('API', () => {
   beforeAll(async () => {
-    pg.connect();
+    await pg.connect();
   });
   afterAll(async () => {
-    pg.end();
+    await pg.end();
   });
 
   it('Any one can hit the jobs API and get results', () => {

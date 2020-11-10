@@ -28,7 +28,7 @@ class Community {
 
   async getPost(postID) {
     const result = await post.find({ _id: postID });
-    console.log(result[0]);
+    // console.log(result[0]);
     return result[0];
   }
 
@@ -128,8 +128,8 @@ class Community {
   }
   async pin(postID) {
     const targetPost = await this.getPost(postID);
-    console.log(postID);
-    console.log(targetPost);
+    // console.log(postID);
+    // console.log(targetPost);
     targetPost.pinned = 'true';
     await targetPost.save();
   }

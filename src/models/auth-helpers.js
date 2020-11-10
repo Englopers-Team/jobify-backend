@@ -45,7 +45,7 @@ class AuthHelper {
           return Promise.reject('Fill all required data');
         }
       } else {
-        console.log('Wrong key from payload');
+        // console.log('Wrong key from payload');
         return Promise.reject('Wrong key');
       }
     }

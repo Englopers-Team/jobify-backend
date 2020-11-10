@@ -43,7 +43,7 @@ passport.use(
           return cb(null, { userData: data, token: token });
         }
 
-        console.log(userRecord);
+        // console.log(userRecord);
       } catch (error) {
         cb(error, false, error.message);
       }

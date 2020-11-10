@@ -1,7 +1,8 @@
 'use strict';
 
 const client = require('../models/database');
-
+require('dotenv').config();
+const test = process.env.TESTS || 'true';
 const notifi = require('../models/notifications');
 const helper = require('./helper');
 
@@ -11,8 +12,11 @@ class Company {
   async dashboard(company) {
     const offers = await this.companyOffers(company);
     const apps = await this.companyApps(company);
-    const notifications = await notifi.getNotificaions(company.id);
-    return { offers, apps,notifications };
+    let notifications;
+    if (test == 'false') {
+      notifications = await notifi.getNotificaions(company.id);
+    }
+    return { offers, apps, notifications };
   }
 
   async jobs(company) {
@@ -101,8 +105,10 @@ class Company {
     let SQL = `INSERT INTO job_offers (person_id,company_id,title,location,type,description) VALUES ($1,$2,$3,$4,$5,$6);`;
     let value = [person_id, company_id, title, location, type, description];
     await client.query(SQL, value);
-    const data = { id: person_auth_id, title: 'offer', description: `${title} from company number ${company_id}` };
-    await notifi.addNotification(data);
+    if (test == 'false') {
+      const data = { id: person_auth_id, title: 'offer', description: `${title} from company number ${company_id}` };
+      await notifi.addNotification(data);
+    }
   }
 
   async deleteOffer(company, offerID) {

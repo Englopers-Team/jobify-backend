@@ -46,7 +46,7 @@ async function exchangeCodeForToken(code) {
   });
 
   let access_token = tokenResponse.body.access_token;
-  console.log(access_token);
+  // console.log(access_token);
 
   return access_token;
 }
@@ -70,6 +70,6 @@ async function getUser(remoteUser) {
     country: 'jo',
     job_title: 'dev',
   };
-  console.log(userRecord);
+  // console.log(userRecord);
   return userRecord;
 }
