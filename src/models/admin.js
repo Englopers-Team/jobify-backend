@@ -122,9 +122,12 @@ class Admin {
   }
 
   async block(id) {
-    let SQL = `UPDATE auth SET account_status=$1 WHERE id=$2;`;
-    let values = ['Blocked', id];
-    await client.query(SQL, values);
+    let user = await helper.getProfile(id, 'auth');
+    if (user.account_type !== 'admin') {
+      let SQL = `UPDATE auth SET account_status=$1 WHERE id=$2;`;
+      let values = ['blocked', id];
+      await client.query(SQL, values);
+    } else throw new Error(`Cannot block admins`);
   }
 
   async removeBlock(id) {
