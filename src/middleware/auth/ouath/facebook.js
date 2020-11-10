@@ -1,11 +1,17 @@
 'use strict';
+
+//------------------------------// Third Party Resources \\----------------------------\\
 const passport = require('passport');
+
+//---------------------------------// Import Resources \\-------------------------------\\
 const FacebookStrategy = require('passport-facebook').Strategy;
 const authHelpers = require('../../../models/auth-helpers');
 
+//--------------------------------// Esoteric Resources \\-------------------------------\\
 const CLIENT_ID = process.env.CLIENT_ID_FACEBOOK || '3764129010266543';
 const CLIENT_SECRET = process.env.CLIENT_SECRET_FACEBOOK || 'a01a2595620ed60e2ff43d7442af3be4';
 
+//
 passport.use(
   new FacebookStrategy(
     {
@@ -27,7 +33,6 @@ passport.use(
           country: 'jo',
           job_title: 'dev',
         };
-
         const check = await authHelpers.checkEmail(userRecord.email);
         if (check) {
           await authHelpers.authenticateBasic(userRecord.email, userRecord.password).then((validUser) => {
@@ -42,8 +47,6 @@ passport.use(
           //   next();
           return cb(null, { userData: data, token: token });
         }
-
-        console.log(userRecord);
       } catch (error) {
         cb(error, false, error.message);
       }
@@ -51,4 +54,8 @@ passport.use(
   ),
 );
 
+//-----------------------------------// Export Module \\-----------------------------------\\
 module.exports = passport;
+
+//---------------------------------------------------------------------------------------\\
+
