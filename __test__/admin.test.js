@@ -90,7 +90,7 @@ describe('Admin', () => {
         expect(result.status).toBe(200);
       });
   });
-  it('Admins can see certain report from users and companies', () => {
+  it('Admins can see certain the report from users and companies', () => {
     return mockRequest
       .get('/admin/report/2')
       .set('Cookie', [`token=${token}`])
@@ -99,7 +99,7 @@ describe('Admin', () => {
       });
   });
 
-  it('Admins can delete certain report', () => {
+  it('Admins can delete a certain report', () => {
     return mockRequest
       .delete('/admin/report/1')
       .set('Cookie', [`token=${token}`])
@@ -108,7 +108,7 @@ describe('Admin', () => {
       });
   });
 
-  it('Admins can reply to certain report from users and companies', () => {
+  it('Admins can reply to a certain report from users and companies', () => {
     return mockRequest
       .patch('/admin/report/1')
       .set('Cookie', [`token=${token}`])
