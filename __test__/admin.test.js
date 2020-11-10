@@ -59,7 +59,7 @@ describe('Admin', () => {
   });
   it('Admins only can unblock users and companies', () => {
     return mockRequest
-      .patch('/admin/removeBlock/10')
+      .patch('/admin/removeBlock/4')
       .set('Cookie', [`token=${token}`])
       .then((result) => {
         expect(result.status).toBe(201);
