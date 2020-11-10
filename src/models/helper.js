@@ -1,14 +1,23 @@
 'use strict';
+
+//------------------------------// Third Party Resources \\----------------------------\\
+require('dotenv').config();
 const superagent = require('superagent');
-const client = require('../models/database');
 const faker = require('faker');
 const nodemailer = require('nodemailer');
 const multer = require('multer');
 const path = require('path');
 const pdfreader = require('pdfreader');
 
+//---------------------------------// Import Resources \\-------------------------------\\
+const client = require('../models/database');
+
+//--------------------------------// Esoteric Resources \\-------------------------------\\
+const test = process.env.TESTS || 'true';
+
+//----------------------------------// Helper Module \\--------------------------------\\
 class Helper {
-  constructor() {}
+  constructor() { }
 
   async location(ip) {
     try {
@@ -45,7 +54,6 @@ class Helper {
     const SQL = `SELECT auth_id FROM ${table} WHERE id=$1`;
     const values = [id];
     const result = await client.query(SQL, values);
-    console.log(result.rows[0]);
     return result.rows[0].auth_id;
   }
 
@@ -74,29 +82,23 @@ class Helper {
   }
 
   pdfScanner(file) {
-    let rows = {}; // indexed by y-position
-
+    let rows = {}; 
     function printRows() {
-      Object.keys(rows) // => array of y-positions (type: float)
-        .sort((y1, y2) => parseFloat(y1) - parseFloat(y2)) // sort float positions
+      Object.keys(rows) 
+        .sort((y1, y2) => parseFloat(y1) - parseFloat(y2)) 
         .forEach((y) => (rows[y] || []).join(''));
     }
-
     new pdfreader.PdfReader().parseFileItems(`./uploads/cv/${file}`, function (err, item) {
       if (!item || item.page) {
-        // end of file, or page
         printRows();
-        // console.log('PAGE:', item.page);
-        rows = {}; // clear rows for next page
+        rows = {}; 
       } else if (item.text) {
-        // accumulate text items into rows object, per line
         (rows[item.y] = rows[item.y] || []).push(item.text);
       }
     });
     return rows;
   }
 
-  // get all jobs from database
   async jobsApi() {
     let SQL = 'SELECT title,location,type,description FROM jobs;';
     let data = await client.query(SQL);
@@ -104,7 +106,6 @@ class Helper {
     return { count, data: data.rows };
   }
 
-  // get all companies from database
   async companiesApi() {
     let SQL = 'SELECT company_name,phone,company_url,logo,country FROM company;';
     let data = await client.query(SQL);
@@ -112,7 +113,6 @@ class Helper {
     return { count, data: data.rows };
   }
 
-  // get all users from database
   async usersApi() {
     let SQL = 'SELECT first_name,last_name,phone,job_title,country,age,avatar,experince,cv FROM person;';
     let data = await client.query(SQL);
@@ -146,8 +146,6 @@ class Helper {
   }
 
   sendEmail(email, payload) {
-    console.log('Email sent successfully');
-    console.log(email, payload);
     const transporter = nodemailer.createTransport({
       service: 'zoho',
       auth: {
@@ -155,7 +153,6 @@ class Helper {
         pass: 'Perfect.Sol.777!',
       },
     });
-
     const mailOptions = {
       from: 'electrical@perfectsolutionco.com',
       to: email,
@@ -166,14 +163,9 @@ class Helper {
       Thank you in advance for your consideration.
       Best regards.`,
     };
-
-    transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('Email sent: ' + info.response);
-      }
-    });
+    if (test == 'false') {
+      transporter.sendMail(mailOptions);
+    }
   }
 
   async sendVerifyEmail(payload) {
@@ -181,7 +173,6 @@ class Helper {
     let SQL = 'UPDATE auth SET verify_token=$1 WHERE email=$2;';
     let values = [random, payload.email];
     await client.query(SQL, values);
-    // console.log('verify', payload);
     const transporter = nodemailer.createTransport({
       service: 'zoho',
       auth: {
@@ -203,8 +194,9 @@ class Helper {
       subject: `VERIFICATION EMAIL for ${name}`,
       text: `VERIFICATION Link : http://localhost:3000/verify/${random}`,
     };
-
-    // transporter.sendMail(mailOptions);
+    if (test == 'false') {
+      transporter.sendMail(mailOptions);
+    }
     return random;
   }
 
@@ -262,4 +254,7 @@ class Helper {
   }
 }
 
+//-----------------------------------// Export Module \\-----------------------------------\\
 module.exports = new Helper();
+
+//-----------------------------------------------------------------------------------------\\

@@ -1,6 +1,7 @@
 'use strict';
 
 //------------------------------// Third Party Resources \\----------------------------\\
+require('dotenv').config();
 const superagent = require('superagent');
 
 //---------------------------------// Import Resources \\-------------------------------\\
@@ -8,6 +9,10 @@ const client = require('../models/database');
 const notifi = require('../models/notifications');
 const helper = require('./helper');
 
+//--------------------------------// Esoteric Resources \\-------------------------------\\
+const test = process.env.TESTS || 'true';
+
+//------------------------------------// User Module \\----------------------------------\\
 class User {
   constructor() { }
 
@@ -22,7 +27,10 @@ class User {
     const suggJob = { resultDB: job.resultDB.splice(5), resultAPI: job.resultAPI.splice(5) };
     const apps = await this.userApps(user);
     const offer = await this.userOffers(user);
-    const notifications = await notifi.getNotificaions(user.id);
+    let notifications;
+    if(test=='false'){
+      notifications = await notifi.getNotificaions(user.id);
+    }
     return { suggJob, numOfApp: Number(apps.DB.length) + Number(apps.API.length), numOfOffer: offer.length, notifications };
   }
 
@@ -35,8 +43,10 @@ class User {
     let value2 = [jobID];
     await client.query(SQL, value);
     await client.query(SQL2, value2);
-    const data = { id: user.id, title: 'Application', description: `recevied application to ${jobID} job` };
-    await notifi.addNotification(data);
+    if(test=='false'){
+      const data = { id: user.id, title: 'Application', description: `recevied application to ${jobID} job` };
+      await notifi.addNotification(data);
+    }
   }
 
   async applyAPI(user, payload) {
@@ -45,9 +55,9 @@ class User {
     let SQL = `INSERT INTO applications_api (title, location, type, company_name, status, logo, person_id) VALUES ($1,$2,$3,$4,$5,$6,$7);`;
     let value = [title, location, type, company_name, 'Submitted', logo, personID];
     await client.query(SQL, value);
-    // let userData = await helper.getProfile(personID, 'person');
-    // const record = { company: payload, person: userData };
-    // helper.sendEmail(email, record);
+    let userData = await helper.getProfile(personID, 'person');
+    const record = { company: payload, person: userData };
+    helper.sendEmail(email, record);
   }
 
   async saveJob(user, payload) {

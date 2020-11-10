@@ -69,7 +69,6 @@ router.delete('/comment/:id', async (req, res, next) => {
   try {
     await community.deleteComment(req.user, req.params.id, req.body.commentID);
     res.status(202).json('Deleted comment');
-
   } catch (err) {
     next(err);
   }
@@ -79,7 +78,6 @@ router.patch('/like/:id', async (req, res, next) => {
   try {
     await community.likePost(req.user, req.params.id);
     res.status(201).json('Deleted comment');
-
   } catch (err) {
     next(`can't like post`);
   }

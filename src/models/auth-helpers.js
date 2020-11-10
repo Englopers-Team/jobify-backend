@@ -1,9 +1,11 @@
 'use strict';
 
-//---------------------------------// Import Resources \\-------------------------------\\
-const client = require('../models/database');
+//------------------------------// Third Party Resources \\----------------------------\\
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+
+//---------------------------------// Import Resources \\-------------------------------\\
+const client = require('../models/database');
 const helper = require('./helper');
 
 //--------------------------------// Esoteric Resources \\-------------------------------\\

@@ -1,8 +1,10 @@
 'use strict';
 
 //------------------------------// Third Party Resources \\----------------------------\\
-const client = require('../models/database');
 const io = require('socket.io-client');
+
+//---------------------------------// Import Resources \\-------------------------------\\
+const client = require('../models/database');
 
 //--------------------------------// Notificaion Module \\------------------------------\\
 class Notificaion {

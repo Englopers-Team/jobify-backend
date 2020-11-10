@@ -44,7 +44,6 @@ router.post('/cv', helper.uploader().single('cv'), async (req, res) => {
       return res.send('Please select a pdf or doc file to upload');
     } else if (req.file.size > 6000000) {
       const path = `./uploads/cv/${req.file.filename}`;
-
       fs.unlink(path, (err) => {
         if (err) {
           return;
