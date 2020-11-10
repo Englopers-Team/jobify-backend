@@ -1,7 +1,7 @@
 'use strict';
 const authHelpers = require('../../../models/auth-helpers');
 
-module.exports = async (role) => {
+module.exports = (role) => {
   async (req, res, next) => {
     try {
       if (!req.cookies.token) {
