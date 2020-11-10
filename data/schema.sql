@@ -57,13 +57,13 @@ CREATE TABLE IF NOT EXISTS applications (
 );
 CREATE TABLE IF NOT EXISTS saved_jobs (
     id SERIAL PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
+    title VARCHAR(255),
     location VARCHAR(255),
     type VARCHAR(255),
-    description TEXT NOT NULL,
-    company_name VARCHAR(255) NOT NULL,
+    description TEXT,
+    company_name VARCHAR(255),
     phone VARCHAR(255),
-    company_url VARCHAR(255) NOT NULL,
+    company_url VARCHAR(255),
     logo VARCHAR(255) DEFAULT 'https://www.flaticon.com/svg/static/icons/svg/993/993891.svg',
     country VARCHAR(255),
     job_id INT REFERENCES jobs (id) UNIQUE,
@@ -102,9 +102,9 @@ CREATE TABLE IF NOT EXISTS messages (
 
 INSERT INTO auth (email,password,account_type,account_status) VALUES('demop@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','active');
 INSERT INTO auth (email,password,account_type,account_status) VALUES('democ@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','c','active');
-INSERT INTO auth (email,password,account_type,account_status) VALUES('demop2@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('demop2@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','pending');
 INSERT INTO auth (email,password,account_type,account_status) VALUES('democ2@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','c','active');
-INSERT INTO auth (email,password,account_type,account_status) VALUES('demop3@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('demop3@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','blocked');
 INSERT INTO auth (email,password,account_type,account_status) VALUES('democ3@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','c','active');
 
 INSERT INTO auth (email,password,account_type,account_status) VALUES('demoadmin@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','admin','active');
@@ -119,15 +119,15 @@ INSERT INTO company (company_name,phone,company_url,logo,country,auth_id) VALUES
 
 INSERT INTO jobs (title,location,type,description,company_id) VALUES ('Developer','Jordan','Full Time','A full time job with 900jd salary.',1);
 
-INSERT INTO jobs (title,location,type,description,company_id) VALUES ('Developer','usa','Full Time (iam from database)','A full time job with 900jd salary.',3);
-INSERT INTO jobs (title,location,type,description,company_id) VALUES ('civil eng','Jordan','Full Time (iam from database)','A full time job with 100jd salary 24hour wooork.',2);
-INSERT INTO jobs (title,location,type,description,company_id) VALUES ('civil eng','ksa','Full Time (iam from database)','A full time job with 900jd salary 24hour wooork.',2);
-INSERT INTO jobs (title,location,type,description,company_id) VALUES ('civil eng','uae','Full Time (iam from database)','A full time job with 1000jd salary 24hour wooork.',2);
-INSERT INTO jobs (title,location,type,description,company_id) VALUES ('mechanical eng','uae','Full Time (iam from database)','A full time job with 1000jd salary 24hour wooork.',1);
-INSERT INTO jobs (title,location,type,description,company_id) VALUES ('Developer','Jordan','Full Time','A full time job with 900jd salary.',2);
-INSERT INTO jobs (title,location,type,description,company_id) VALUES ('Developer','usa','Full Time (iam from database)','A full time job with 900jd salary.',1);
-INSERT INTO jobs (title,location,type,description,company_id) VALUES ('accounting','Jordan','Full Time (iam from database)','A full time job with 100jd salary 24hour wooork.',3);
-INSERT INTO jobs (title,location,type,description,company_id) VALUES ('accounting','ksa','Full Time (iam from database)','A full time job with 900jd salary 24hour wooork.',1);
+INSERT INTO jobs (title,location,type,description,company_id, applicants_num) VALUES ('Developer','usa','Full Time (iam from database)','A full time job with 900jd salary.',3,50);
+INSERT INTO jobs (title,location,type,description,company_id, applicants_num) VALUES ('civil eng','Jordan','Full Time (iam from database)','A full time job with 100jd salary 24hour wooork.',2,50);
+INSERT INTO jobs (title,location,type,description,company_id, applicants_num) VALUES ('civil eng','ksa','Full Time (iam from database)','A full time job with 900jd salary 24hour wooork.',2,50);
+INSERT INTO jobs (title,location,type,description,company_id, applicants_num) VALUES ('civil eng','uae','Full Time (iam from database)','A full time job with 1000jd salary 24hour wooork.',2,50);
+INSERT INTO jobs (title,location,type,description,company_id, applicants_num) VALUES ('mechanical eng','uae','Full Time (iam from database)','A full time job with 1000jd salary 24hour wooork.',1,50);
+INSERT INTO jobs (title,location,type,description,company_id, applicants_num) VALUES ('Developer','Jordan','Full Time','A full time job with 900jd salary.',2,50);
+INSERT INTO jobs (title,location,type,description,company_id, applicants_num) VALUES ('Developer','usa','Full Time (iam from database)','A full time job with 900jd salary.',1,50);
+INSERT INTO jobs (title,location,type,description,company_id, applicants_num) VALUES ('accounting','Jordan','Full Time (iam from database)','A full time job with 100jd salary 24hour wooork.',3,50);
+INSERT INTO jobs (title,location,type,description,company_id, applicants_num) VALUES ('accounting','ksa','Full Time (iam from database)','A full time job with 900jd salary 24hour wooork.',1,50);
 
 INSERT INTO applications (status,person_id,job_id,company_id) VALUES ('Pending', 1,1,3);
 INSERT INTO applications (status,person_id,job_id,company_id) VALUES ('Pending', 1,2,1);
