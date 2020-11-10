@@ -1,12 +1,18 @@
 'use strict';
+
+//---------------------------------// Import Resources \\-------------------------------\\
 const client = require('../models/database');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const helper = require('./helper');
+
+//--------------------------------// Esoteric Resources \\-------------------------------\\
 const SECRET = process.env.SECRET || 'z1337z';
 
+//---------------------------------// AuthHelper Module \\-------------------------------\\
 class AuthHelper {
   constructor() {}
+
   async signup(payload) {
     const check = await this.checkEmail(payload.email);
     if (check) {
@@ -38,14 +44,12 @@ class AuthHelper {
         } else if (account_type == 'admin' || account_type == 'editor') {
           return Promise.resolve({ id, account_type });
         } else {
-          // console.log('Missing data from payload');
           let SQL4 = 'DELETE FROM auth WHERE id=$1;';
           let values3 = [id];
           await client.query(SQL4, values3);
           return Promise.reject('Fill all required data');
         }
       } else {
-        console.log('Wrong key from payload');
         return Promise.reject('Wrong key');
       }
     }
@@ -108,15 +112,9 @@ class AuthHelper {
       throw new Error('Please Check the sent code');
     }
   }
-
-  // capabilities(account_type) {
-  //   if (account_type === 'admin') {
-  //     return ['read', 'create', 'update', 'delete'];
-  //   }
-  //   if (account_type === 'editor') {
-  //     return ['read', 'create', 'update'];
-  //   }
-  // }
 }
 
+//-----------------------------------// Export Module \\-----------------------------------\\
 module.exports = new AuthHelper();
+
+//-----------------------------------------------------------------------------------------\\

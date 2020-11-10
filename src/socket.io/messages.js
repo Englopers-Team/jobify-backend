@@ -24,6 +24,7 @@ messages.on('connection', (socket) => {
       throw new Error('Invalid token to check messages');
     }
   });
+
   socket.on('message', async (payload) => {
     const tokenObject = await authHelpers.authenticateToken(payload.token);
     if (tokenObject.account_type === payload.type) {
@@ -60,6 +61,7 @@ messages.on('connection', (socket) => {
     let value = [payload.body, personID, companyID];
     await client.query(SQL, value);
   });
+  
   socket.on('checkMsg', async (payload) => {
     try {
       if (payload.token.length == 0) {

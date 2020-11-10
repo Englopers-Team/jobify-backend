@@ -19,11 +19,9 @@ router.post('/profile_pic', helper.uploader().single('profile_pic'), async (req,
       return res.send('Please select an image to upload');
     } else if (req.file.size > 3000000) {
       const path = `./uploads/profile-pictures/${req.file.filename}`;
-
       fs.unlink(path, (err) => {
         if (err) {
-          console.error(err);
-          return;
+          throw new Error(err);
         }
       });
       return res.send('File size should not exceed 3.0MB');
@@ -33,8 +31,8 @@ router.post('/profile_pic', helper.uploader().single('profile_pic'), async (req,
         message: 'File uploaded successfully',
       });
     }
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    throw new Error(err);
   }
 });
 
@@ -49,7 +47,6 @@ router.post('/cv', helper.uploader().single('cv'), async (req, res) => {
 
       fs.unlink(path, (err) => {
         if (err) {
-          console.error(err);
           return;
         }
       });
@@ -59,11 +56,10 @@ router.post('/cv', helper.uploader().single('cv'), async (req, res) => {
       return res.status(201).json({
         message: 'File uploaded successfully',
         data: helper.pdfScanner(req.file.filename),
-
       });
     }
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    throw new Error(err);
   }
 });
 

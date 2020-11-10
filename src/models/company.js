@@ -1,10 +1,11 @@
 'use strict';
 
+//---------------------------------// Import Resources \\-------------------------------\\
 const client = require('../models/database');
-
 const notifi = require('../models/notifications');
 const helper = require('./helper');
 
+//----------------------------------// Company Module \\--------------------------------\\
 class Company {
   constructor() { }
 
@@ -81,7 +82,6 @@ class Company {
     } else {
       throw new Error(`Can't answer application`);
     }
-
   }
 
   async companyOffers(company) {
@@ -117,7 +117,6 @@ class Company {
     } else {
       throw new Error(`Can't answer application`);
     }
-
   }
 
   async editProfile(company, payload) {
@@ -137,4 +136,7 @@ class Company {
   }
 }
 
+//-----------------------------------// Export Module \\-----------------------------------\\
 module.exports = new Company();
+
+//-----------------------------------------------------------------------------------------\\

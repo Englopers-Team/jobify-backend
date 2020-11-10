@@ -68,7 +68,6 @@ router.get('/oauth-google', google, (req, res) => {
   res.status(200).cookie('token', req.token).json({ token: req.token, userinfo: req.user });
 });
 router.get('/oauth-facebook', passport.authenticate('facebook', { failureRedirect: '/login' }), function (req, res) {
-  console.log('req', req.user);
   res.status(200).cookie('token', req.user.token).json({ token: req.user.token, userinfo: req.user });
 });
 

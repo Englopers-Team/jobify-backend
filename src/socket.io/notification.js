@@ -23,6 +23,7 @@ notification.on('connection', (socket) => {
       throw new Error('Invalid token to check notifications');
     }
   });
+
   socket.on('checkNotif', async (payload) => {
     try {
       if (payload.token.length == 0) {
@@ -44,6 +45,7 @@ notification.on('connection', (socket) => {
       throw new Error('Invalid token to check notifications');
     }
   });
+  
   socket.on('notification', async (payload) => {
     if (notification.adapter.rooms[payload.id]) {
       const SQL = 'SELECT * FROM notifications WHERE auth_id=$1;';
