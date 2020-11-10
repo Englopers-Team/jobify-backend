@@ -95,6 +95,15 @@ describe('Admin', () => {
       });
   });
 
+  it('Admins can delete certain report', async () => {
+    return await mockRequest
+      .delete('/admin/report/1')
+      .set('Cookie', [`token=${token}`])
+      .then((result) => {
+        expect(result.status).toBe(202);
+      });
+  });
+
   it('Admins can reply to certain report from users and companies', async () => {
     return await mockRequest
       .patch('/admin/report/1')
@@ -110,6 +119,89 @@ describe('Admin', () => {
       .set('Cookie', [`token=${token}`])
       .then((result) => {
         expect(result.status).toBe(200);
+      });
+  });
+
+  it('Admins can see all post from community', async () => {
+    return await mockRequest
+      .get('/admin/posts')
+      .set('Cookie', [`token=${token}`])
+      .then((result) => {
+        expect(result.status).toBe(200);
+      });
+  });
+  it('Admins can see certain post from community', async () => {
+    return await mockRequest
+      .get('/admin/posts/5fa8652d11c97f06f164582c')
+      .set('Cookie', [`token=${token}`])
+      .then((result) => {
+        expect(result.status).toBe(200);
+      });
+  });
+
+  it('Admins can edit certain post from community', async () => {
+    await mockRequest.post('/logout');
+    await mockRequest
+      .post('/signin')
+      .send({ email: 'demop@gmail.com', password: '123456' })
+      .then((result) => {
+        token = result.body.token;
+      });
+    return mockRequest
+      .post('/community/submit')
+      .set('Cookie', [`token=${token}`])
+      .send({
+        title: 'test',
+        body: 'test',
+      })
+      .then(async (results) => {
+        await mockRequest.post('/logout');
+        await mockRequest
+          .post('/signin')
+          .send({ email: 'demoadmin@gmail.com', password: '123456' })
+          .then((result) => {
+            token = result.body.token;
+          });
+        return await mockRequest
+          .patch(`/admin/posts/${results.body._id}`)
+          .set('Cookie', [`token=${token}`])
+          .send({ pinned: 'true' })
+          .then((result) => {
+            expect(result.status).toBe(201);
+          });
+      });
+  });
+
+  it('Admins can delete certain post from community', async () => {
+    await mockRequest.post('/logout');
+    await mockRequest
+      .post('/signin')
+      .send({ email: 'demop@gmail.com', password: '123456' })
+      .then((result) => {
+        token = result.body.token;
+      });
+    return mockRequest
+      .post('/community/submit')
+      .set('Cookie', [`token=${token}`])
+      .send({
+        title: 'test',
+        body: 'test',
+      })
+      .then(async (results) => {
+        await mockRequest.post('/logout');
+        await mockRequest
+          .post('/signin')
+          .send({ email: 'demoadmin@gmail.com', password: '123456' })
+          .then((result) => {
+            token = result.body.token;
+          });
+        return await mockRequest
+          .delete(`/admin/posts/${results.body._id}`)
+          .set('Cookie', [`token=${token}`])
+          .send({ pinned: 'true' })
+          .then((result) => {
+            expect(result.status).toBe(201);
+          });
       });
   });
 });
