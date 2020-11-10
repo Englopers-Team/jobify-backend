@@ -82,7 +82,7 @@ describe('Admin', () => {
           });
       });
   });
-  it('Admins can see all reports from users and companies', () => {
+  it('Admins can see all the reports from users and companies', () => {
     return mockRequest
       .get('/admin/report')
       .set('Cookie', [`token=${token}`])
