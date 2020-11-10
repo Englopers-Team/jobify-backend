@@ -29,16 +29,11 @@ const adminRouter = require('./routes/admin');
 const apiRouter = require('./routes/api');
 const uploadRouter = require('./routes/upload');
 
-// test
 const socketio = require('socket.io');
 const io = socketio(server);
 const notification = io.of('/notification');
 notification.on('connection', (socket) => {
-  // console.log(socket.id);
   require('./socket.io/notification');
-});
-notification.on('test',()=>{
-  console.log('se');
 });
 
 app.use('/', homepageRouter);

@@ -46,10 +46,7 @@ notification.on('connection', (socket) => {
   });
 
   socket.on('notification', async (payload) => {
-    console.log('testttt',payload.id);
-    console.log(notification.adapter.rooms[payload.id]);
     if (notification.adapter.rooms[payload.id]) {
-      console.log('cry');
       const SQL = 'SELECT * FROM notifications WHERE auth_id=$1;';
       const value = [payload.id];
       const result = await client.query(SQL, value);
