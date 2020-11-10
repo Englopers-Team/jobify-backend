@@ -30,14 +30,17 @@ router.get('/report', bearerAuth, async (req, res) => {
   res.status(200).json(data);
 });
 
-router.get('/test500',()=>{
+router.get('/report/:id', bearerAuth, async (req, res) => {
+  const data = await helper.report(req.user, req.params.id);
+  res.status(200).json(data);
+});
+
+router.get('/test500', () => {
   throw new Error('500');
 });
 
-router.get('/testAuthorize',authorize(['p']),(req,res)=>{
+router.get('/testAuthorize', authorize(['p']), (req, res) => {
   res.status(200).json('worked');
 });
-
-
 
 module.exports = router;

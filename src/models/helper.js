@@ -66,6 +66,13 @@ class Helper {
     return data.rows;
   }
 
+  async report(user, payload) {
+    let SQL = `SELECT * FROM admin_reports WHERE auth_id=$1 AND id=$2;`;
+    let value = [user.id, payload];
+    const data = await client.query(SQL, value);
+    return data.rows[0];
+  }
+
   pdfScanner(file) {
     let rows = {}; // indexed by y-position
 

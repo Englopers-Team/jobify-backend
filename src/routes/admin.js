@@ -11,13 +11,13 @@ router.get('/', async (req, res) => {
   res.status(200).json(data);
 });
 
-router.patch('/block/:id', async (req, res) => {
+router.patch('/block/:id', authorize(['admin']), async (req, res) => {
   let id = req.params.id;
   await admin.block(id);
   res.status(201).json({ status: 'block done' });
 });
 
-router.patch('/removeBlock/:id', async (req, res) => {
+router.patch('/removeBlock/:id', authorize(['admin']), async (req, res) => {
   let id = req.params.id;
   await admin.removeBlock(id);
   res.status(201).json({ status: 'block removed' });
