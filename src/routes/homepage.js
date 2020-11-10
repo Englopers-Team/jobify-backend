@@ -39,7 +39,7 @@ router.get('/test500', () => {
   throw new Error('500');
 });
 
-router.get('/testAuthorize', authorize(['p']), (req, res) => {
+router.get('/testAuthorize', (req, res) => {
   res.status(200).json('worked');
 });
 
