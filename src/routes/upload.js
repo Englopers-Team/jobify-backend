@@ -52,6 +52,7 @@ router.post('/cv', helper.uploader().single('cv'), async (req, res) => {
       return res.status(201).json({
         message: 'File uploaded successfully',
         data: helper.pdfScanner(req.file.filename),
+
       });
     }
   } catch (error) {
