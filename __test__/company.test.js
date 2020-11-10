@@ -17,99 +17,153 @@ describe('Company', () => {
 
   let token;
   beforeEach(async () => {
-    await mockRequest.post('/signin').send({ email: 'democ@gmail.com', password: '123456' }).then((result) => {
-      token = result.body.token;
-    });
+    await mockRequest
+      .post('/signin')
+      .send({ email: 'democ@gmail.com', password: '123456' })
+      .then((result) => {
+        token = result.body.token;
+      });
   });
 
   it('Company dashboard', () => {
-    return mockRequest.get('/home').set('Cookie', [`token=${token}`]).then((result) => {
-      expect(result.status).toBe(200);
-    });
+    return mockRequest
+      .get('/home')
+      .set('Cookie', [`token=${token}`])
+      .then((result) => {
+        expect(result.status).toBe(200);
+      });
   });
 
   it('Company jobs', () => {
-    return mockRequest.get('/company/jobs').set('Cookie', [`token=${token}`]).then((result) => {
-      expect(result.status).toBe(200);
-    });
+    return mockRequest
+      .get('/company/jobs')
+      .set('Cookie', [`token=${token}`])
+      .then((result) => {
+        expect(result.status).toBe(200);
+      });
   });
 
   it('Company submit job', () => {
-    return mockRequest.post('/company/submit').send({ title: 'test', location: 'test', type: 'test', description: 'test' }).set('Cookie', [`token=${token}`]).then((result) => {
-      expect(result.status).toBe(201);
-    });
+    return mockRequest
+      .post('/company/submit')
+      .send({ title: 'test', location: 'test', type: 'test', description: 'test' })
+      .set('Cookie', [`token=${token}`])
+      .then((result) => {
+        expect(result.status).toBe(201);
+      });
   });
 
   it('Company edit correct job', () => {
-    return mockRequest.put('/company/jobs/1').send({ title: 'test', location: 'test', type: 'test', description: 'test' }).set('Cookie', [`token=${token}`]).then((result) => {
-      expect(result.status).toBe(202);
-    });
+    return mockRequest
+      .put('/company/jobs/1')
+      .send({ title: 'test', location: 'test', type: 'test', description: 'test' })
+      .set('Cookie', [`token=${token}`])
+      .then((result) => {
+        expect(result.status).toBe(202);
+      });
   });
 
   it(`Company can't edit wrong job`, () => {
-    return mockRequest.put('/company/jobs/99').send({ title: 'test', location: 'test', type: 'test', description: 'test' }).set('Cookie', [`token=${token}`]).then((result) => {
-      expect(result.status).toBe(500);
-    });
+    return mockRequest
+      .put('/company/jobs/99')
+      .send({ title: 'test', location: 'test', type: 'test', description: 'test' })
+      .set('Cookie', [`token=${token}`])
+      .then((result) => {
+        expect(result.status).toBe(500);
+      });
   });
 
   it(`Company delete correct job`, () => {
-    return mockRequest.delete('/company/jobs/6').set('Cookie', [`token=${token}`]).then((result) => {
-      expect(result.status).toBe(202);
-    });
+    return mockRequest
+      .delete('/company/jobs/6')
+      .set('Cookie', [`token=${token}`])
+      .then((result) => {
+        expect(result.status).toBe(202);
+      });
   });
 
   it(`Company can't delete wrong job`, () => {
-    return mockRequest.delete('/company/jobs/99').set('Cookie', [`token=${token}`]).then((result) => {
-      expect(result.status).toBe(500);
-    });
+    return mockRequest
+      .delete('/company/jobs/99')
+      .set('Cookie', [`token=${token}`])
+      .then((result) => {
+        expect(result.status).toBe(500);
+      });
   });
 
   it(`Company applications`, () => {
-    return mockRequest.get('/company/app').set('Cookie', [`token=${token}`]).then((result) => {
-      expect(result.status).toBe(200);
-    });
+    return mockRequest
+      .get('/company/app')
+      .set('Cookie', [`token=${token}`])
+      .then((result) => {
+        expect(result.status).toBe(200);
+      });
   });
 
-  it(`Company answer correct application`, () => {
-    return mockRequest.put('/company/app/5').send({ status: 'accepted' }).set('Cookie', [`token=${token}`]).then((result) => {
-      expect(result.status).toBe(202);
-    });
+  it(`Company answer a correct application`, () => {
+    return mockRequest
+      .put('/company/app/5')
+      .send({ status: 'accepted' })
+      .set('Cookie', [`token=${token}`])
+      .then((result) => {
+        expect(result.status).toBe(202);
+      });
   });
 
   it(`Company can't answer wrong application`, () => {
-    return mockRequest.put('/company/app/999').send({ status: 'accepted' }).set('Cookie', [`token=${token}`]).then((result) => {
-      expect(result.status).toBe(500);
-    });
+    return mockRequest
+      .put('/company/app/999')
+      .send({ status: 'accepted' })
+      .set('Cookie', [`token=${token}`])
+      .then((result) => {
+        expect(result.status).toBe(500);
+      });
   });
 
   it(`Company offers`, () => {
-    return mockRequest.get('/company/offers').set('Cookie', [`token=${token}`]).then((result) => {
-      expect(result.status).toBe(200);
-    });
+    return mockRequest
+      .get('/company/offers')
+      .set('Cookie', [`token=${token}`])
+      .then((result) => {
+        expect(result.status).toBe(200);
+      });
   });
 
   it(`Company send offer`, () => {
-    return mockRequest.post('/company/offers/1').send({title:'test', location:'test', type:'test', description:'test'}).set('Cookie', [`token=${token}`]).then((result) => {
-      expect(result.status).toBe(201);
-    });
+    return mockRequest
+      .post('/company/offers/1')
+      .send({ title: 'test', location: 'test', type: 'test', description: 'test' })
+      .set('Cookie', [`token=${token}`])
+      .then((result) => {
+        expect(result.status).toBe(201);
+      });
   });
 
   it(`Company delete correct offer`, () => {
-    return mockRequest.delete('/company/offers/6').set('Cookie', [`token=${token}`]).then((result) => {
-      expect(result.status).toBe(202);
-    });
+    return mockRequest
+      .delete('/company/offers/6')
+      .set('Cookie', [`token=${token}`])
+      .then((result) => {
+        expect(result.status).toBe(202);
+      });
   });
-  
+
   it(`Company can't delete wrong offer`, () => {
-    return mockRequest.delete('/company/offers/999').set('Cookie', [`token=${token}`]).then((result) => {
-      expect(result.status).toBe(500);
-    });
+    return mockRequest
+      .delete('/company/offers/999')
+      .set('Cookie', [`token=${token}`])
+      .then((result) => {
+        expect(result.status).toBe(500);
+      });
   });
 
-  it(`Company edit profile`, () => {
-    return mockRequest.put('/company/edit').send({company_name:'test', phone:'test', logo:'test', country:'test', company_url:'test'}).set('Cookie', [`token=${token}`]).then((result) => {
-      expect(result.status).toBe(202);
-    });
+  it(`Company edit  profile`, () => {
+    return mockRequest
+      .put('/company/edit')
+      .send({ company_name: 'test', phone: 'test', logo: 'test', country: 'test', company_url: 'test' })
+      .set('Cookie', [`token=${token}`])
+      .then((result) => {
+        expect(result.status).toBe(202);
+      });
   });
-
 });

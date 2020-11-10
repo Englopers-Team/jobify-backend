@@ -7,7 +7,6 @@ const pg = require('../src/models/database');
 
 let token, token2, token3;
 
-
 describe('Authentication', () => {
   beforeAll(async () => {
     await pg.connect();
@@ -19,21 +18,33 @@ describe('Authentication', () => {
   });
 
   beforeEach(async () => {
-    await mockRequest.post('/signin').send({ email: 'demop@gmail.com', password: '123456' }).then((result) => {
-      token = result.body.token;
-    });
-    await mockRequest.post('/signin').send({ email: 'demop2@gmail.com', password: '123456' }).then((result) => {
-      token2 = result.body.token;
-    });
-    await mockRequest.post('/signin').send({ email: 'demop3@gmail.com', password: '123456' }).then((result) => {
-      token3 = result.body.token;
-    });
+    await mockRequest
+      .post('/signin')
+      .send({ email: 'demop@gmail.com', password: '123456' })
+      .then((result) => {
+        token = result.body.token;
+      });
+    await mockRequest
+      .post('/signin')
+      .send({ email: 'demop2@gmail.com', password: '123456' })
+      .then((result) => {
+        token2 = result.body.token;
+      });
+    await mockRequest
+      .post('/signin')
+      .send({ email: 'demop3@gmail.com', password: '123456' })
+      .then((result) => {
+        token3 = result.body.token;
+      });
   });
 
   it('Signin route with correct data', () => {
-    return mockRequest.post('/signin').send({ email: 'demop@gmail.com', password: '123456' }).then((result) => {
-      expect(result.status).toEqual(202);
-    });
+    return mockRequest
+      .post('/signin')
+      .send({ email: 'demop@gmail.com', password: '123456' })
+      .then((result) => {
+        expect(result.status).toEqual(202);
+      });
   });
 
   it('Signin route with empty data', () => {
@@ -43,9 +54,12 @@ describe('Authentication', () => {
   });
 
   it('Signin route with wrong data', () => {
-    return mockRequest.post('/signin').send({ email: 'demcop@gmail.com', password: '123456' }).then((result) => {
-      expect(result.status).toEqual(500);
-    });
+    return mockRequest
+      .post('/signin')
+      .send({ email: 'demcop@gmail.com', password: '123456' })
+      .then((result) => {
+        expect(result.status).toEqual(500);
+      });
   });
 
   it('Logout route', () => {
@@ -56,68 +70,89 @@ describe('Authentication', () => {
   let signupToken;
   it('Signup route employee', () => {
     const record = {
-      'email': 'testp@gmail.com',
-      'password': '123456',
-      'account_type': 'p',
-      'first_name': 'test',
-      'last_name': 'test',
-      'phone': '123',
-      'job_title': 'test',
-      'country': 'test',
+      email: 'testp@gmail.com',
+      password: '123456',
+      account_type: 'p',
+      first_name: 'test',
+      last_name: 'test',
+      phone: '123',
+      job_title: 'test',
+      country: 'test',
     };
-    return mockRequest.post('/signup').send(record).then((result) => {
-      signupToken = result.headers['set-cookie'][0].slice(6);
-      signupToken = signupToken.slice(0, -8);
-      expect(result.status).toEqual(201);
-    });
+    return mockRequest
+      .post('/signup')
+      .send(record)
+      .then((result) => {
+        signupToken = result.headers['set-cookie'][0].slice(6);
+        signupToken = signupToken.slice(0, -8);
+        expect(result.status).toEqual(201);
+      });
   });
 
   it('Verfiy email with wrong token', async () => {
-    return mockRequest.get(`/verify/134`).set('Cookie', [`token=${signupToken}`]).then((result) => {
-      expect(result.status).toEqual(500);
-    });
+    return mockRequest
+      .get(`/verify/134`)
+      .set('Cookie', [`token=${signupToken}`])
+      .then((result) => {
+        expect(result.status).toEqual(500);
+      });
   });
 
   it('Verfiy email with correct token', async () => {
     const result = await pg.query(`SELECT verify_token FROM auth WHERE email='testp@gmail.com';`);
     const verify_token = result.rows[0].verify_token;
-    return mockRequest.get(`/verify/${verify_token}`).set('Cookie', [`token=${signupToken}`]).then((result) => {
-      expect(result.status).toEqual(201);
-    });
+    return mockRequest
+      .get(`/verify/${verify_token}`)
+      .set('Cookie', [`token=${signupToken}`])
+      .then((result) => {
+        expect(result.status).toEqual(201);
+      });
   });
 
   it('Signup route company', () => {
     const record = {
-      'email': 'testc@gmail.com',
-      'password': '123456',
-      'account_type': 'c',
-      'company_name': 'test',
-      'logo': 'test',
-      'phone': '123',
-      'company_url': 'test',
-      'country': 'jo',
+      email: 'testc@gmail.com',
+      password: '123456',
+      account_type: 'c',
+      company_name: 'test',
+      logo: 'test',
+      phone: '123',
+      company_url: 'test',
+      country: 'jo',
     };
-    return mockRequest.post('/signup').send(record).then((result) => {
-      // signupToken = result.headers['set-cookie'][0].slice(6);
-      // signupToken = signupToken.slice(0, -8);
-      expect(result.status).toEqual(201);
-    });
+    return mockRequest
+      .post('/signup')
+      .send(record)
+      .then((result) => {
+        // signupToken = result.headers['set-cookie'][0].slice(6);
+        // signupToken = signupToken.slice(0, -8);
+        expect(result.status).toEqual(201);
+      });
   });
 
   it('Bearer middleware with active account', () => {
-    return mockRequest.get('/test').set('Cookie', [`token=${token}`]).then((result) => {
-      expect(result.status).toEqual(200);
-    });
+    return mockRequest
+      .get('/test')
+      .set('Cookie', [`token=${token}`])
+      .then((result) => {
+        expect(result.status).toEqual(200);
+      });
   });
   it('Bearer middleware with pending account', () => {
-    return mockRequest.get('/test').set('Cookie', [`token=${token2}`]).then((result) => {
-      expect(result.status).toEqual(500);
-    });
+    return mockRequest
+      .get('/test')
+      .set('Cookie', [`token=${token2}`])
+      .then((result) => {
+        expect(result.status).toEqual(500);
+      });
   });
-  it('Bearer middleware with blocked account', () => {
-    return mockRequest.get('/test').set('Cookie', [`token=${token3}`]).then((result) => {
-      expect(result.status).toEqual(500);
-    });
+  it('Bearer middleware with a blocked account', () => {
+    return mockRequest
+      .get('/test')
+      .set('Cookie', [`token=${token3}`])
+      .then((result) => {
+        expect(result.status).toEqual(500);
+      });
   });
   it('Bearer middleware with no cookie', () => {
     return mockRequest.get('/test').then((result) => {
