@@ -74,5 +74,7 @@ router.get('/oauth-facebook', passport.authenticate('facebook', { failureRedirec
 
 router.get('/auth/facebook', passport.authenticate('facebook'));
 
-
+//-----------------------------------// Export Module \\-----------------------------------\\
 module.exports = router;
+
+//-----------------------------------------------------------------------------------------\\
