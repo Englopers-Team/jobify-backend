@@ -7,7 +7,7 @@ const pg = require('../src/models/database');
 
 
 
-xdescribe('Error Handling middlewares',()=>{
+describe('Error Handling middlewares',()=>{
   beforeAll(async () => {
     await pg.connect();
   });
