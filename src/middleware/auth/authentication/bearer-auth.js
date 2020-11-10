@@ -1,7 +1,10 @@
 'use strict';
+
+//---------------------------------// Import Resources \\-------------------------------\\
 const authHelpers = require('../../../models/auth-helpers');
 const client = require('../../../models/database');
 
+//-----------------------------------// Export Module \\-----------------------------------\\
 module.exports = (req, res, next) => {
   if (!req.cookies.token) {
     throw new Error(`Access denied`);
@@ -13,7 +16,6 @@ module.exports = (req, res, next) => {
         let values = [data.id];
         let data2 = await client.query(SQL, values);
         let account_status = data2.rows[0].account_status;
-        // console.log(account_status);
         if (account_status == 'active') {
           req.user = data;
           next();
@@ -29,3 +31,5 @@ module.exports = (req, res, next) => {
       });
   }
 };
+
+//-----------------------------------------------------------------------------------------\\
