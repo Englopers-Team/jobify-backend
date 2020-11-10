@@ -7,7 +7,7 @@ const bearerAuth = require('../middleware/auth/authentication/bearer-auth');
 const helper = require('../models/helper');
 const authorize = require('../middleware/auth/authorization/authorize');
 
-router.get('/a', bearerAuth, async (req, res) => {
+router.get('/', bearerAuth, async (req, res) => {
   let data;
   if (req.user.account_type === 'p') {
     data = await user.dashboard(req.user);

@@ -36,7 +36,19 @@
     <a id="linkedin-oauth" href="">linkedin</a>
     <a id="google-oauth" href="">Google</a>
     <a id="facebook-oauth" href="auth/facebook">Facebook</a>
-  
+    <br>
+    <br>
+    <div>
+      <fieldset>
+        <label for="receiver">person Id</label>
+        <input id="receiver" type="text" name="receiver" value="" required>
+        <label for="body">write a message</label>
+        <input id="body" type="text" name="body" value="" required>
+        <label for="type">type_account</label>
+        <input id="type" type="text" name="type" value="" required>
+        <button onclick=getMessage()>Send message</button>
+      </fieldset>
+    </div>
   </main>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
@@ -44,12 +56,26 @@
     const socket = io('/notification');
     const token = document.cookie.slice(6);
     socket.emit('join', token);
-    socket.on('notification',(payload)=>{
-      // console.log('cry')
+    socket.on('notification', (payload) => {
       console.log(payload.auth_id, payload.title, payload.description);
     })
+    socket.on('message', (payload) => {
+      console.log(payload);
+    })
     socket.emit('checkNotif', { token })
-
+    socket.emit('checkMsg', { token })
+    function getMessage() {
+      let body = document.getElementById('body')
+      let receiver = document.getElementById('receiver')
+      let type = document.getElementById('type')
+      const message = {
+        body: body.value,
+        receiver: receiver.value,
+        token: token,
+        type : type.value
+      }
+      socket.emit('message', message)
+    }
   </script>
   <script src="https://apis.google.com/js/platform.js" async defer></script>
   <script>

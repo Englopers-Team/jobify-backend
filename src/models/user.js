@@ -6,7 +6,7 @@ const notifi = require('../models/notifications');
 const helper = require('./helper');
 
 class User {
-  constructor() {}
+  constructor() { }
 
   async dashboard(user) {
     const id = await helper.getID(user.id, 'person');
@@ -37,7 +37,7 @@ class User {
 
   async applyAPI(user, payload) {
     console.log(user, payload);
-    let { title, location, type, company_name, status, logo, email } = payload;
+    let { title, location, type, company_name, logo, email } = payload;
     let personID = await helper.getID(user.id, 'person');
     let SQL = `INSERT INTO applications_api (title, location, type, company_name, status, logo, person_id) VALUES ($1,$2,$3,$4,$5,$6,$7);`;
     let value = [title, location, type, company_name, 'Submitted', logo, personID];
