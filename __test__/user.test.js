@@ -51,7 +51,6 @@ describe('User', () => {
 
   it('User save job from db', () => {
     return mockRequest.post('/user/save').send({ jobID:1}).set('Cookie', [`token=${token}`]).then((result) => {
-      console.log(result.body);
       expect(result.status).toBe(201);
     });
   });

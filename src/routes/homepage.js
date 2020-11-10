@@ -25,7 +25,7 @@ router.post('/report', bearerAuth, async (req, res, next) => {
     next(`Can't send report`);
   }
 });
-router.get('/report', bearerAuth, async (req, res) => {
+router.get('/reports', bearerAuth, async (req, res) => {
   const data = await helper.reports(req.user);
   res.status(200).json(data);
 });
