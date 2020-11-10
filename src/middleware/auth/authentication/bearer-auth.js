@@ -1,6 +1,6 @@
 'use strict';
 
-//---------------------------------// Import Resources \\-------------------------------\\
+//---------------------------------// Import The Resources \\-------------------------------\\
 const authHelpers = require('../../../models/auth-helpers');
 const client = require('../../../models/database');
 

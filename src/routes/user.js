@@ -8,7 +8,7 @@ const user = require('../models/user');
 //-------------------------------// App Level Middleware \\-----------------------------\\
 const router = express.Router();
 
-//--------------------------------------// Routes \\--------------------------------------\\
+//--------------------------------------// Routess \\--------------------------------------\\
 router.get('/app', async (req, res) => {
   const data = await user.userApps(req.user);
   res.status(200).json(data);
@@ -50,11 +50,11 @@ router.get('/offers', async (req, res) => {
   res.status(200).json(data);
 });
 
-router.put('/offers/:id', async (req, res,next) => {
-  try{
-    await user.answerOffer(req.user,req.params.id, req.body.status);
+router.put('/offers/:id', async (req, res, next) => {
+  try {
+    await user.answerOffer(req.user, req.params.id, req.body.status);
     res.status(201).json({});
-  }catch(err){
+  } catch (err) {
     next(err);
   }
 });
@@ -72,10 +72,9 @@ router.post('/apply/:id', async (req, res) => {
     await user.applyDB(req.user, { jobID: req.params.id, companyID: req.body.company_id });
     res.status(201).json({});
   }
-  
 });
 
-//-----------------------------------// Export Module \\-----------------------------------\\
+//-----------------------------------// Export The Module \\-----------------------------------\\
 module.exports = router;
 
 //-----------------------------------------------------------------------------------------\\
