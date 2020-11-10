@@ -19,7 +19,8 @@ class User {
     const suggJob = { resultDB: job.resultDB.splice(5), resultAPI: job.resultAPI.splice(5) };
     const apps = await this.userApps(user);
     const offer = await this.userOffers(user);
-    return { suggJob, numOfApp: Number(apps.DB.length) + Number(apps.API.length), numOfOffer: offer.length };
+    const notifications = await notifi.getNotificaions(user.id);
+    return { suggJob, numOfApp: Number(apps.DB.length) + Number(apps.API.length), numOfOffer: offer.length, notifications };
   }
 
   async applyDB(user, payload) {

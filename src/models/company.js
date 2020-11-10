@@ -11,7 +11,8 @@ class Company {
   async dashboard(company) {
     const offers = await this.companyOffers(company);
     const apps = await this.companyApps(company);
-    return { offers, apps };
+    const notifications = await notifi.getNotificaions(company.id);
+    return { offers, apps,notifications };
   }
 
   async jobs(company) {
