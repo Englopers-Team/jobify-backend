@@ -1,7 +1,11 @@
 'use strict';
 
-module.exports = (err,req,res,next) =>{
+//-----------------------------------// Export Module \\-----------------------------------\\
+module.exports = (err, req, res, next) => {
   res.status(500);
   res.statusMessage = 'Server Error';
-  res.json({ error: err.message });
+  let error = err.message ? err.message : err;
+  res.json({ error });
 };
+
+//-----------------------------------------------------------------------------------------\\

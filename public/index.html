@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="google-signin-client_id"
+    content="845374033514-cipcled8idbs9bg1qml9agt38bbappek.apps.googleusercontent.com" />
+  <title>Auth Test</title>
+</head>
+
+<body>
+  <main>
+
+    <div>
+    <form method="POST" action="/upload/profile_pic" enctype="multipart/form-data">
+      <div> 
+         <label>Select your profile picture:</label> <input type="file"   name="profile_pic" />
+      </div>
+      <div> 
+          <input type="submit" name="btn_upload_profile_pic" value="Upload" /> 
+      </div>
+      </form>
+    </div>
+
+    <div>
+      <form method="POST" action="/upload/cv" enctype="multipart/form-data">
+        <div> 
+           <label>Select your CV:</label> <input type="file"   name="cv" />
+        </div>
+        <div> 
+            <input type="submit" name="btn_upload_cv" value="Upload" /> 
+        </div>
+        </form>
+      </div>
+
+
+    <a id="linkedin-oauth" href="">linkedin</a>
+    <a id="google-oauth" href="">Google</a>
+    <a id="facebook-oauth" href="auth/facebook">Facebook</a>
+    <br>
+    <br>
+    <div>
+      <fieldset>
+        <label for="receiver">person/company Id</label>
+        <input id="receiver" type="text" name="receiver" value="" required>
+        <label for="body">write a message</label>
+        <input id="body" type="text" name="body" value="" required>
+        <label for="type">type_account</label>
+        <input id="type" type="text" name="type" value="" required>
+        <button onclick=getMessage()>Send message</button>
+      </fieldset>
+    </div>
+  </main>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socketNotifi = io('/notification');
+    const socketMessg= io('/messages');
+
+    const token = document.cookie.slice(6);
+    socketNotifi.emit('join', token);
+    socketMessg.emit('join', token);
+
+    socketNotifi.on('notification', (payload) => {
+      console.log(payload.auth_id, payload.title, payload.description);
+    })
+    socketMessg.on('message', (payload) => {
+      console.log(payload);
+    })
+
+    socketNotifi.emit('checkNotif', { token })
+    socketMessg.emit('checkMsg', { token })
+
+    function getMessage() {
+      let body = document.getElementById('body')
+      let receiver = document.getElementById('receiver')
+      let type = document.getElementById('type')
+      const message = {
+        body: body.value,
+        receiver: receiver.value,
+        token: token,
+        type : type.value
+      }
+      socketMessg.emit('message', message)
+    }
+  </script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script>
+    let linkedinURL = "https://www.linkedin.com/oauth/v2/authorization";
+    let googleURL = "https://accounts.google.com/o/oauth2/v2/auth";
+
+    let options1 = {
+      response_type: 'code',
+      client_id: '77ja8aiam3pogu',
+      redirect_uri: 'http://localhost:3000/oauth-linkedin',
+      scope: 'r_liteprofile r_emailaddress',
+      // state: 'asldfjdfs'
+    }
+
+    let options2 = {
+      client_id: '845374033514-cipcled8idbs9bg1qml9agt38bbappek.apps.googleusercontent.com',
+      redirect_uri: 'http://localhost:3000/oauth-google',
+      response_type: 'code',
+      scope: 'profile email',
+      fetch_basic_profile: true,
+    }
+
+    let QueryString1 = Object.keys(options1).map((key) => {
+      return `${key}=` + encodeURIComponent(options1[key]);
+    }).join("&");
+
+
+    let QueryString2 = Object.keys(options2).map((key) => {
+      return `${key}=` + encodeURIComponent(options2[key]);
+    }).join("&");
+
+
+    let linkedinAuthURL = `${linkedinURL}?${QueryString1}`;
+    let googleAuthURL = `${googleURL}?${QueryString2}`;
+
+    let link1 = document.getElementById('linkedin-oauth');
+    link1.setAttribute('href', linkedinAuthURL);
+
+    let link2 = document.getElementById('google-oauth');
+    link2.setAttribute('href', googleAuthURL);
+
+
+  </script>
+
+
+</body>
+
+</html>

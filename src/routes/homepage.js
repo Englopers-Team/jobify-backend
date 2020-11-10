@@ -1,16 +1,60 @@
 'use strict';
+
+//------------------------------// Third Party Resources \\----------------------------\\
 const express = require('express');
-const router = express.Router();
-const companyModel = require('../models/company');
-const userModel = require('../models/company');
+
+//---------------------------------// Import Resources \\-------------------------------\\
+const company = require('../models/company');
+const user = require('../models/user');
+const bearerAuth = require('../middleware/auth/authentication/bearer-auth');
 const helper = require('../models/helper');
+const authorize = require('../middleware/auth/authorization/authorize');
 
-router.get('/',(req,res)=>{
+//-------------------------------// App Level Middleware \\-----------------------------\\
+const router = express.Router();
 
+//--------------------------------------// Routes \\--------------------------------------\\
+router.get('/home', bearerAuth, async (req, res,next) => {
+  try {
+    let data;
+    if (req.user.account_type === 'p') {
+      data = await user.dashboard(req.user);
+    } else if (req.user.account_type === 'c') {
+      data = await company.dashboard(req.user);
+    }
+    res.status(200).json(data);
+  } catch (err) {
+    next(err);
+  }
 });
 
-router.post('/report',(req,res)=>{
-
+router.post('/report', bearerAuth, async (req, res, next) => {
+  try {
+    await helper.sendReport(req.user, req.body);
+    res.status(201).json({});
+  } catch (err) {
+    next(`Can't send report`);
+  }
+});
+router.get('/reports', bearerAuth, async (req, res) => {
+  const data = await helper.reports(req.user);
+  res.status(200).json(data);
 });
 
+router.get('/report/:id', bearerAuth, async (req, res) => {
+  const data = await helper.report(req.user, req.params.id);
+  res.status(200).json(data);
+});
+
+router.get('/test500', () => {
+  throw new Error('500');
+});
+
+router.get('/testAuthorize', authorize(['p']), (req, res) => {
+  res.status(200).json('worked');
+});
+
+//-----------------------------------// Export Module \\-----------------------------------\\
 module.exports = router;
+
+//-----------------------------------------------------------------------------------------\\
