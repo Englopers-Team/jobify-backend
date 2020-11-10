@@ -34,7 +34,7 @@ router.get('/app/:id', async (req, res, next) => {
 router.delete('/app/:id', async (req, res, next) => {
   try {
     await user.deleteApp(req.user, req.params.id);
-    res.status(202).json('Deleted post');
+    res.status(202).json('Deleted app');
   } catch (err) {
     next(`Can't delete app`);
   }
@@ -45,9 +45,13 @@ router.get('/offers', async (req, res) => {
   res.status(200).json(data);
 });
 
-router.put('/offers/:id', async (req, res) => {
-  await user.answerOffer(req.params.id, req.body.status);
-  res.status(201).json({});
+router.put('/offers/:id', async (req, res,next) => {
+  try{
+    await user.answerOffer(req.user,req.params.id, req.body.status);
+    res.status(201).json({});
+  }catch(err){
+    next(err);
+  }
 });
 
 router.put('/edit', async (req, res) => {
@@ -64,10 +68,10 @@ router.post('/apply/:id', async (req, res) => {
   res.status(201).json({});
 });
 
-router.post('/sendReport', async (req, res) => {
-  console.log(req.body);
-  await helper.sendReport(req.user, req.body);
-  res.status(201).json({});
-});
+// router.post('/sendReport', async (req, res) => {
+//   // console.log(req.body);
+//   await helper.sendReport(req.user, req.body);
+//   res.status(201).json({});
+// });
 
 module.exports = router;

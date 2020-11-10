@@ -36,23 +36,24 @@ class User {
   }
 
   async applyAPI(user, payload) {
-    console.log(user, payload);
+    // console.log(user, payload);
     let { title, location, type, company_name, logo, email } = payload;
     let personID = await helper.getID(user.id, 'person');
     let SQL = `INSERT INTO applications_api (title, location, type, company_name, status, logo, person_id) VALUES ($1,$2,$3,$4,$5,$6,$7);`;
     let value = [title, location, type, company_name, 'Submitted', logo, personID];
     await client.query(SQL, value);
-    let userData = await helper.getProfile(personID, 'person');
-    const record = { company: payload, person: userData };
-    helper.sendEmail(email, record);
+    // let userData = await helper.getProfile(personID, 'person');
+    // const record = { company: payload, person: userData };
+    // helper.sendEmail(email, record);
   }
 
   async saveJob(user, payload) {
     const id = await helper.getID(user.id, 'person');
-    if (!payload.api) {
+    if (payload.api == undefined) {
       let SQL = `INSERT INTO saved_jobs (job_id,person_id) VALUES ($1,$2);`;
       let Values = [payload.jobID, id];
       await client.query(SQL, Values);
+      console.log('hereeee1',payload.api);
     } else {
       let { title, location, type, description, company_name, phone, company_url, logo, country } = payload;
       let SQL = `INSERT INTO saved_jobs (title, location, type, description, company_name, phone, company_url, logo, country,person_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10);`;
@@ -118,10 +119,18 @@ class User {
     return data.rows;
   }
 
-  async answerOffer(offerID, payload) {
-    let SQL = `UPDATE job_offers SET status=$1 WHERE id=$2;`;
-    let value = [payload, offerID];
-    await client.query(SQL, value);
+  async answerOffer(user,offerID, payload) {
+    const id = await helper.getID(user.id, 'person');
+    const SQL1 = `SELECT person_id FROM job_offers WHERE id=$1`;
+    const value1 = [offerID];
+    const check = await client.query(SQL1,value1);
+    if(check.rows[0].person_id == id){
+      let SQL = `UPDATE job_offers SET status=$1 WHERE id=$2;`;
+      let value = [payload, offerID];
+      await client.query(SQL, value);
+    }else{
+      throw new Error(`Can't answer offer`);
+    }
   }
 
   async editProfile(user, payload) {
