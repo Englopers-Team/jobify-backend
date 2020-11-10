@@ -3,6 +3,9 @@ const superagent = require('superagent');
 const client = require('../models/database');
 const faker = require('faker');
 const nodemailer = require('nodemailer');
+const multer = require('multer');
+const path = require('path');
+const pdfreader = require('pdfreader');
 
 class Helper {
   constructor() {}
@@ -63,7 +66,28 @@ class Helper {
     return data.rows;
   }
 
-  pdfScanner(file) {}
+  pdfScanner(file) {
+    let rows = {}; // indexed by y-position
+
+    function printRows() {
+      Object.keys(rows) // => array of y-positions (type: float)
+        .sort((y1, y2) => parseFloat(y1) - parseFloat(y2)) // sort float positions
+        .forEach((y) => (rows[y] || []).join(''));
+    }
+
+    new pdfreader.PdfReader().parseFileItems(`./uploads/cv/${file}`, function (err, item) {
+      if (!item || item.page) {
+        // end of file, or page
+        printRows();
+        // console.log('PAGE:', item.page);
+        rows = {}; // clear rows for next page
+      } else if (item.text) {
+        // accumulate text items into rows object, per line
+        (rows[item.y] = rows[item.y] || []).push(item.text);
+      }
+    });
+    return rows;
+  }
 
   // get all jobs from database
   async jobsApi() {
@@ -182,6 +206,52 @@ class Helper {
     const value = [id];
     const result = await client.query(SQL, value);
     return result.rows[0];
+  }
+
+  uploader() {
+    const storage = multer.diskStorage({
+      destination: function (req, file, cb) {
+        if (file.fieldname == 'cv') {
+          cb(null, path.join(__dirname, '../../uploads/cv'));
+        } else {
+          cb(null, path.join(__dirname, '../../uploads/profile-pictures'));
+        }
+      },
+      filename: function (req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+      },
+    });
+
+    const Filter = function (req, file, cb) {
+      if (!file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF|PDF|pdf|doc|docx)$/)) {
+        req.fileValidationError = 'Only image files are allowed!';
+        return cb(new Error('Only image files are allowed!'), false);
+      }
+      cb(null, true);
+    };
+    const upload = multer({ storage: storage, fileFilter: Filter });
+    return upload;
+  }
+
+  async updateFiles(user, file) {
+    let id;
+    if (user.account_type == 'p') {
+      id = await this.getID(user.id, 'person');
+      if (file.fieldname == 'profile_pic') {
+        let SQL = 'UPDATE person SET avatar=$1 WHERE id=$2;';
+        let values = [file.path, id];
+        await client.query(SQL, values);
+      } else if (file.fieldname == 'cv') {
+        let SQL = 'UPDATE person SET cv=$1 WHERE id=$2;';
+        let values = [file.destination, id];
+        await client.query(SQL, values);
+      }
+    } else if (user.account_type == 'c') {
+      id = await this.getID(user.id, 'company');
+      let SQL = 'UPDATE company SET logo=$1 WHERE id=$2;';
+      let values = [file.destination, id];
+      await client.query(SQL, values);
+    }
   }
 }
 
