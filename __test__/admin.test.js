@@ -48,7 +48,7 @@ describe('Admin', () => {
   });
   it('Admins only can block users and companies', async () => {
     return await mockRequest
-      .patch('/admin/block/3')
+      .patch('/admin/block/10')
       .set('Cookie', [`token=${token}`])
       .then((result) => {
         expect(result.status).toBe(201);
@@ -56,7 +56,7 @@ describe('Admin', () => {
   });
   it('Admins only can unblock users and companies', async () => {
     return await mockRequest
-      .patch('/admin/removeBlock/3')
+      .patch('/admin/removeBlock/10')
       .set('Cookie', [`token=${token}`])
       .then((result) => {
         expect(result.status).toBe(201);
