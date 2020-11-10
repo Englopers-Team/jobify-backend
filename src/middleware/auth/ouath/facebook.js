@@ -17,7 +17,7 @@ passport.use(
     {
       clientID: CLIENT_ID,
       clientSecret: CLIENT_SECRET,
-      callbackURL: 'http://localhost:3000/oauth-facebook',
+      callbackURL: 'https://jobify-app-v2.herokuapp.com/oauth-facebook',
       profileFields: ['id', 'email', 'gender', 'link', 'locale', 'name', 'timezone', 'updated_time', 'verified'],
     },
 
@@ -55,4 +55,3 @@ passport.use(
 module.exports = passport;
 
 //---------------------------------------------------------------------------------------\\
-

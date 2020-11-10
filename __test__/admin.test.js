@@ -117,7 +117,7 @@ describe('Admin', () => {
       });
   });
 
-  it('Admins can seed the database with fake data', () => {
+  it('Admins can seed the database with a fake data', () => {
     return mockRequest
       .post('/admin/seed/1')
       .set('Cookie', [`token=${token}`])
@@ -178,7 +178,7 @@ describe('Admin', () => {
       });
   });
 
-  it('Admins can delete certain post from community', async () => {
+  it('Admins can delete a certain post from community', async () => {
     return mockRequest
       .post('/signin')
       .send({ email: 'demop@gmail.com', password: '123456' })
