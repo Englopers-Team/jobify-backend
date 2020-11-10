@@ -40,7 +40,6 @@ describe('Admin', () => {
       .send({ email: 'demop@gmail.com', password: '123456' })
       .then((result) => {
         token = result.body.token;
-        console.log(token);
       });
     return mockRequest.get('/search/employee').then((result) => {
       expect(result.status).toBe(500);
@@ -70,7 +69,6 @@ describe('Admin', () => {
       .send({ email: 'demoeditor@gmail.com', password: '123456' })
       .then((result) => {
         token = result.body.token;
-        console.log(token);
       });
     return await mockRequest
       .patch('/admin/block/3')
@@ -91,6 +89,24 @@ describe('Admin', () => {
   it('Admins can see certain report from users and companies', async () => {
     return await mockRequest
       .get('/admin/report/2')
+      .set('Cookie', [`token=${token}`])
+      .then((result) => {
+        expect(result.status).toBe(200);
+      });
+  });
+
+  it('Admins can reply to certain report from users and companies', async () => {
+    return await mockRequest
+      .patch('/admin/report/1')
+      .set('Cookie', [`token=${token}`])
+      .then((result) => {
+        expect(result.status).toBe(201);
+      });
+  });
+
+  it('Admins can seed the database with fake data', async () => {
+    return await mockRequest
+      .post('/admin/seed/1')
       .set('Cookie', [`token=${token}`])
       .then((result) => {
         expect(result.status).toBe(200);

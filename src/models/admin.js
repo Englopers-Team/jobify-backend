@@ -143,7 +143,6 @@ class Admin {
     let value = [payload];
     const data = await client.query(SQL, value);
     let SQL2, value2;
-    console.log(data.rows[0]);
     if (data.rows[0].account_type === 'c') {
       let id = await helper.getID(data.rows[0].auth_id, 'company');
       SQL2 = `SELECT * FROM company WHERE id=$1;`;
