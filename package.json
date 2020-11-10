@@ -9,9 +9,9 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "jest --coverage --verbose",
+    "test": "jest --coverage --verbose --detectOpenHandles",
     "lint": "eslint '**/*.js'",
-    "watch": "jest --verbose --coverage --watchAll "
+    "watch": "jest --verbose --coverage --watchAll --detectOpenHandles"
   },
   "repository": {
     "type": "git",
