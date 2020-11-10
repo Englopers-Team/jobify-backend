@@ -40,7 +40,8 @@ describe('Admin', () => {
         .send({ email: 'demop@gmail.com', password: '123456' })
         .then((result) => {
           token = result.body.token;
-        }).then(() => {
+        })
+        .then(() => {
           return mockRequest.get('/search/employee').then((result) => {
             expect(result.status).toBe(500);
             expect(result.text).toBe('{"error":"Access denied"}');
@@ -50,7 +51,7 @@ describe('Admin', () => {
   });
   it('Admins only can block users and companies', () => {
     return mockRequest
-      .patch('/admin/block/10')
+      .patch('/admin/block/4')
       .set('Cookie', [`token=${token}`])
       .then((result) => {
         expect(result.status).toBe(201);
@@ -65,13 +66,13 @@ describe('Admin', () => {
       });
   });
   it('Editors cannot block users or companies', () => {
-
     return mockRequest
       .post('/signin')
       .send({ email: 'demoeditor@gmail.com', password: '123456' })
       .then((result) => {
         token = result.body.token;
-      }).then(() => {
+      })
+      .then(() => {
         return mockRequest
           .patch('/admin/block/3')
           .set('Cookie', [`token=${token}`])
@@ -148,7 +149,8 @@ describe('Admin', () => {
       .send({ email: 'demop@gmail.com', password: '123456' })
       .then((result) => {
         token = result.body.token;
-      }).then(() => {
+      })
+      .then(() => {
         return mockRequest
           .post('/community/submit')
           .set('Cookie', [`token=${token}`])
@@ -162,7 +164,8 @@ describe('Admin', () => {
               .send({ email: 'demoadmin@gmail.com', password: '123456' })
               .then((result) => {
                 token = result.body.token;
-              }).then(() => {
+              })
+              .then(() => {
                 return mockRequest
                   .patch(`/admin/posts/${results.body._id}`)
                   .set('Cookie', [`token=${token}`])
@@ -172,7 +175,6 @@ describe('Admin', () => {
                   });
               });
           });
-
       });
   });
 
@@ -182,7 +184,8 @@ describe('Admin', () => {
       .send({ email: 'demop@gmail.com', password: '123456' })
       .then((result) => {
         token = result.body.token;
-      }).then(() => {
+      })
+      .then(() => {
         return mockRequest
           .post('/community/submit')
           .set('Cookie', [`token=${token}`])
@@ -196,7 +199,8 @@ describe('Admin', () => {
               .send({ email: 'demoadmin@gmail.com', password: '123456' })
               .then((result) => {
                 token = result.body.token;
-              }).then(() => {
+              })
+              .then(() => {
                 return mockRequest
                   .delete(`/admin/posts/${results.body._id}`)
                   .set('Cookie', [`token=${token}`])
