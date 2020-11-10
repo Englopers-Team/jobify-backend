@@ -1,9 +1,16 @@
 'use strict';
+
+//------------------------------// Third Party Resources \\----------------------------\\
 const express = require('express');
-const helper = require('../models/helper');
-const router = express.Router();
 const fs = require('fs');
 
+//---------------------------------// Import Resources \\-------------------------------\\
+const helper = require('../models/helper');
+
+//-------------------------------// App Level Middleware \\-----------------------------\\
+const router = express.Router();
+
+//--------------------------------------// Routes \\--------------------------------------\\
 router.post('/profile_pic', helper.uploader().single('profile_pic'), async (req, res) => {
   try {
     if (req.fileValidationError) {
@@ -60,4 +67,7 @@ router.post('/cv', helper.uploader().single('cv'), async (req, res) => {
   }
 });
 
+//-----------------------------------// Export Module \\-----------------------------------\\
 module.exports = router;
+
+//-----------------------------------------------------------------------------------------\\
