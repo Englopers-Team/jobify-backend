@@ -1,12 +1,19 @@
 'use strict';
+
+//------------------------------// Third Party Resources \\----------------------------\\
 const express = require('express');
-const router = express.Router();
+
+//---------------------------------// Import Resources \\-------------------------------\\
 const company = require('../models/company');
 const user = require('../models/user');
 const bearerAuth = require('../middleware/auth/authentication/bearer-auth');
 const helper = require('../models/helper');
 const authorize = require('../middleware/auth/authorization/authorize');
 
+//-------------------------------// App Level Middleware \\-----------------------------\\
+const router = express.Router();
+
+//--------------------------------------// Routes \\--------------------------------------\\
 router.get('/home', bearerAuth, async (req, res,next) => {
   try {
     let data;
@@ -47,4 +54,7 @@ router.get('/testAuthorize', authorize(['p']), (req, res) => {
   res.status(200).json('worked');
 });
 
+//-----------------------------------// Export Module \\-----------------------------------\\
 module.exports = router;
+
+//-----------------------------------------------------------------------------------------\\

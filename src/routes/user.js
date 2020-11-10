@@ -1,9 +1,14 @@
 'use strict';
+//------------------------------// Third Party Resources \\----------------------------\\
 const express = require('express');
-const helper = require('../models/helper');
-const router = express.Router();
+
+//---------------------------------// Import Resources \\-------------------------------\
 const user = require('../models/user');
 
+//-------------------------------// App Level Middleware \\-----------------------------\\
+const router = express.Router();
+
+//--------------------------------------// Routes \\--------------------------------------\\
 router.get('/app', async (req, res) => {
   const data = await user.userApps(req.user);
   res.status(200).json(data);
@@ -70,10 +75,7 @@ router.post('/apply/:id', async (req, res) => {
   
 });
 
-// router.post('/sendReport', async (req, res) => {
-//   // console.log(req.body);
-//   await helper.sendReport(req.user, req.body);
-//   res.status(201).json({});
-// });
-
+//-----------------------------------// Export Module \\-----------------------------------\\
 module.exports = router;
+
+//-----------------------------------------------------------------------------------------\\

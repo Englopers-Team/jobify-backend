@@ -1,12 +1,18 @@
 'use strict';
 
+//------------------------------// Third Party Resources \\----------------------------\\
 require('dotenv').config();
-const client = require('../models/database');
 const superagent = require('superagent');
+
+//---------------------------------// Import Resources \\-------------------------------\\
+const client = require('../models/database');
 const notifi = require('../models/notifications');
 const helper = require('./helper');
+
+//--------------------------------// Esoteric Resources \\-------------------------------\\
 const test = process.env.TESTS || 'true';
 
+//------------------------------------// User Module \\----------------------------------\\
 class User {
   constructor() { }
 
@@ -44,15 +50,14 @@ class User {
   }
 
   async applyAPI(user, payload) {
-    // console.log(user, payload);
     let { title, location, type, company_name, logo, email } = payload;
     let personID = await helper.getID(user.id, 'person');
     let SQL = `INSERT INTO applications_api (title, location, type, company_name, status, logo, person_id) VALUES ($1,$2,$3,$4,$5,$6,$7);`;
     let value = [title, location, type, company_name, 'Submitted', logo, personID];
     await client.query(SQL, value);
-    // let userData = await helper.getProfile(personID, 'person');
-    // const record = { company: payload, person: userData };
-    // helper.sendEmail(email, record);
+    let userData = await helper.getProfile(personID, 'person');
+    const record = { company: payload, person: userData };
+    helper.sendEmail(email, record);
   }
 
   async saveJob(user, payload) {
@@ -76,7 +81,6 @@ class User {
     let value = [id];
     let dataApi = await client.query(SQL, value);
     let dataDB = await client.query(SQL2, value);
-
     return { data_Api: dataApi.rows, data_DB: dataDB.rows };
   }
 
@@ -91,6 +95,7 @@ class User {
 
     return { DB: dataDB.rows, API: dataApi.rows };
   }
+
   async userApp(user, appID) {
     const id = await helper.getID(user.id, 'person');
     let SQL = `SELECT * FROM applications WHERE id=$1 AND person_id=$2;`;
@@ -175,11 +180,13 @@ const JOB = function (data) {
   this.location = data.location ? data.location : 'Amman';
   this.type = data.type ? data.type : 'Full-time';
   this.company_name = data.company ? data.company : 'Company Name';
-  // this.description = data.description ? data.description : 'There is no description';
   this.logo = data.company_logo || 'https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png';
   this.company_url = data.company_url;
   this.email = data.email ? data.email : 'mohammad.esseili@gmail.com';
   this.api = true;
 };
 
+//-----------------------------------// Export Module \\-----------------------------------\\
 module.exports = new User();
+
+//-----------------------------------------------------------------------------------------\\

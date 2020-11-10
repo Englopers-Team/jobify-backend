@@ -1,12 +1,14 @@
 'use strict';
 
-const client = require('../models/database');
+//------------------------------// Third Party Resources \\----------------------------\\
 const io = require('socket.io-client');
 
-class Notificaion {
-  constructor() {
+//---------------------------------// Import Resources \\-------------------------------\\
+const client = require('../models/database');
 
-  }
+//--------------------------------// Notificaion Module \\------------------------------\\
+class Notificaion {
+  constructor() {}
 
   async getNotificaions(id) {
     const SQL = 'SELECT * FROM notifications WHERE auth_id=$1;';
@@ -20,10 +22,12 @@ class Notificaion {
     const SQL = 'INSERT INTO notifications (title,description,seen,auth_id) VALUES ($1,$2,$3,$4);';
     const values = [title, description, 'false', id];
     await client.query(SQL, values);
-    // console.log('wow');
     const notifi = io.connect('http://localhost:3000/notification');
     notifi.emit('notification', { id });
   }
 }
 
+//-----------------------------------// Export Module \\-----------------------------------\\
 module.exports = new Notificaion();
+
+//-----------------------------------------------------------------------------------------\\

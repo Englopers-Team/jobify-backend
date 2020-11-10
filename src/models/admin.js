@@ -1,10 +1,13 @@
 'use strict';
 
+//---------------------------------// Import Resources \\-------------------------------\\
 const client = require('../models/database');
 const helper = require('./helper');
 
+//-----------------------------------// Admin Module \\---------------------------------\\
 class Admin {
   constructor() {}
+  
   async dashboard() {
     let SQL;
     let data;
@@ -141,6 +144,7 @@ class Admin {
     const data = await client.query(SQL);
     return data.rows;
   }
+
   async report(payload) {
     let SQL = `SELECT * FROM admin_reports JOIN auth ON admin_reports.auth_id=auth.id WHERE admin_reports.id=$1;`;
     let value = [payload];
@@ -158,15 +162,21 @@ class Admin {
     const data2 = await client.query(SQL2, value2);
     return { report: data.rows[0], sender: data2.rows[0] };
   }
+
   async answerReport(id, payload) {
     let SQL = `UPDATE admin_reports SET response=$1 WHERE id=$2;`;
     let value = [payload, id];
     await client.query(SQL, value);
   }
+
   async deleteReport(id) {
     let SQL = `DELETE FROM admin_reports WHERE id=$1;`;
     let value = [id];
     await client.query(SQL, value);
   }
 }
+
+//-----------------------------------// Export Module \\-----------------------------------\\
 module.exports = new Admin();
+
+//-----------------------------------------------------------------------------------------\\

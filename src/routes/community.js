@@ -1,8 +1,15 @@
 'use strict';
+
+//------------------------------// Third Party Resources \\----------------------------\\
 const express = require('express');
-const router = express.Router();
+
+//---------------------------------// Import Resources \\-------------------------------\\
 const community = require('../models/community');
 
+//-------------------------------// App Level Middleware \\-----------------------------\\
+const router = express.Router();
+
+//--------------------------------------// Routes \\--------------------------------------\\
 router.get('/', async (req, res) => {
   const result = await community.posts(req.user);
   res.status(200).json(result);
@@ -62,7 +69,6 @@ router.delete('/comment/:id', async (req, res, next) => {
   try {
     await community.deleteComment(req.user, req.params.id, req.body.commentID);
     res.status(202).json('Deleted comment');
-
   } catch (err) {
     next(err);
   }
@@ -72,10 +78,12 @@ router.patch('/like/:id', async (req, res, next) => {
   try {
     await community.likePost(req.user, req.params.id);
     res.status(201).json('Deleted comment');
-
   } catch (err) {
     next(`can't like post`);
   }
 });
 
+//-----------------------------------// Export Module \\-----------------------------------\\
 module.exports = router;
+
+//-----------------------------------------------------------------------------------------\\

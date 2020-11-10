@@ -1,7 +1,12 @@
 'use strict';
+
+//------------------------------// Third Party Resources \\----------------------------\\
 const mongoose = require('mongoose');
+
+//---------------------------------// Import Resources \\-------------------------------\\
 const helper = require('./helper');
 
+//------------------------------------// Post Schema \\----------------------------------\\
 const post = mongoose.model(
   'post',
   mongoose.Schema({
@@ -16,8 +21,9 @@ const post = mongoose.model(
   }),
 );
 
+//---------------------------------// Community Module \\-------------------------------\\
 class Community {
-  constructor() {}
+  constructor() { }
 
   async posts(user) {
     const pinned = await post.find({ pinned: 'true' });
@@ -28,7 +34,6 @@ class Community {
 
   async getPost(postID) {
     const result = await post.find({ _id: postID });
-    // console.log(result[0]);
     return result[0];
   }
 
@@ -65,7 +70,7 @@ class Community {
       await post.findByIdAndUpdate(postID, payload, { new: true });
     }
   }
-  // real event
+
   async addComment(user, postID, payload) {
     const idPerson = await helper.getID(user.id, 'person');
     const profile = await helper.getProfile(idPerson, 'person');
@@ -105,10 +110,9 @@ class Community {
   }
 
   async searchPosts(title) {
-    const result = await post.find({ title: { $regex: `${title}`, $options: 'i' } }, function (err, docs) {});
+    const result = await post.find({ title: { $regex: `${title}`, $options: 'i' } }, function (err, docs) { });
     return result;
   }
-  // real event
 
   async likePost(user, postID) {
     const targetPost = await this.getPost(postID);
@@ -126,13 +130,16 @@ class Community {
     targetPost.likes = likes;
     await targetPost.save();
   }
+
   async pin(postID) {
     const targetPost = await this.getPost(postID);
-    // console.log(postID);
-    // console.log(targetPost);
     targetPost.pinned = 'true';
     await targetPost.save();
   }
 }
 
+//-----------------------------------// Export Module \\-----------------------------------\\
 module.exports = new Community();
+
+//-----------------------------------------------------------------------------------------\\
+

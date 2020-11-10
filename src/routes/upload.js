@@ -1,9 +1,16 @@
 'use strict';
+
+//------------------------------// Third Party Resources \\----------------------------\\
 const express = require('express');
-const helper = require('../models/helper');
-const router = express.Router();
 const fs = require('fs');
 
+//---------------------------------// Import Resources \\-------------------------------\\
+const helper = require('../models/helper');
+
+//-------------------------------// App Level Middleware \\-----------------------------\\
+const router = express.Router();
+
+//--------------------------------------// Routes \\--------------------------------------\\
 router.post('/profile_pic', helper.uploader().single('profile_pic'), async (req, res) => {
   try {
     if (req.fileValidationError) {
@@ -12,11 +19,9 @@ router.post('/profile_pic', helper.uploader().single('profile_pic'), async (req,
       return res.send('Please select an image to upload');
     } else if (req.file.size > 3000000) {
       const path = `./uploads/profile-pictures/${req.file.filename}`;
-
       fs.unlink(path, (err) => {
         if (err) {
-          console.error(err);
-          return;
+          throw new Error(err);
         }
       });
       return res.send('File size should not exceed 3.0MB');
@@ -26,8 +31,8 @@ router.post('/profile_pic', helper.uploader().single('profile_pic'), async (req,
         message: 'File uploaded successfully',
       });
     }
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    throw new Error(err);
   }
 });
 
@@ -39,10 +44,8 @@ router.post('/cv', helper.uploader().single('cv'), async (req, res) => {
       return res.send('Please select a pdf or doc file to upload');
     } else if (req.file.size > 6000000) {
       const path = `./uploads/cv/${req.file.filename}`;
-
       fs.unlink(path, (err) => {
         if (err) {
-          console.error(err);
           return;
         }
       });
@@ -52,12 +55,14 @@ router.post('/cv', helper.uploader().single('cv'), async (req, res) => {
       return res.status(201).json({
         message: 'File uploaded successfully',
         data: helper.pdfScanner(req.file.filename),
-
       });
     }
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    throw new Error(err);
   }
 });
 
+//-----------------------------------// Export Module \\-----------------------------------\\
 module.exports = router;
+
+//-----------------------------------------------------------------------------------------\\

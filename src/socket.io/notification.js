@@ -1,10 +1,12 @@
 'use strict';
 
+//---------------------------------// Import Resources \\-------------------------------\\
 const client = require('../models/database');
 const app = require('../server');
 const notification = app.notifi;
 const authHelpers = require('../models/auth-helpers');
 
+//------------------------------// Notification Namespace \\------------------------------\\
 notification.on('connection', (socket) => {
   console.log('connected to notification namespace', socket.id);
 
@@ -21,6 +23,7 @@ notification.on('connection', (socket) => {
       throw new Error('Invalid token to check notifications');
     }
   });
+
   socket.on('checkNotif', async (payload) => {
     try {
       if (payload.token.length == 0) {
@@ -42,6 +45,7 @@ notification.on('connection', (socket) => {
       throw new Error('Invalid token to check notifications');
     }
   });
+  
   socket.on('notification', async (payload) => {
     if (notification.adapter.rooms[payload.id]) {
       const SQL = 'SELECT * FROM notifications WHERE auth_id=$1;';
@@ -54,3 +58,5 @@ notification.on('connection', (socket) => {
     }
   });
 });
+
+//-----------------------------------------------------------------------------------------\\

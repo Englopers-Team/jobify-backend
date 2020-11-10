@@ -1,6 +1,9 @@
 'use strict';
+
+//---------------------------------// Import Resources \\-------------------------------\\
 const authHelpers = require('../../../models/auth-helpers');
 
+//-----------------------------------// Export Module \\-----------------------------------\\
 module.exports = (req, res, next) => {
   if ((!req.body.email) || (!req.body.password)) {
     throw new Error(`Can't find email or password`);
@@ -11,3 +14,5 @@ module.exports = (req, res, next) => {
     }).catch((err) => next(err));
   }
 };
+
+//-----------------------------------------------------------------------------------------\\

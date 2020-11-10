@@ -1,11 +1,13 @@
 'use strict';
 
+//---------------------------------// Import Resources \\-------------------------------\\
 const client = require('../models/database');
 const app = require('../server');
 const messages = app.messages;
 const authHelpers = require('../models/auth-helpers');
 const helper = require('../models/helper');
 
+//--------------------------------// Messages Namespace \\--------------------------------\\
 messages.on('connection', (socket) => {
   console.log('connected to messages namespace', socket.id);
 
@@ -22,6 +24,7 @@ messages.on('connection', (socket) => {
       throw new Error('Invalid token to check messages');
     }
   });
+
   socket.on('message', async (payload) => {
     const tokenObject = await authHelpers.authenticateToken(payload.token);
     if (tokenObject.account_type === payload.type) {
@@ -58,6 +61,7 @@ messages.on('connection', (socket) => {
     let value = [payload.body, personID, companyID];
     await client.query(SQL, value);
   });
+  
   socket.on('checkMsg', async (payload) => {
     try {
       if (payload.token.length == 0) {
@@ -89,3 +93,5 @@ messages.on('connection', (socket) => {
     }
   });
 });
+
+//-----------------------------------------------------------------------------------------\\

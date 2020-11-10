@@ -1,11 +1,17 @@
 'use strict';
 
-const client = require('../models/database');
+//------------------------------// Third Party Resources \\----------------------------\\
 require('dotenv').config();
-const test = process.env.TESTS || 'true';
+
+//---------------------------------// Import Resources \\-------------------------------\\
+const client = require('../models/database');
 const notifi = require('../models/notifications');
 const helper = require('./helper');
 
+//--------------------------------// Esoteric Resources \\-------------------------------\\
+const test = process.env.TESTS || 'true';
+
+//----------------------------------// Company Module \\--------------------------------\\
 class Company {
   constructor() { }
 
@@ -85,7 +91,6 @@ class Company {
     } else {
       throw new Error(`Can't answer application`);
     }
-
   }
 
   async companyOffers(company) {
@@ -123,7 +128,6 @@ class Company {
     } else {
       throw new Error(`Can't answer application`);
     }
-
   }
 
   async editProfile(company, payload) {
@@ -143,4 +147,7 @@ class Company {
   }
 }
 
+//-----------------------------------// Export Module \\-----------------------------------\\
 module.exports = new Company();
+
+//-----------------------------------------------------------------------------------------\\

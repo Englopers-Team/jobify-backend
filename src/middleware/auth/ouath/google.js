@@ -1,14 +1,55 @@
 'use strict';
 
+//------------------------------// Third Party Resources \\----------------------------\\
 const superagent = require('superagent');
+
+//---------------------------------// Import Resources \\-------------------------------\\
 const authHelpers = require('../../../models/auth-helpers');
 
+//--------------------------------// Esoteric Resources \\-------------------------------\\
 const tokenServerUrl = 'https://oauth2.googleapis.com/token';
 const remoteAPI = 'https://www.googleapis.com/oauth2/v2/userinfo';
 const CLIENT_ID = process.env.CLIENT_ID_GOOGLE || '845374033514-cipcled8idbs9bg1qml9agt38bbappek.apps.googleusercontent.com';
 const CLIENT_SECRET = process.env.CLIENT_SECRET_GOOGLE || '6I86RhRUr09bL2feCmDqiGDx';
 const API_SERVER = 'http://localhost:3000/oauth-google';
 
+//----------------------------------// Helper Function \\---------------------------------\\
+async function exchangeCodeForToken(code) {
+  let tokenResponse = await superagent.post(tokenServerUrl).send({
+    code: code,
+    client_id: CLIENT_ID,
+    client_secret: CLIENT_SECRET,
+    redirect_uri: API_SERVER,
+    grant_type: 'authorization_code',
+  });
+  let access_token = tokenResponse.body.access_token;
+  return access_token;
+}
+
+async function getRemoteUserInfo(token) {
+  let userResponse = await superagent.get(remoteAPI).set('user-agent', 'express-app').query({
+    alt: 'json',
+    access_token: token,
+  });
+  let user = userResponse.body;
+  return user;
+}
+
+async function getUser(remoteUser) {
+  let userRecord = {
+    email: remoteUser.email,
+    password: 'oauthpassword',
+    account_type: 'p',
+    first_name: remoteUser.given_name,
+    last_name: remoteUser.family_name,
+    phone: '079',
+    country: 'jo',
+    job_title: 'dev',
+  };
+  return userRecord;
+}
+
+//-----------------------------------// Export Module \\-----------------------------------\\
 module.exports = async function authorize(req, res, next) {
   try {
     let code = req.query.code;
@@ -34,43 +75,4 @@ module.exports = async function authorize(req, res, next) {
   }
 };
 
-async function exchangeCodeForToken(code) {
-  let tokenResponse = await superagent.post(tokenServerUrl).send({
-    code: code,
-    client_id: CLIENT_ID,
-    client_secret: CLIENT_SECRET,
-    redirect_uri: API_SERVER,
-    grant_type: 'authorization_code',
-  });
-
-  let access_token = tokenResponse.body.access_token;
-  // console.log(access_token);
-
-  return access_token;
-}
-
-async function getRemoteUserInfo(token) {
-  let userResponse = await superagent.get(remoteAPI).set('user-agent', 'express-app').query({
-    alt: 'json',
-    access_token: token,
-  });
-
-  let user = userResponse.body;
-  // console.log(user);
-  return user;
-}
-
-async function getUser(remoteUser) {
-  let userRecord = {
-    email: remoteUser.email,
-    password: 'oauthpassword',
-    account_type: 'p',
-    first_name: remoteUser.given_name,
-    last_name: remoteUser.family_name,
-    phone: '079',
-    country: 'jo',
-    job_title: 'dev',
-  };
-  // console.log(userRecord);
-  return userRecord;
-}
+//---------------------------------------------------------------------------------------\\
