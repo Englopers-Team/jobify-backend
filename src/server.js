@@ -58,5 +58,4 @@ module.exports = {
   },
   notifi: notification,
   io: io,
-
 };
