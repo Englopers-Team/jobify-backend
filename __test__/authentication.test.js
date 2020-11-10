@@ -1,10 +1,10 @@
 'use strict';
 
-const supertest = require('supertest');
-const { server } = require('../src/server');
+const supergoose = require('@code-fellows/supergoose');
+const app = require('../src/server');
+const mockRequest = supergoose(app.server);
 const pg = require('../src/models/database');
 
-const mockRequest = supertest(server);
 let token, token2, token3;
 
 

@@ -1,7 +1,8 @@
 'use struct';
-const supertest = require('supertest');
+
+const supergoose = require('@code-fellows/supergoose');
 const app = require('../src/server');
-const mockRequest = supertest(app.server);
+const mockRequest = supergoose(app.server);
 const pg = require('../src/models/database');
 
 describe('API', () => {
@@ -28,7 +29,7 @@ describe('API', () => {
     });
   });
   it('Can get results from 3rd party APIs', () => {
-    return mockRequest.get('/api/v1/jobs').then((result) => {
+    return mockRequest.get('/api/v1/mockApi').then((result) => {
       expect(result.status).toBe(200);
     });
   });

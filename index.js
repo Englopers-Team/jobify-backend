@@ -9,7 +9,7 @@ const PORT = process.env.PORT;
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useFindAndModify: false,
+  useFindAndModify: true,
 }).then(()=>{
   client.connect().then(() => {
     server.start(PORT);

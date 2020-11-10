@@ -53,7 +53,6 @@ class User {
       let SQL = `INSERT INTO saved_jobs (job_id,person_id) VALUES ($1,$2);`;
       let Values = [payload.jobID, id];
       await client.query(SQL, Values);
-      console.log('hereeee1',payload.api);
     } else {
       let { title, location, type, description, company_name, phone, company_url, logo, country } = payload;
       let SQL = `INSERT INTO saved_jobs (title, location, type, description, company_name, phone, company_url, logo, country,person_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10);`;
@@ -100,7 +99,6 @@ class User {
     let SQL = `SELECT job_id FROM applications WHERE id=$1;`;
     let value = [appID];
     const data = await client.query(SQL, value);
-    console.log(data.rows[0]);
     let jobID = data.rows[0].job_id;
     let SQL2 = `UPDATE jobs SET applicants_num=applicants_num-1 WHERE id=$1;`;
     let value2 = [jobID];
