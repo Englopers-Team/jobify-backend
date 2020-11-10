@@ -7,14 +7,18 @@ const bearerAuth = require('../middleware/auth/authentication/bearer-auth');
 const helper = require('../models/helper');
 const authorize = require('../middleware/auth/authorization/authorize');
 
-router.get('/home', bearerAuth, async (req, res) => {
-  let data;
-  if (req.user.account_type === 'p') {
-    data = await user.dashboard(req.user);
-  } else if (req.user.account_type === 'c') {
-    data = await company.dashboard(req.user);
+router.get('/home', bearerAuth, async (req, res,next) => {
+  try {
+    let data;
+    if (req.user.account_type === 'p') {
+      data = await user.dashboard(req.user);
+    } else if (req.user.account_type === 'c') {
+      data = await company.dashboard(req.user);
+    }
+    res.status(200).json(data);
+  } catch (err) {
+    next(err);
   }
-  res.status(200).json(data);
 });
 
 router.post('/report', bearerAuth, async (req, res, next) => {
