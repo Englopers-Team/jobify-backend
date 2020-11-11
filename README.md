@@ -108,8 +108,6 @@ Day by day the unemployment issue became a big problem in the world, although th
 
 #### Search
 
-
-
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
 | GET | /employee | Used to search for employees by the job title and location. |
@@ -167,11 +165,13 @@ Day by day the unemployment issue became a big problem in the world, although th
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
-| POST | /seed | Used to insert post jobs by the admin to the platform. |
+| POST | admin/seed | Used to insert post jobs by the admin to the platform. |
 
 ## 
 
 ### Community
+
+#### 
 
 ## 
 
@@ -181,15 +181,26 @@ Day by day the unemployment issue became a big problem in the world, although th
 
 ### Messages
 
+Listening to **messages** namespace
+
+* The company can start offer-chat with any employee in the platform then the employee will be able to chatting with that company in real time event.
+* When the user get back online all of unseen messages will appear.
+* User will have the ability to get the messages history.
+
 ## 
 
 ### Notifications
+
+Listening to **notification** namespace
+
+* The employee will notified when received a job offer. 
+* the company will notified when received a job application. 
 
 ## 
 
 ### API
 
-Fetching data to other platform
+Fetching data from other's platform
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
