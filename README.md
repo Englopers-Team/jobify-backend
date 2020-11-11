@@ -14,22 +14,35 @@ Day by day the unemployment issue became a big problem in the world, although th
 
 | Method | Endpoint | Description  |
 | :---: | :--- | :--- |
-| GET | /home | The user will get the suggestion jobs regarding to his information and number of the his application and offers  |
+| GET | /home | Used to get the suggestion jobs, the number of applied applications, and the received offers.  |
 
 #### Applications
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
-| GET | /user/app | The user can get all the application that he applied for. |
-| GET | /user/app/:id | The user can get a certain application from his applications  |
-| DELETE | /user/app/:id | The user can delete a certain application from his applications  |
+| GET | /user/app | Used to get all the applied applications. |
+| GET | /user/app/:id | Used to get one of the applied applications. |
+| DELETE | /user/app/:id | Used to delete one of the applied applications. |
 
 #### Offers
 
 | Method  | Endpoint | Description  |
 | :--- | :--- | :--- |
-| GET | /offers |  |
-| PUT | /offers/:id |  |
+| GET | user/offers | Used to get all the received offers. |
+| PUT | user/offers/:id | Used to answer one of the received offers |
+
+#### Apply
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| POST | user/apply/:id | Used to apply on a job offer. |
+
+#### Search 
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| GET | /job | Used to search for a job by the job title and location. |
+| GET | /company | Used to search for a company by the title and location. |
 
 ## Group members:
 
