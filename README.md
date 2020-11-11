@@ -14,7 +14,7 @@ Day by day the unemployment issue became a big problem in the world, although th
 
 | Method | Endpoint | Description  |
 | :---: | :--- | :--- |
-| GET | /home | Used to get the suggestion jobs, the number of applied applications, and the received offers.  |
+| GET | /home | Used to get the suggestion jobs, the number of applied applications, the received offers, and the notifications. |
 
 #### Applications
 
@@ -71,6 +71,65 @@ Day by day the unemployment issue became a big problem in the world, although th
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
 | PUT | /user/edit | Used to update the employee profile information. |
+
+
+
+### Company
+
+#### Dashboard
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| GET | /home | Used to get all the company job applications, job offers, and the notifications. |
+
+#### Applications
+
+| Method | Endpoint | Descriptions |
+| :--- | :--- | :--- |
+| GET | /company/app | Used to get all the company received applications. |
+| PUT | /company/app/:id | Used to answer one of the received application |
+
+#### Offers
+
+| Method | Endpoint |
+| :--- | :--- |
+|  |  |
+
+#### Jobs
+
+#### Search
+
+#### Reports
+
+#### Edit Profile
+
+
+
+#### 
+
+## 
+
+### Admin
+
+## 
+
+### Community
+
+## 
+
+### Authentication
+
+## 
+
+### Messages
+
+## 
+
+### Notifications
+
+## 
+
+### API
 
 ## Group members:
 
