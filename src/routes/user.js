@@ -22,7 +22,7 @@ router.get('/saved', async (req, res) => {
 router.post('/save', async (req, res, next) => {
   try {
     const data = await user.saveJob(req.user, req.body);
-    res.status(201).json(data);
+    res.status(201).json('Job saved');
   } catch (err) {
     next(`Can't save app`);
   }
