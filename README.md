@@ -14,7 +14,7 @@ Day by day the unemployment issue became a big problem in the world, although th
 
 | Method | Endpoint | Description  |
 | :---: | :--- | :--- |
-| GET | /home | Used to get the suggestion jobs, the number of applied applications, the received offers, and the notifications. |
+| GET | /home | Used to get the suggestion jobs, the number of applied applications, the received offers, messages, and the notifications. |
 
 #### Applications
 
@@ -80,7 +80,7 @@ Day by day the unemployment issue became a big problem in the world, although th
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
-| GET | /home | Used to get all the company job applications, job offers, and the notifications. |
+| GET | /home | Used to get all the company job applications, job offers, messages, and the notifications. |
 
 #### Applications
 
@@ -193,8 +193,9 @@ Listening to **messages** namespace
 
 Listening to **notification** namespace
 
-* The employee will notified when received a job offer. 
-* the company will notified when received a job application. 
+* The employee will notified in real time event when received a job offer. 
+* the company will notified in real time event when received a job application. 
+* User will have the ability to get the notification history.
 
 ## 
 
@@ -204,9 +205,9 @@ Fetching data from other's platform
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
-| GET | /api/v1/jobs | Used to fetch all jobs. |
-| GET | /api/v1/companies | Used to fetch all companies. |
-| GET | /api/v1/employees | Used to fetch all employee. |
+| GET | /api/v1/jobs | Used to fetch all jobs in the platform. |
+| GET | /api/v1/companies | Used to fetch all companies in the platform. |
+| GET | /api/v1/employees | Used to fetch all employee in the platform. |
 
 ## Group members:
 
