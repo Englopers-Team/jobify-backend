@@ -1,33 +1,85 @@
----
-description: >-
-  an employment hub that combine all jobs from different sources in one place
-  and make the process of finding job or finding suitable employees as much
-  easier as it should be.
----
-
 # Jobify-app
 
-## Back-End App
-
-### Current Version \(0.0.1\)
-
-* The Current version of this application is designed to create, read, update, and delete data that is used to search, apply, and send for a job offer depending on what they choose.
-* This APP was designed to be extensible, so that multiple match types and data sources can be supported in future installments.
-* The user can be able to use the app depend on the roles and we used fetch method to work on the data from the API.
-
-### Architecture
-
- The base technologies used in this application are `node.js`, it's built-in `http` module, `express.js` and it's middleware methods, using `postgress` and `mongoDB` databases:
-
-![Application folders and files tree ](.gitbook/assets/tree.png)
 
 
+### Problem Domain
+
+Day by day the unemployment issue became a big problem in the world, although that there are so many platforms that help people find jobs, they are too many to follow and a bit complicated in some way , so our plan is to make an employment hub that combine all jobs from different sources in one place and make this process as much easier as it could be.
 
 ## Application features
 
-* _**Employee:**_
-  * _**Dashboard**_  
-    * _**used method: get**_  
+{% api-method method="get" host="" path="" %}
+{% api-method-summary %}
+
+{% endapi-method-summary %}
+
+{% api-method-description %}
+
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-path-parameters %}
+{% api-method-parameter name="" type="string" required=false %}
+
+{% endapi-method-parameter %}
+{% endapi-method-path-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+
+{% endapi-method-response-example-description %}
+
+```
+
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
+### Employee
+
+{% api-method method="get" host="https://jobify-app-v2.herokuapp.com" path="/home" %}
+{% api-method-summary %}
+Dashboard
+{% endapi-method-summary %}
+
+{% api-method-description %}
+The employee will receive a suggestion jobs regarding to his information and number of his application and  offers
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-form-data-parameters %}
+{% api-method-parameter name="token " type="string" required=false %}
+token represent the user 
+{% endapi-method-parameter %}
+{% endapi-method-form-data-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+Dashboard information
+{% endapi-method-response-example-description %}
+
+```
+{
+        "suggJob": {
+                "resultDB": [],
+                "resultAPI": []
+        },numOfApp": ,
+        "numOfOffer": ,
+        "notifications": []
+}
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
 
 ## Group members:
 
@@ -36,23 +88,7 @@ description: >-
 * **Mohmmad Al-Esseili**
 * **Osama Althabteh**
 
-### Problem Domain
-
-Day by day the unemployment issue became a big problem in the world, although that there are so many platforms that help people find jobs, they are too many to follow and a bit complicated in some way , so our plan is to make an employment hub that combine all jobs from different sources in one place and make this process as much easier as it could be.
-
-## Domain Modeling Diagram
-
  
-
-![1](.gitbook/assets/10.jpg)
-
-![2](.gitbook/assets/11.jpg)
-
-## Entity Relationship Diagram
-
-![1](.gitbook/assets/1.JPG) ![2](.gitbook/assets/2.JPG) ![3](.gitbook/assets/3.JPG) ![4](.gitbook/assets/4.JPG) ![5](.gitbook/assets/5.JPG)  ![6](.gitbook/assets/6.JPG)
-
-![re](.gitbook/assets/schema1.png)
 
 ## Project Management Tool
 
