@@ -77,12 +77,10 @@ router.patch('/posts/:id', async (req, res) => {
 
 router.delete('/posts/:id', async (req, res) => {
   await community.deletePost(req.user.id, req.params.id);
-  res.status(201).json('Post updated successfully');
+  res.status(201).json('Post Deleted successfully');
 });
 
 //-----------------------------------// Export Module \\-----------------------------------\\
 module.exports = router;
 
 //-----------------------------------------------------------------------------------------\\
-
-
