@@ -1,0 +1,806 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "defaultTitle",
+    "description": "defaultDescription",
+    "version": "0.1"
+  },
+  "servers": [
+    {
+      "url": "https://jobify-app-v2.herokuapp.com"
+    }
+  ],
+  "paths": {
+    "/company/submit": {
+      "post": {
+        "description": "Auto generated using Swagger Inspector",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "description": {
+                    "type": "string"
+                  },
+                  "location": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "0": {
+                  "value": "{\r\n    \"title\":\"test\",\r\n    \"location\":\"test\",\r\n    \"type\":\"test\",\r\n    \"description\":\"test\"\r\n}"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Auto generated using Swagger Inspector",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://jobify-app-v2.herokuapp.com"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://jobify-app-v2.herokuapp.com"
+        }
+      ]
+    },
+    "/community/post/5fabb200664105001711f212": {
+      "patch": {
+        "description": "Auto generated using Swagger Inspector",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "body": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "0": {
+                  "value": "{\n    \"title\":\"tes22t\",\n    \"body\":\"testststs\"\n}"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Auto generated using Swagger Inspector",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://jobify-app-v2.herokuapp.com"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://jobify-app-v2.herokuapp.com"
+        }
+      ]
+    },
+    "/community/search": {
+      "get": {
+        "description": "Auto generated using Swagger Inspector",
+        "parameters": [
+          {
+            "name": "title",
+            "in": "query",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "test"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Auto generated using Swagger Inspector",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://jobify-app-v2.herokuapp.com"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://jobify-app-v2.herokuapp.com"
+        }
+      ]
+    },
+    "/community/post/5fabb1a8664105001711f211": {
+      "delete": {
+        "description": "Auto generated using Swagger Inspector",
+        "responses": {
+          "202": {
+            "description": "Auto generated using Swagger Inspector",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://jobify-app-v2.herokuapp.com"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://jobify-app-v2.herokuapp.com"
+        }
+      ]
+    },
+    "/community/": {
+      "get": {
+        "description": "Auto generated using Swagger Inspector",
+        "responses": {
+          "200": {
+            "description": "Auto generated using Swagger Inspector",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://jobify-app-v2.herokuapp.com"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://jobify-app-v2.herokuapp.com"
+        }
+      ]
+    },
+    "/home": {
+      "get": {
+        "description": "Auto generated using Swagger Inspector",
+        "responses": {
+          "200": {
+            "description": "Auto generated using Swagger Inspector",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://jobify-app-v2.herokuapp.com"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://jobify-app-v2.herokuapp.com"
+        }
+      ]
+    },
+    "/company/offers": {
+      "get": {
+        "description": "Auto generated using Swagger Inspector",
+        "responses": {
+          "200": {
+            "description": "Auto generated using Swagger Inspector",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://jobify-app-v2.herokuapp.com"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://jobify-app-v2.herokuapp.com"
+        }
+      ]
+    },
+    "/company/app/2": {
+      "put": {
+        "description": "Auto generated using Swagger Inspector",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "0": {
+                  "value": "{\r\n    \"status\":\"update\"\r\n}"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Auto generated using Swagger Inspector",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://jobify-app-v2.herokuapp.com"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://jobify-app-v2.herokuapp.com"
+        }
+      ]
+    },
+    "/company/jobs/1": {
+      "put": {
+        "description": "Auto generated using Swagger Inspector",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "description": {
+                    "type": "string"
+                  },
+                  "location": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "0": {
+                  "value": "{\r\n    \"title\":\"test\",\r\n    \"location\":\"test\",\r\n    \"type\":\"test\",\r\n    \"description\":\"test\"\r\n}"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Auto generated using Swagger Inspector",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://jobify-app-v2.herokuapp.com"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://jobify-app-v2.herokuapp.com"
+        }
+      ]
+    },
+    "/community/post/5fa8652d11c97f06f164582c": {
+      "get": {
+        "description": "Auto generated using Swagger Inspector",
+        "responses": {
+          "200": {
+            "description": "Auto generated using Swagger Inspector",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://jobify-app-v2.herokuapp.com"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://jobify-app-v2.herokuapp.com"
+        }
+      ]
+    },
+    "/company/offers/1": {
+      "post": {
+        "description": "Auto generated using Swagger Inspector",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "description": {
+                    "type": "string"
+                  },
+                  "location": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "0": {
+                  "value": "{\r\n    \"title\":\"test\",\r\n    \"location\":\"test\",\r\n    \"type\":\"test\",\r\n    \"description\":\"test\"\r\n}"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Auto generated using Swagger Inspector",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://jobify-app-v2.herokuapp.com"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://jobify-app-v2.herokuapp.com"
+        }
+      ]
+    },
+    "/company/edit": {
+      "put": {
+        "description": "Auto generated using Swagger Inspector",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "company_name": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "0": {
+                  "value": "{\n    \"company_name\":\"test\"\n}"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Auto generated using Swagger Inspector",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://jobify-app-v2.herokuapp.com"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://jobify-app-v2.herokuapp.com"
+        }
+      ]
+    },
+    "/company/jobs/11": {
+      "delete": {
+        "description": "Auto generated using Swagger Inspector",
+        "responses": {
+          "202": {
+            "description": "Auto generated using Swagger Inspector",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://jobify-app-v2.herokuapp.com"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://jobify-app-v2.herokuapp.com"
+        }
+      ]
+    },
+    "/company/jobs": {
+      "get": {
+        "description": "Auto generated using Swagger Inspector",
+        "responses": {
+          "200": {
+            "description": "Auto generated using Swagger Inspector",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://jobify-app-v2.herokuapp.com"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://jobify-app-v2.herokuapp.com"
+        }
+      ]
+    },
+    "/community/comment/5fabb200664105001711f212": {
+      "post": {
+        "description": "Auto generated using Swagger Inspector",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "commentID": {
+                    "type": "integer"
+                  },
+                  "comment": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "0": {
+                  "value": "{\n    \"commentID\": 0\n}"
+                },
+                "1": {
+                  "value": "{\n    \"comment\":\"test\"\n}"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Auto generated using Swagger Inspector",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://jobify-app-v2.herokuapp.com"
+          }
+        ]
+      },
+      "delete": {
+        "description": "Auto generated using Swagger Inspector",
+        "responses": {
+          "202": {
+            "description": "Auto generated using Swagger Inspector",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://jobify-app-v2.herokuapp.com"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://jobify-app-v2.herokuapp.com"
+        }
+      ]
+    },
+    "/company/offers/6": {
+      "delete": {
+        "description": "Auto generated using Swagger Inspector",
+        "responses": {
+          "202": {
+            "description": "Auto generated using Swagger Inspector",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://jobify-app-v2.herokuapp.com"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://jobify-app-v2.herokuapp.com"
+        }
+      ]
+    },
+    "/community/submit": {
+      "post": {
+        "description": "Auto generated using Swagger Inspector",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "body": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "0": {
+                  "value": "{\n    \"title\":\"test\",\n    \"body\":\"testststs\"\n}"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Auto generated using Swagger Inspector",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://jobify-app-v2.herokuapp.com"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://jobify-app-v2.herokuapp.com"
+        }
+      ]
+    },
+    "/community/like/5fabb200664105001711f212": {
+      "patch": {
+        "description": "Auto generated using Swagger Inspector",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "commentID": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "examples": {
+                "0": {
+                  "value": "{\n    \"commentID\": 0\n}"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Auto generated using Swagger Inspector",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://jobify-app-v2.herokuapp.com"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://jobify-app-v2.herokuapp.com"
+        }
+      ]
+    },
+    "/company/app": {
+      "get": {
+        "description": "Auto generated using Swagger Inspector",
+        "responses": {
+          "200": {
+            "description": "Auto generated using Swagger Inspector",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://jobify-app-v2.herokuapp.com"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://jobify-app-v2.herokuapp.com"
+        }
+      ]
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "oauth2": {
+        "type": "oauth2",
+        "flows": {
+          "implicit": {
+            "authorizationUrl": "http://yourauthurl.com",
+            "scopes": {
+              "scope_name": "Enter your scopes here"
+            }
+          }
+        }
+      }
+    }
+  }
+}
