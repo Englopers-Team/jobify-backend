@@ -94,7 +94,7 @@ Day by day the unemployment issue became a big problem in the world, although th
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
 | GET | /company/offers | Used to get all the company sent offers. |
-| POST | /company/offers/:id | Used to send new offer. |
+| POST | /company/offers/:id | Used to send a new offer. |
 | DELETE | /company/offers/:id | Used to delete one of the company sent offers. |
 
 #### Jobs
@@ -119,8 +119,8 @@ Day by day the unemployment issue became a big problem in the world, although th
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
 | POST | /report | Used to send a report to the support. |
-| GET | /reports | Used to get all the employee reports. |
-| GET | /report/:id | Used to get one of the employee reports. |
+| GET | /reports | Used to get all the company reports. |
+| GET | /report/:id | Used to get one of the company reports. |
 
 #### Edit Profile
 
@@ -156,16 +156,18 @@ Day by day the unemployment issue became a big problem in the world, although th
 
 #### Posts
 
-
-
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
 | GET | /admin/posts | Used to get all the posted posts from community. |
 | GET | /admin/posts/:id | Used to get one of the posted posts from community. |
-| PATCH | /admin/posts/:id | Used to update one of the posted posts from community. |
+| PATCH | /admin/posts/:id | Used to pin one of the posted posts from community. |
 | DELETE | /admin/posts/:id | Used to delete one of the posted posts from community. |
 
+#### Seed Data
 
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| POST | /seed | Used to insert post jobs by the admin to the platform. |
 
 ## 
 
@@ -186,6 +188,14 @@ Day by day the unemployment issue became a big problem in the world, although th
 ## 
 
 ### API
+
+Fetching data to other platform
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| GET | /api/v1/jobs | Used to fetch all jobs. |
+| GET | /api/v1/companies | Used to fetch all companies. |
+| GET | /api/v1/employees | Used to fetch all employee. |
 
 ## Group members:
 
