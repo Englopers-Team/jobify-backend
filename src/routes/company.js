@@ -18,7 +18,7 @@ router.get('/jobs', async (req, res) => {
 router.put('/jobs/:id', async (req, res, next) => {
   try {
     await company.editJob(req.user, req.params.id, req.body);
-    res.status(202).json({});
+    res.status(202).json('Job updated successfully');
   } catch (err) {
     next(err);
   }
@@ -27,7 +27,7 @@ router.put('/jobs/:id', async (req, res, next) => {
 router.delete('/jobs/:id', async (req, res, next) => {
   try {
     await company.deleteJob(req.user, req.params.id);
-    res.status(202).json({});
+    res.status(202).json('Job deleted successfully');
   } catch (err) {
     next(err);
   }
@@ -35,7 +35,7 @@ router.delete('/jobs/:id', async (req, res, next) => {
 
 router.post('/submit', async (req, res) => {
   await company.submitJob(req.user, req.body);
-  res.status(201).json({});
+  res.status(201).json('Job submitted successfully');
 });
 
 router.get('/app', async (req, res) => {
@@ -46,7 +46,7 @@ router.get('/app', async (req, res) => {
 router.put('/app/:id', async (req, res, next) => {
   try {
     await company.answerApp(req.user, req.params.id, req.body.status);
-    res.status(202).json({});
+    res.status(202).json('App answerd successfully');
   } catch (err) {
     next(err);
   }
@@ -59,13 +59,13 @@ router.get('/offers', async (req, res) => {
 
 router.post('/offers/:id', async (req, res) => {
   await company.sendOffer(req.user, req.params.id, req.body);
-  res.status(201).json({});
+  res.status(201).json('Offer sent successfully');
 });
 
 router.delete('/offers/:id', async (req, res,next) => {
   try {
     await company.deleteOffer(req.user, req.params.id);
-    res.status(202).json({});
+    res.status(202).json('Offer deleted successfully');
   } catch (err) {
     next(err);
   }
@@ -73,7 +73,7 @@ router.delete('/offers/:id', async (req, res,next) => {
 
 router.put('/edit', async (req, res) => {
   await company.editProfile(req.user, req.body);
-  res.status(202).json({});
+  res.status(202).json('Profile updated successfully');
 });
 
 //-----------------------------------// Export Module \\-----------------------------------\\

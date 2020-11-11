@@ -65,7 +65,7 @@ describe('Admin', () => {
         expect(result.status).toBe(201);
       });
   });
-  it('Editors cannot block users or companies', () => {
+  it('Moderator cannot block users or companies', () => {
     return mockRequest
       .post('/signin')
       .send({ email: 'demoeditor@gmail.com', password: '123456' })

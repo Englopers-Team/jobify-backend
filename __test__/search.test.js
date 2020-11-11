@@ -15,18 +15,18 @@ describe('Search', () => {
     await pg.end();
   });
 
-  it('Any one can for a job and get results', () => {
+  it('Can search for a job', () => {
     return mockRequest.get('/search/job').then((result) => {
       expect(result.status).toBe(200);
     });
   });
-  it('Any one can search for companies and get results', () => {
+  it('Can search for companies', () => {
     return mockRequest.get('/search/company').then((result) => {
       expect(result.status).toBe(200);
     });
   });
 
-  it('Only registered companies can search roe employees', () => {
+  it('Companies can search for employees', () => {
     return mockRequest
       .post('/signin')
       .send({ email: 'democ@gmail.com', password: '123456' })
@@ -42,7 +42,7 @@ describe('Search', () => {
           });
       });
   });
-  it('Normal users can not search for employees', async () => {
+  it('Users can not search for employees', async () => {
     return mockRequest
       .post('/signin')
       .send({ email: 'demop@gmail.com', password: '123456' })

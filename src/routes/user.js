@@ -39,7 +39,7 @@ router.get('/app/:id', async (req, res, next) => {
 router.delete('/app/:id', async (req, res, next) => {
   try {
     await user.deleteApp(req.user, req.params.id);
-    res.status(202).json('Deleted app');
+    res.status(202).json('App deleted successfully');
   } catch (err) {
     next(`Can't delete app`);
   }
@@ -53,7 +53,7 @@ router.get('/offers', async (req, res) => {
 router.put('/offers/:id', async (req, res, next) => {
   try {
     await user.answerOffer(req.user, req.params.id, req.body.status);
-    res.status(201).json({});
+    res.status(201).json('Offer answered successfully');
   } catch (err) {
     next(err);
   }
@@ -61,16 +61,16 @@ router.put('/offers/:id', async (req, res, next) => {
 
 router.put('/edit', async (req, res) => {
   await user.editProfile(req.user, req.body);
-  res.status(201).json({});
+  res.status(201).json('Profile updated successfully');
 });
 
 router.post('/apply/:id', async (req, res) => {
   if (req.body.api) {
     await user.applyAPI(req.user, req.body);
-    res.status(201).json({});
+    res.status(201).json('Job applocation submitted successfully');
   } else {
     await user.applyDB(req.user, { jobID: req.params.id, companyID: req.body.company_id });
-    res.status(201).json({});
+    res.status(201).json('Job applocation submitted successfully');
   }
 });
 

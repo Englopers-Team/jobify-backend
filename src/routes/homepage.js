@@ -31,7 +31,7 @@ router.get('/home', bearerAuth, async (req, res,next) => {
 router.post('/report', bearerAuth, async (req, res, next) => {
   try {
     await helper.sendReport(req.user, req.body);
-    res.status(201).json({});
+    res.status(201).json('Report sent successfully');
   } catch (err) {
     next(`Can't send report`);
   }

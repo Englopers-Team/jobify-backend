@@ -43,7 +43,7 @@ describe('Report', () => {
       });
   });
 
-  it(`User reports`, () => {
+  it(`User can get all reports`, () => {
     return mockRequest
       .get('/reports')
       .set('Cookie', [`token=${token}`])

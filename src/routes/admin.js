@@ -46,12 +46,12 @@ router.get('/report/:id', async (req, res) => {
 
 router.patch('/report/:id', async (req, res) => {
   await admin.answerReport(req.params.id, req.body.response);
-  res.status(201).json({});
+  res.status(201).json('Report answered successfully');
 });
 
 router.delete('/report/:id', authorize(['admin']), async (req, res) => {
   await admin.deleteReport(req.params.id);
-  res.status(202).json({});
+  res.status(202).json('Report deleted successfully');
 });
 
 router.post('/seed/:id', authorize(['admin']), async (req, res) => {
@@ -72,12 +72,12 @@ router.get('/posts/:id', async (req, res) => {
 
 router.patch('/posts/:id', async (req, res) => {
   await community.pin(req.params.id);
-  res.status(201).json({});
+  res.status(201).json('Post updated successfully');
 });
 
 router.delete('/posts/:id', async (req, res) => {
   await community.deletePost(req.user.id, req.params.id);
-  res.status(201).json({});
+  res.status(201).json('Post updated successfully');
 });
 
 //-----------------------------------// Export Module \\-----------------------------------\\

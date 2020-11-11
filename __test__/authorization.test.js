@@ -14,7 +14,7 @@ describe('Authorization', () => {
   afterAll(async () => {
     await pg.end();
   });
-  it('Authorize middlewares with allowed authorize', () => {
+  it('Authorize middlewares allow access with allowed authorize', () => {
     return mockRequest.post('/signin').send({ email: 'demop@gmail.com', password: '123456' }).then((data) => {
       return mockRequest.get('/testAuthorize').set('Cookie', [`token=${data.body.token}`]).then((result) => {
         expect(result.status).toBe(200);
@@ -22,7 +22,7 @@ describe('Authorization', () => {
     });
   });
 
-  it('Authorize middlewares with no authorize', () => {
+  it('Authorize middlewares deny access with no authorize', () => {
     return mockRequest.post('/signin').send({ email: 'democ@gmail.com', password: '123456' }).then((data) => {
       return mockRequest.get('/testAuthorize').set('Cookie', [`token=${data.body.token}`]).then((result) => {
         expect(result.status).toBe(500);
@@ -30,7 +30,7 @@ describe('Authorization', () => {
     });
   });
 
-  it('Authorize middlewares without signin', () => {
+  it('Authorize middlewares deny access without signin', () => {
     return mockRequest.get('/testAuthorize').then((result) => {
       expect(result.status).toBe(500);
     });
