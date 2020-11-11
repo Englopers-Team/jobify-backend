@@ -22,8 +22,14 @@ class Company {
     if (test == 'false') {
       notifications = await notifi.getNotificaions(company.id);
     }
-    return { offers, apps, notifications };
+
+    
+    const jobs = await client.query(`SELECT id FROM jobs WHERE company_id=${company.id}`);
+    
+    const statistics = {number_of_applications:apps.length,number_of_offers:offers.length,number_of_submited_jobs:jobs.rows.length};
+    return {statistics, offers, apps, notifications };
   }
+
 
   async jobs(company) {
     const id = await helper.getID(company.id, 'company');
