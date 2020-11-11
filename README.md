@@ -160,10 +160,10 @@ Day by day the unemployment issue became a big problem in the world, although th
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
-| GET | /admin/posts | Used to get all the posted posts from employees and companies. |
-| GET | /admin/posts/:id | Used to get one of the posted posts from employees and companies. |
-| PATCH | /admin/posts/:id | Used to update one of the posted posts from employees and companies. |
-| DELETE | /admin/posts/:id | Used to delete one of the posted posts from employees and companies. |
+| GET | /admin/posts | Used to get all the posted posts from community. |
+| GET | /admin/posts/:id | Used to get one of the posted posts from community. |
+| PATCH | /admin/posts/:id | Used to update one of the posted posts from community. |
+| DELETE | /admin/posts/:id | Used to delete one of the posted posts from community. |
 
 
 
