@@ -87,25 +87,46 @@ Day by day the unemployment issue became a big problem in the world, although th
 | Method | Endpoint | Descriptions |
 | :--- | :--- | :--- |
 | GET | /company/app | Used to get all the company received applications. |
-| PUT | /company/app/:id | Used to answer one of the received application |
+| PUT | /company/app/:id | Used to answer one of the received application. |
 
 #### Offers
 
-| Method | Endpoint |
-| :--- | :--- |
-|  |  |
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| GET | /company/offers | Used to get all the company sent offers. |
+| POST | /company/offers/:id | Used to send new offer. |
+| DELETE | /company/offers/:id | Used to delete one of the company sent offers. |
 
 #### Jobs
 
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| GET | /company/jobs | Used to get all the company posted jobs. |
+| POST | /company/submit | Used to post new job. |
+| PUT | /company/jobs/:id | Used to update one of the company posted jobs. |
+| DELETE | /company/jobs/:id | Used to delete one of the company posted jobs. |
+
 #### Search
+
+
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| GET | /employee | Used to search for employees by the job title and location. |
 
 #### Reports
 
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| POST | /report | Used to send a report to the support. |
+| GET | /reports | Used to get all the employee reports. |
+| GET | /report/:id | Used to get one of the employee reports. |
+
 #### Edit Profile
 
-
-
-#### 
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| PUT | /company/edit | Used to update the company profile information. |
 
 ## 
 
