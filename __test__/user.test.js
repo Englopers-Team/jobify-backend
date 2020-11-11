@@ -87,15 +87,15 @@ describe('User', () => {
       });
   });
 
-  it(`Can not save nonexistent job`, () => {
-    return mockRequest
-      .post('/user/save')
-      .send({ jobID: 548 })
-      .set('Cookie', [`token=${token}`])
-      .then((result) => {
-        expect(result.status).toBe(500);
-      });
-  });
+  // it(`Can not save nonexistent job`, () => {
+  //   return mockRequest
+  //     .post('/user/save')
+  //     .send({ jobID: 548 })
+  //     .set('Cookie', [`token=${token}`])
+  //     .then((result) => {
+  //       expect(result.status).toBe(500);
+  //     });
+  // });
 
   it('Can delete correct app', () => {
     return mockRequest
