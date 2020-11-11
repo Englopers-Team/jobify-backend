@@ -23,6 +23,12 @@ description: >-
 
 
 
+## Application features
+
+* _**Employee:**_
+  * _**Dashboard**_  
+    * _**used method: get**_  
+
 ## Group members:
 
 * **Abdallah Zakaria**
