@@ -14,12 +14,12 @@ describe('Error Handling middlewares',()=>{
   afterAll(async () => {
     await pg.end();
   });
-  it('404 error handler', () => {
+  it('404 error handler working well', () => {
     return mockRequest.get('/test404',(result)=>{
       expect(result.status).toBe(404);
     });
   });
-  it('500 error handler', () => {
+  it('500 error handler wokring well', () => {
     return mockRequest.get('/test500',(result)=>{
       expect(result.status).toBe(500);
     });

@@ -21,19 +21,19 @@ describe('Community', () => {
     await pg.end();
   });
 
-  it('Community homepage', () => {
+  it('Community homepage show posts', () => {
     return mockRequest.get('/community').set('Cookie', [`token=${token}`]).then((result) => {
       expect(result.status).toBe(200);
     });
   });
 
-  it('Community search', () => {
+  it('Community search get results', () => {
     return mockRequest.get('/community/search?title=cv').set('Cookie', [`token=${token}`]).then((result) => {
       expect(result.status).toBe(200);
     });
   });
 
-  it('Community submit post', () => {
+  it('Can submit post successfully', () => {
     return mockRequest.post('/community/submit').set('Cookie', [`token=${token}`]).send({
       title: 'test',
       body: 'test',
@@ -42,13 +42,13 @@ describe('Community', () => {
     });
   });
 
-  it('Community submit empty post', () => {
+  it(`Can't submit empty post`, () => {
     return mockRequest.post('/community/submit').set('Cookie', [`token=${token}`]).then((result) => {
       expect(result.status).toBe(500);
     });
   });
 
-  it('Community view exist specific post', () => {
+  it('Can view certian post', () => {
     return mockRequest.post('/community/submit').set('Cookie', [`token=${token}`]).send({
       title: 'test',
       body: 'test',
@@ -59,13 +59,13 @@ describe('Community', () => {
     });
   });
 
-  it('Community view nonexistent specific post', () => {
+  it(`Can't view nonexistent post`, () => {
     return mockRequest.get('/community/post/999').set('Cookie', [`token=${token}`]).then((result) => {
       expect(result.status).toBe(500);
     });
   });
 
-  it('Community user delete correct post', () => {
+  it('Can delete correct post', () => {
     return mockRequest.post('/community/submit').set('Cookie', [`token=${token}`]).send({
       title: 'test',
       body: 'test',
@@ -76,13 +76,13 @@ describe('Community', () => {
     });
   });
 
-  it(`Community user can't delete wrong post`, () => {
+  it(`Can't delete wrong post`, () => {
     return mockRequest.delete(`/community/post/99`).set('Cookie', [`token=${token}`]).then((result) => {
       expect(result.status).toBe(500);
     });
   });
 
-  it('Community user update correct post', () => {
+  it('Can update correct post', () => {
     return mockRequest.post('/community/submit').set('Cookie', [`token=${token}`]).send({
       title: 'test',
       body: 'test',
@@ -96,13 +96,13 @@ describe('Community', () => {
     });
   });
 
-  it(`Community user can't update wrong post`, () => {
+  it(`Can't update wrong post`, () => {
     return mockRequest.patch(`/community/post/99`).set('Cookie', [`token=${token}`]).then((result) => {
       expect(result.status).toBe(500);
     });
   });
 
-  it('Community user submit comment on exist post', () => {
+  it('Comment on certian post', () => {
     return mockRequest.post('/community/submit').set('Cookie', [`token=${token}`]).send({
       title: 'test',
       body: 'test',
@@ -115,7 +115,7 @@ describe('Community', () => {
     });
   });
 
-  it(`Community user can't comment on nonexistent post`, () => {
+  it(`Can't comment on nonexistent post`, () => {
     return mockRequest.post(`/community/comment/99`).send({
       comment: 'test',
     }).set('Cookie', [`token=${token}`]).then((result) => {
@@ -123,7 +123,7 @@ describe('Community', () => {
     });
   });
 
-  it('Community user delete comment', () => {
+  it('Can delete comment', () => {
     return mockRequest.post('/community/submit').set('Cookie', [`token=${token}`]).send({
       title: 'test',
       body: 'test',
@@ -140,7 +140,7 @@ describe('Community', () => {
     });
   });
 
-  it(`Community user can't delete comment if not his/her comment`, () => {
+  it(`Can't delete comment if not his/her comment`, () => {
     return mockRequest.post('/community/submit').set('Cookie', [`token=${token}`]).send({
       title: 'test',
       body: 'test',
@@ -157,7 +157,7 @@ describe('Community', () => {
     });
   });
 
-  it('Community user like exist post', () => {
+  it('Can like exist post', () => {
     return mockRequest.post('/community/submit').set('Cookie', [`token=${token}`]).send({
       title: 'test',
       body: 'test',
@@ -168,7 +168,7 @@ describe('Community', () => {
     });
   });
 
-  it(`Community user can't like nonexistent post`, () => {
+  it(`Can't like nonexistent post`, () => {
     return mockRequest.post('/community/submit').set('Cookie', [`token=${token}`]).send({
       title: 'test',
       body: 'test',

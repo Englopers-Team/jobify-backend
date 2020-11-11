@@ -22,7 +22,7 @@ describe('User', () => {
       });
   });
 
-  it('User dashboard', () => {
+  it('Can access user dashboard successfully', () => {
     return mockRequest
       .get('/home')
       .set('Cookie', [`token=${token}`])
@@ -31,7 +31,7 @@ describe('User', () => {
       });
   });
 
-  it('User my apps', () => {
+  it('Can view all of my applications', () => {
     return mockRequest
       .get('/user/app')
       .set('Cookie', [`token=${token}`])
@@ -40,7 +40,7 @@ describe('User', () => {
       });
   });
 
-  it('User specific correct app', () => {
+  it('Get result for correct specific application', () => {
     return mockRequest
       .get('/user/app/1')
       .set('Cookie', [`token=${token}`])
@@ -49,7 +49,7 @@ describe('User', () => {
       });
   });
 
-  it(`User can't get wrong specific app`, () => {
+  it(`Can't get result for wrong specific application`, () => {
     return mockRequest
       .get('/user/app/19995')
       .set('Cookie', [`token=${token}`])
@@ -58,7 +58,7 @@ describe('User', () => {
       });
   });
 
-  it('User saved jobs', () => {
+  it('Get results for saved jobs', () => {
     return mockRequest
       .get('/user/saved')
       .set('Cookie', [`token=${token}`])
@@ -67,7 +67,7 @@ describe('User', () => {
       });
   });
 
-  it('User save job from db', () => {
+  it('Can save job from db', () => {
     return mockRequest
       .post('/user/save')
       .send({ jobID: 1 })
@@ -77,7 +77,7 @@ describe('User', () => {
       });
   });
 
-  it('User save job from api', () => {
+  it('Can save job from api', () => {
     return mockRequest
       .post('/user/save')
       .send({ api: 'true', title: 'test', location: 'test', type: 'test', description: 'test', company_name: 'test', phone: 'test', company_url: 'test', logo: 'test', country: 'test' })
@@ -87,7 +87,7 @@ describe('User', () => {
       });
   });
 
-  it(`User can not save job not exist `, () => {
+  it(`Can not save nonexistent job`, () => {
     return mockRequest
       .post('/user/save')
       .send({ jobID: 548 })
@@ -97,7 +97,7 @@ describe('User', () => {
       });
   });
 
-  it('User delete correct app', () => {
+  it('Can delete correct app', () => {
     return mockRequest
       .delete('/user/app/1')
       .set('Cookie', [`token=${token}`])
@@ -106,7 +106,7 @@ describe('User', () => {
       });
   });
 
-  it(`User can't delete wrong app`, () => {
+  it(`Can't delete wrong app`, () => {
     return mockRequest
       .delete('/user/app/999')
       .set('Cookie', [`token=${token}`])
@@ -115,7 +115,7 @@ describe('User', () => {
       });
   });
 
-  it('User offers', () => {
+  it('Get results for offers', () => {
     return mockRequest
       .get('/user/offers')
       .set('Cookie', [`token=${token}`])
@@ -124,7 +124,7 @@ describe('User', () => {
       });
   });
 
-  it('User answer correct offer', () => {
+  it('Can answer correct offer', () => {
     return mockRequest
       .put('/user/offers/1')
       .send({ status: 'accept' })
@@ -134,7 +134,7 @@ describe('User', () => {
       });
   });
 
-  it(`User can't answer wrong offer`, () => {
+  it(`Can't answer wrong offer`, () => {
     return mockRequest
       .put('/user/offers/99')
       .send({ status: 'accept' })
@@ -144,7 +144,7 @@ describe('User', () => {
       });
   });
 
-  it(`User edit profile`, () => {
+  it(`Can edit profile`, () => {
     return mockRequest
       .put('/user/edit')
       .send({ first_nameL: 'test', last_nameL: 'test', phoneL: 'test', job_titleL: 'test', countryL: 'test', ageL: 'test', avatarL: 'test', experinceL: 'test', cvL: 'test' })
@@ -154,7 +154,7 @@ describe('User', () => {
       });
   });
 
-  it(`User apply for db job`, () => {
+  it(`Can apply for db job`, () => {
     return mockRequest
       .post('/user/apply/2')
       .send({ company_id: 3 })
@@ -164,7 +164,7 @@ describe('User', () => {
       });
   });
 
-  it(`User apply for api job`, () => {
+  it(`Can apply for api job`, () => {
     return mockRequest
       .post('/user/apply/0')
       .send({ api: 'true', title: 'test', location: 'test', type: 'test', company_name: 'test', logo: 'test', email: 'test@test.com' })
@@ -174,7 +174,7 @@ describe('User', () => {
       });
   });
 
-  it('User can send report', () => {
+  it('Can send report', () => {
     return mockRequest
       .post('/report')
       .send({ description: 'test' })

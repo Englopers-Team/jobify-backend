@@ -25,7 +25,7 @@ describe('Company', () => {
       });
   });
 
-  it('Company dashboard', () => {
+  it('Can access company dashboard successfully', () => {
     return mockRequest
       .get('/home')
       .set('Cookie', [`token=${token}`])
@@ -34,7 +34,7 @@ describe('Company', () => {
       });
   });
 
-  it('Company jobs', () => {
+  it('Get all results of jobs', () => {
     return mockRequest
       .get('/company/jobs')
       .set('Cookie', [`token=${token}`])
@@ -43,7 +43,7 @@ describe('Company', () => {
       });
   });
 
-  it('Company submit job', () => {
+  it('Can submit job', () => {
     return mockRequest
       .post('/company/submit')
       .send({ title: 'test', location: 'test', type: 'test', description: 'test' })
@@ -53,7 +53,7 @@ describe('Company', () => {
       });
   });
 
-  it('Company edit correct job', () => {
+  it('Can edit correct job', () => {
     return mockRequest
       .put('/company/jobs/1')
       .send({ title: 'test', location: 'test', type: 'test', description: 'test' })
@@ -63,7 +63,7 @@ describe('Company', () => {
       });
   });
 
-  it(`Company can't edit wrong job`, () => {
+  it(`Can't edit wrong job`, () => {
     return mockRequest
       .put('/company/jobs/99')
       .send({ title: 'test', location: 'test', type: 'test', description: 'test' })
@@ -73,7 +73,7 @@ describe('Company', () => {
       });
   });
 
-  it(`Company delete correct job`, () => {
+  it(`Can delete correct job`, () => {
     return mockRequest
       .delete('/company/jobs/6')
       .set('Cookie', [`token=${token}`])
@@ -82,7 +82,7 @@ describe('Company', () => {
       });
   });
 
-  it(`Company can't delete wrong job`, () => {
+  it(`Can't delete wrong job`, () => {
     return mockRequest
       .delete('/company/jobs/99')
       .set('Cookie', [`token=${token}`])
@@ -91,7 +91,7 @@ describe('Company', () => {
       });
   });
 
-  it(`Company applications`, () => {
+  it(`Get all results of applications`, () => {
     return mockRequest
       .get('/company/app')
       .set('Cookie', [`token=${token}`])
@@ -100,7 +100,7 @@ describe('Company', () => {
       });
   });
 
-  it(`Company answer a correct application`, () => {
+  it(`Can answer a correct application`, () => {
     return mockRequest
       .put('/company/app/5')
       .send({ status: 'accepted' })
@@ -110,7 +110,7 @@ describe('Company', () => {
       });
   });
 
-  it(`Company can't answer wrong application`, () => {
+  it(`Can't answer wrong application`, () => {
     return mockRequest
       .put('/company/app/999')
       .send({ status: 'accepted' })
@@ -120,7 +120,7 @@ describe('Company', () => {
       });
   });
 
-  it(`Company offers`, () => {
+  it(`Get all results of offers`, () => {
     return mockRequest
       .get('/company/offers')
       .set('Cookie', [`token=${token}`])
@@ -129,7 +129,7 @@ describe('Company', () => {
       });
   });
 
-  it(`Company send offer`, () => {
+  it(`Can send offer`, () => {
     return mockRequest
       .post('/company/offers/1')
       .send({ title: 'test', location: 'test', type: 'test', description: 'test' })
@@ -139,7 +139,7 @@ describe('Company', () => {
       });
   });
 
-  it(`Company delete correct offer`, () => {
+  it(`Can delete correct offer`, () => {
     return mockRequest
       .delete('/company/offers/6')
       .set('Cookie', [`token=${token}`])
@@ -148,7 +148,7 @@ describe('Company', () => {
       });
   });
 
-  it(`Company can't delete wrong offer`, () => {
+  it(`Can't delete wrong offer`, () => {
     return mockRequest
       .delete('/company/offers/999')
       .set('Cookie', [`token=${token}`])
@@ -157,7 +157,7 @@ describe('Company', () => {
       });
   });
 
-  it(`Company edit  profile`, () => {
+  it(`Can edit profile`, () => {
     return mockRequest
       .put('/company/edit')
       .send({ company_name: 'test', phone: 'test', logo: 'test', country: 'test', company_url: 'test' })
