@@ -20,22 +20,22 @@ Day by day the unemployment issue became a big problem in the world, although th
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
-| GET | /user/app | Used to get all the applied applications. |
-| GET | /user/app/:id | Used to get one of the applied applications. |
+| GET | /user/app | Used to get all the employee applied applications. |
+| GET | /user/app/:id | Used to get one of the employee applied applications. |
 | DELETE | /user/app/:id | Used to delete one of the applied applications. |
 
 #### Offers
 
 | Method  | Endpoint | Description  |
 | :--- | :--- | :--- |
-| GET | user/offers | Used to get all the received offers. |
-| PUT | user/offers/:id | Used to answer one of the received offers |
+| GET | /user/offers | Used to get all the employee received offers. |
+| PUT | /user/offers/:id | Used to answer one of the received offers |
 
 #### Apply
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
-| POST | user/apply/:id | Used to apply on a job offer. |
+| POST | /user/apply/:id | Used to apply on a job offer. |
 
 #### Search 
 
@@ -43,6 +43,34 @@ Day by day the unemployment issue became a big problem in the world, although th
 | :--- | :--- | :--- |
 | GET | /job | Used to search for a job by the job title and location. |
 | GET | /company | Used to search for a company by the title and location. |
+
+#### Save
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| GET | /user/saved | Used to get all the employee saved jobs. |
+| POST | /user/save | Used to save one of jobs. |
+
+#### Reports
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| POST | /report | Used to send a report to the support. |
+| GET | /reports | Used to get all the employee reports. |
+| GET | /report/:id | Used to get one of the employee reports. |
+
+#### Upload
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| POST | /upload/profile\_pic | Used to upload the employee profile picture. |
+| POST | /upload/cv | Used to upload and scan the employee resume. |
+
+#### Edit Profile
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| PUT | /user/edit | Used to update the employee profile information. |
 
 ## Group members:
 
