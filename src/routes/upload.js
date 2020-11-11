@@ -1,4 +1,5 @@
 'use strict';
+/* istanbul ignore file */
 
 //------------------------------// Third Party Resources \\----------------------------\\
 const express = require('express');
