@@ -132,6 +132,41 @@ Day by day the unemployment issue became a big problem in the world, although th
 
 ### Admin
 
+#### Dashboard
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| GET | / | Used to get all the website statistics. |
+
+#### Block
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| PATCH | /admin/block/:id | Used to ban users. |
+| PATCH | /admin/removeBlock/:id | Used to Unban users. |
+
+#### Reports
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| GET | /admin/report | Used to get all the received reports from employees and companies. |
+| GET | /admin/report/:id | Used to get one of the received reports from employees and companies. |
+| PATCH | /admin/report/:id | Used to update one of the received reports from employees and companies. |
+| DELETE | /admin/report/:id | Used to delete one of the received reports from employees and companies. |
+
+#### Posts
+
+
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| GET | /admin/posts | Used to get all the posted posts from employees and companies. |
+| GET | /admin/posts/:id | Used to get one of the posted posts from employees and companies. |
+| PATCH | /admin/posts/:id | Used to update one of the posted posts from employees and companies. |
+| DELETE | /admin/posts/:id | Used to delete one of the posted posts from employees and companies. |
+
+
+
 ## 
 
 ### Community
