@@ -77,7 +77,7 @@ router.delete('/comment/:id', async (req, res, next) => {
 router.patch('/like/:id', async (req, res, next) => {
   try {
     await community.likePost(req.user, req.params.id);
-    res.status(201).json('Deleted comment');
+    res.status(201).json('Liked post');
   } catch (err) {
     next(`can't like post`);
   }
