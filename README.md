@@ -253,7 +253,7 @@ Fetching data from other's platform
 
 ![MongoDB logo and symbol, meaning, history, PNG](https://lh6.googleusercontent.com/IHA2SvvsKeVykQ0QpHQk1dCYSGX2THC4mQ3LjiwMfgE5EJ0i7fQSnRfLPa9KxFYLTtqglMWjl4UORDYwt4qNZ6rQdreMWprzmIoF9BAXZbnV_qXKMjU6FiRW6xnlaPVhyv0f2_AzlzY)
 
-## Group members:
+## Group members
 
 * **Abdallah Zakaria**
 * **Abdulhakim Zatar**
