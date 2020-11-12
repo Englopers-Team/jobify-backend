@@ -185,7 +185,38 @@ Day after day, unemployment has become a big issue that threatens everyone, espe
 
 ### Community
 
+
+
+#### Dashboard
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| GET | / | Used to get all data for the user. |
+| GET | /search | Used to search for a post by typing keywords related to the subject. |
+
 #### 
+
+#### Post
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| GET | /post/:id | Used to get  an added Post . |
+| POST | /submit | Used to post submit new post. |
+| PATCH | /post/:id | Used to update an added post. |
+| DELETE | /post/:id | Used to delete an added post |
+
+#### Comment
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| POST | /comment/:id | Used to post a new comment on an added Post . |
+| DELETE | /comment/:id | Used to delete an added comment. |
+
+#### Like
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| POST | /like/:id | Used to add a new like on an added Post . |
 
 ## 
 
