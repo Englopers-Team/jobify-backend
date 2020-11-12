@@ -1,5 +1,13 @@
 # Jobify-app
 
+
+## Group members
+
+* **Abdallah Zakaria**
+* **Abdulhakim Zatar**
+* **Mohmmad Al-Esseili**
+* **Osama Althabteh**
+
 ## Problem Domain
 
 Day after day, unemployment has become a big issue that threatens everyone, especially in the hard circumstances that the world is going through due to COVID19 pandemic, although that there are too many websites that help people find jobs, they are too many to follow and a bit complicated in some way , so our plan is to make an employment hub that combine all jobs from different sources in one place and make this process as much easier as it could be.
@@ -284,12 +292,8 @@ Fetching data from other's platform
 
 ![MongoDB logo and symbol, meaning, history, PNG](https://lh6.googleusercontent.com/IHA2SvvsKeVykQ0QpHQk1dCYSGX2THC4mQ3LjiwMfgE5EJ0i7fQSnRfLPa9KxFYLTtqglMWjl4UORDYwt4qNZ6rQdreMWprzmIoF9BAXZbnV_qXKMjU6FiRW6xnlaPVhyv0f2_AzlzY)
 
-## Group members
-
-* **Abdallah Zakaria**
-* **Abdulhakim Zatar**
-* **Mohmmad Al-Esseili**
-* **Osama Althabteh**
+## Deployed app link
+[Link](https://jobify-app-v2.herokuapp.com/)
 
  
 
