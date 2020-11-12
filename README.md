@@ -177,7 +177,21 @@ Day after day, unemployment has become a big issue that threatens everyone, espe
 
 ### Authentication
 
-## 
+#### Basic authenticate
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| POST | /signin | Authorize users to the platform. |
+| POST | /signup | Register user as recruiter or applicate. |
+| GET | /logout | Logout user from platform and clear his/her cookies. |
+
+#### Verify
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| GET | /verify/:token | Verify user by generated token sent to his/her email. |
+
+### 
 
 ### Messages
 
