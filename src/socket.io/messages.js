@@ -101,6 +101,7 @@ messages.on('connection', (socket) => {
         }),
       );
       messages.to(tokenObject.id).emit('message', arr);
+
     } catch (err) {
       throw new Error('Invalid token to check messages');
     }
