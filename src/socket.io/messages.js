@@ -61,7 +61,7 @@ messages.on('connection', (socket) => {
     let value = [payload.body, personID, companyID];
     await client.query(SQL, value);
   });
-  
+
   socket.on('checkMsg', async (payload) => {
     try {
       if (payload.token.length == 0) {
@@ -82,12 +82,23 @@ messages.on('connection', (socket) => {
       let value = [userID];
       let result = await client.query(SQL, value);
       const msgfrom = result.rows;
+      const arr = [];
       msgfrom.forEach(async id => {
         let SQL1 = `SELECT * FROM messages WHERE ${targeted}_id=$1 AND ${user}_id=$2;`;
         let value1 = [id[Object.keys(msgfrom[0])[0]], userID];
         let result1 = await client.query(SQL1, value1);
-        messages.to(tokenObject.id).emit('message', result1.rows);
+        let searchFor = '';
+        if (targeted === 'person') {
+          searchFor = 'first_name';
+        } else {
+          searchFor = 'company_name';
+        }
+        let SQL2 = `SELECT ${searchFor} FROM ${targeted} WHERE id=$1;`;
+        let value2 = [id[Object.keys(msgfrom[0])[0]]];
+        let result2 = await client.query(SQL2, value2);
+        arr.push({ [result2.rows[0][searchFor]]: result1.rows });
       });
+      messages.to(tokenObject.id).emit('message', arr);
     } catch (err) {
       throw new Error('Invalid token to check messages');
     }
