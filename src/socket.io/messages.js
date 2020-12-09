@@ -19,7 +19,6 @@ messages.on('connection', (socket) => {
       const tokenObject = await authHelpers.authenticateToken(room);
       console.log('joined', tokenObject.id);
       socket.join(tokenObject.id);
-
     } catch (err) {
       throw new Error('Invalid token to check messages');
     }
@@ -52,7 +51,9 @@ messages.on('connection', (socket) => {
       let SQL = `SELECT * FROM messages WHERE person_id=$1 AND company_id=$2;`;
       let value = [personID, companyID];
       const data = await client.query(SQL, value);
-      if (data.rows.length == 0) { throw new Error(`There is no connection between ${payload.receiver} id company`); }
+      if (data.rows.length == 0) {
+        throw new Error(`There is no connection between ${payload.receiver} id company`);
+      }
     }
     if (messages.adapter.rooms[id]) {
       messages.to(id).emit('message', payload.body);
@@ -82,21 +83,25 @@ messages.on('connection', (socket) => {
       let value = [userID];
       let result = await client.query(SQL, value);
       const msgfrom = result.rows;
-      msgfrom.forEach(async id => {
-        let SQL1 = `SELECT * FROM messages WHERE ${targeted}_id=$1 AND ${user}_id=$2;`;
-        let value1 = [id[Object.keys(msgfrom[0])[0]], userID];
-        let result1 = await client.query(SQL1, value1);
-        let searchFor = '';
-        if (targeted === 'person') {
-          searchFor = 'first_name';
-        } else {
-          searchFor = 'company_name';
-        }
-        let SQL2 = `SELECT ${searchFor} FROM ${targeted} WHERE id=$1;`;
-        let value2 = [id[Object.keys(msgfrom[0])[0]]];
-        let result2 = await client.query(SQL2, value2);
-        messages.to(tokenObject.id).emit('message', { [result2.rows[0][searchFor]]: result1.rows });
-      });
+      const arr = await Promise.all(
+        msgfrom.map(async (id) => {
+          let SQL1 = `SELECT * FROM messages WHERE ${targeted}_id=$1 AND ${user}_id=$2;`;
+          let value1 = [id[Object.keys(msgfrom[0])[0]], userID];
+          let result1 = await client.query(SQL1, value1);
+          let searchFor = '';
+          if (targeted === 'person') {
+            searchFor = 'first_name';
+          } else {
+            searchFor = 'company_name';
+          }
+          let SQL2 = `SELECT ${searchFor} FROM ${targeted} WHERE id=$1;`;
+          let value2 = [id[Object.keys(msgfrom[0])[0]]];
+          let result2 = await client.query(SQL2, value2);
+          return { [result2.rows[0][searchFor]]: result1.rows };
+        }),
+      );
+      messages.to(tokenObject.id).emit('message', arr);
+
     } catch (err) {
       throw new Error('Invalid token to check messages');
     }
