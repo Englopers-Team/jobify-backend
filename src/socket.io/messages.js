@@ -58,8 +58,8 @@ messages.on('connection', (socket) => {
     if (messages.adapter.rooms[id]) {
       messages.to(id).emit('message', payload.body);
     }
-    let SQL = `INSERT INTO messages (body,person_id,company_id) VALUES ($1,$2,$3);`;
-    let value = [payload.body, personID, companyID];
+    let SQL = `INSERT INTO messages (body,person_id,company_id,sender) VALUES ($1,$2,$3,$4);`;
+    let value = [payload.body, personID, companyID,payload.type];
     await client.query(SQL, value);
   });
 

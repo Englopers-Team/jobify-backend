@@ -13,7 +13,7 @@ const SECRET = process.env.SECRET || 'z1337z';
 
 //---------------------------------// AuthHelper Module \\-------------------------------\\
 class AuthHelper {
-  constructor() {}
+  constructor() { }
 
   async signup(payload) {
     const check = await this.checkEmail(payload.email);
@@ -68,8 +68,17 @@ class AuthHelper {
     throw new Error('Invalid Login');
   }
 
-  generateToken(user) {
-    let token = jwt.sign({ id: user.id, account_type: user.account_type }, SECRET, {
+  async generateToken(user) {
+    let table;
+    if (user.account_type == 'p') {
+      table = 'person';
+    } else if (user.account_type == 'c') {
+      table = 'company';
+    }
+    const SQL = `SELECT * FROM ${table} WHERE auth_id=$1;`;
+    const value = [table];
+    const results = await client.query(SQL,value);
+    let token = jwt.sign({ id: user.id, account_type: user.account_type,profile:results.rows[0] }, SECRET, {
       expiresIn: `6000000000min`,
     });
     return token;
