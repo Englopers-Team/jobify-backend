@@ -13,7 +13,7 @@ const test = process.env.TESTS || 'true';
 
 //----------------------------------// Company Module \\--------------------------------\\
 class Company {
-  constructor() { }
+  constructor() {}
 
   async dashboard(company) {
     const offers = await this.companyOffers(company);
@@ -23,13 +23,11 @@ class Company {
       notifications = await notifi.getNotificaions(company.id);
     }
 
-    
     const jobs = await client.query(`SELECT id FROM jobs WHERE company_id=${company.id}`);
-    
-    const statistics = {number_of_applications:apps.length,number_of_offers:offers.length,number_of_submited_jobs:jobs.rows.length};
-    return {statistics, offers, apps, notifications };
-  }
 
+    const statistics = { number_of_applications: apps.length, number_of_offers: offers.length, number_of_submited_jobs: jobs.rows.length };
+    return { statistics, offers, apps, notifications };
+  }
 
   async jobs(company) {
     const id = await helper.getID(company.id, 'company');
@@ -149,7 +147,7 @@ class Company {
     let SQL = `SELECT * FROM person WHERE job_title ~* $1 AND country ~* $2;`;
     let value = [job_title, country];
     const result = await client.query(SQL, value);
-    return result.rows[0];
+    return result.rows;
   }
 }
 

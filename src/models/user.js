@@ -14,7 +14,7 @@ const test = process.env.TESTS || 'true';
 
 //------------------------------------// User Module \\----------------------------------\\
 class User {
-  constructor() { }
+  constructor() {}
 
   async dashboard(user) {
     const id = await helper.getID(user.id, 'person');
@@ -28,7 +28,7 @@ class User {
     const apps = await this.userApps(user);
     const offer = await this.userOffers(user);
     let notifications;
-    if(test=='false'){
+    if (test == 'false') {
       notifications = await notifi.getNotificaions(user.id);
     }
     return { suggJob, numOfApp: Number(apps.DB.length) + Number(apps.API.length), numOfOffer: offer.length, notifications };
@@ -43,7 +43,7 @@ class User {
     let value2 = [jobID];
     await client.query(SQL, value);
     await client.query(SQL2, value2);
-    if(test=='false'){
+    if (test == 'false') {
       const data = { id: user.id, title: 'Application', description: `recevied application to ${jobID} job` };
       await notifi.addNotification(data);
     }
@@ -130,16 +130,16 @@ class User {
     return data.rows;
   }
 
-  async answerOffer(user,offerID, payload) {
+  async answerOffer(user, offerID, payload) {
     const id = await helper.getID(user.id, 'person');
     const SQL1 = `SELECT person_id FROM job_offers WHERE id=$1`;
     const value1 = [offerID];
-    const check = await client.query(SQL1,value1);
-    if(check.rows[0].person_id == id){
+    const check = await client.query(SQL1, value1);
+    if (check.rows[0].person_id == id) {
       let SQL = `UPDATE job_offers SET status=$1 WHERE id=$2;`;
       let value = [payload, offerID];
       await client.query(SQL, value);
-    }else{
+    } else {
       throw new Error(`Can't answer offer`);
     }
   }
@@ -171,7 +171,7 @@ class User {
     let SQL = `SELECT * FROM company WHERE company_name ~* $1 AND country ~* $2;`;
     let value = [company_name, country];
     const result = await client.query(SQL, value);
-    return result.rows[0];
+    return result.rows;
   }
 }
 

@@ -13,7 +13,7 @@ const SECRET = process.env.SECRET || 'z1337z';
 
 //---------------------------------// AuthHelper Module \\-------------------------------\\
 class AuthHelper {
-  constructor() { }
+  constructor() {}
 
   async signup(payload) {
     const check = await this.checkEmail(payload.email);
@@ -77,8 +77,8 @@ class AuthHelper {
     }
     const SQL = `SELECT * FROM ${table} WHERE auth_id=$1;`;
     const value = [table];
-    const results = await client.query(SQL,value);
-    let token = jwt.sign({ id: user.id, account_type: user.account_type,profile:results.rows[0] }, SECRET, {
+    const results = await client.query(SQL, value);
+    let token = jwt.sign({ id: user.id, account_type: user.account_type, profile: results.rows[0] }, SECRET, {
       expiresIn: `6000000000min`,
     });
     return token;
@@ -118,7 +118,7 @@ class AuthHelper {
       let SQL = 'UPDATE auth SET account_status=$1 where id=$2;';
       let value = ['active', user.id];
       await client.query(SQL, value);
-      return 'Your account verified successfully';
+      return true;
     } else {
       throw new Error('Please Check the sent code');
     }

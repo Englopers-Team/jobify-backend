@@ -27,10 +27,10 @@ passport.deserializeUser(function (user, done) {
 });
 
 //--------------------------------------// Routes \\--------------------------------------\\
-router.get('/verify/:token', emailAuth, async (req, res,next) => {
+router.get('/verify/:token', emailAuth, async (req, res, next) => {
   try {
     let result = await authHelpers.verify(req.user, req.params.token);
-    res.status(201).json({ result });
+    res.status(201).json(result);
   } catch (error) {
     next(error);
   }
