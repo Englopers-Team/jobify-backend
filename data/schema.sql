@@ -96,6 +96,7 @@ CREATE TABLE IF NOT EXISTS messages (
     id SERIAL PRIMARY KEY,
     body TEXT NOT NULL,
     person_id INT REFERENCES person (id),
+    sender VARCHAR(255),  
     company_id INT REFERENCES company (id)
 );
 
@@ -152,17 +153,17 @@ INSERT INTO admin_reports (description,response,auth_id) VALUES ('i am report fr
 INSERT INTO notifications (title,description,seen,auth_id) VALUES ('Offer','You got an offer from company name','false',1);
 
 
-INSERT INTO messages (body,person_id,company_id) VALUES ('this is message from company 1 to person 2',2,1);
-INSERT INTO messages (body,person_id,company_id) VALUES ('this is message from company 2 to person 2',2,2);
-INSERT INTO messages (body,person_id,company_id) VALUES ('this is message from company 3 to person 2',2,3);
+INSERT INTO messages (body,person_id,company_id,sender) VALUES ('this is message from company 1 to person 2',2,1,'c');
+INSERT INTO messages (body,person_id,company_id,sender) VALUES ('this is message from company 2 to person 2',2,2,'p');
+INSERT INTO messages (body,person_id,company_id,sender) VALUES ('this is message from company 3 to person 2',2,3,'p');
 
-INSERT INTO messages (body,person_id,company_id) VALUES ('this is message from company 1 to person 1',1,1);
-INSERT INTO messages (body,person_id,company_id) VALUES ('this is message from company 2 to person 1',1,2);
-INSERT INTO messages (body,person_id,company_id) VALUES ('this is message from company 3 to person 1',1,3);
+INSERT INTO messages (body,person_id,company_id,sender) VALUES ('this is message from company 1 to person 1',1,1,'c');
+INSERT INTO messages (body,person_id,company_id,sender) VALUES ('this is message from company 2 to person 1',1,2,'p');
+INSERT INTO messages (body,person_id,company_id,sender) VALUES ('this is message from company 3 to person 1',1,3,'c');
 
-INSERT INTO messages (body,person_id,company_id) VALUES ('this is message from company 1 to person 2',2,1);
-INSERT INTO messages (body,person_id,company_id) VALUES ('this is message from company 2 to person 2',2,2);
-INSERT INTO messages (body,person_id,company_id) VALUES ('this is message from company 3 to person 2',2,3);
+INSERT INTO messages (body,person_id,company_id,sender) VALUES ('this is message from company 1 to person 2',2,1,'p');
+INSERT INTO messages (body,person_id,company_id,sender) VALUES ('this is message from company 2 to person 2',2,2,'c');
+INSERT INTO messages (body,person_id,company_id,sender) VALUES ('this is message from company 3 to person 2',2,3,'p');
 
 
 
