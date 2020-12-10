@@ -100,7 +100,7 @@ messages.on('connection', (socket) => {
           return { [result2.rows[0][searchFor]]: result1.rows };
         }),
       );
-      messages.to(tokenObject.id).emit('message', arr);
+      messages.to(tokenObject.id).emit('message', [arr, user]);
 
     } catch (err) {
       throw new Error('Invalid token to check messages');
