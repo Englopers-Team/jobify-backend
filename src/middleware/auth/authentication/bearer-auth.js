@@ -6,11 +6,13 @@ const client = require('../../../models/database');
 
 //-----------------------------------// Export Module \\-----------------------------------\\
 module.exports = (req, res, next) => {
-  if (!req.cookies.token) {
+  if (!req.headers.authorization) {
     throw new Error(`Access denied`);
   } else {
+    const token = req.headers.authorization.split(' ').pop();
+    console.log(token);
     authHelpers
-      .authenticateToken(req.cookies.token)
+      .authenticateToken(token)
       .then(async (data) => {
         let SQL = `SELECT account_status FROM auth WHERE id=$1;`;
         let values = [data.id];

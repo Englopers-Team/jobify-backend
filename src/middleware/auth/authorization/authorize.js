@@ -7,10 +7,11 @@ const authHelpers = require('../../../models/auth-helpers');
 module.exports = (role) => {
   return async (req, res, next) => {
     try {
-      if (!req.cookies.token) {
+      if (!req.headers.authorization) {
         next('Access Denied');
       }
-      const tokenObject = await authHelpers.authenticateToken(req.cookies.token);
+      const token = req.headers.authorization.split(' ').pop();
+      const tokenObject = await authHelpers.authenticateToken(token);
 
       if (tokenObject.account_type == role[0] || tokenObject.account_type == role[1]) {
         next();
