@@ -84,10 +84,7 @@ class AuthHelper {
       let results = await client.query(SQL, value);
       profile = { id: results.rows[0].id, name: results.rows[0].company_name, logo: results.rows[0].logo, country: results.rows[0].country };
     }
-    const SQL = `SELECT * FROM ${table} WHERE auth_id=$1;`;
-    const value = [table];
-    const results = await client.query(SQL, value);
-    let token = jwt.sign({ id: user.id, account_type: user.account_type, profile: results.rows[0] }, SECRET, {
+    let token = jwt.sign({ id: user.id, account_type: user.account_type, profile }, SECRET, {
       expiresIn: `6000000000min`,
     });
     return token;
