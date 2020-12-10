@@ -70,10 +70,19 @@ class AuthHelper {
 
   async generateToken(user) {
     let table;
+    let profile = {};
     if (user.account_type == 'p') {
       table = 'person';
+      const SQL = `SELECT * FROM ${table} WHERE auth_id=$1;`;
+      const value = [user.id];
+      let results = await client.query(SQL, value);
+      profile = { id: results.rows[0].id, first: results.rows[0].first_name, last: results.rows[0].last_name, avatar: results.rows[0].avatar, country: results.rows[0].country };
     } else if (user.account_type == 'c') {
       table = 'company';
+      const SQL = `SELECT * FROM ${table} WHERE auth_id=$1;`;
+      const value = [user.id];
+      let results = await client.query(SQL, value);
+      profile = { id: results.rows[0].id, name: results.rows[0].company_name, logo: results.rows[0].logo, country: results.rows[0].country };
     }
     const SQL = `SELECT * FROM ${table} WHERE auth_id=$1;`;
     const value = [table];

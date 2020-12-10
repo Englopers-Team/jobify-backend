@@ -39,8 +39,8 @@ router.get('/verify/:token', emailAuth, async (req, res, next) => {
 router.post('/signup', (req, res) => {
   authHelpers
     .signup(req.body)
-    .then((data) => {
-      req.token = authHelpers.generateToken(data);
+    .then(async (data) => {
+      req.token = await authHelpers.generateToken(data);
       res.status(201).cookie('token', req.token).json({ token: req.token });
     })
     .catch((err) => {
@@ -49,6 +49,7 @@ router.post('/signup', (req, res) => {
 });
 
 router.post('/signin', basicAuth, (req, res) => {
+  console.log('test');
   res.status(202).cookie('token', req.token).send({ token: req.token });
 });
 
