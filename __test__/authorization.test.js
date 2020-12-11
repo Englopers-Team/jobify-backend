@@ -7,7 +7,7 @@ const pg = require('../src/models/database');
 
 // testAuthorize
 
-describe('Authorization', () => {
+xdescribe('Authorization', () => {
   beforeAll(async () => {
     await pg.connect();
   });

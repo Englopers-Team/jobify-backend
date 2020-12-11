@@ -5,7 +5,7 @@ const app = require('../src/server');
 const mockRequest = supergoose(app.server);
 const pg = require('../src/models/database');
 
-describe('Community', () => {
+xdescribe('Community', () => {
   let token;
   beforeEach(async () => {
     await mockRequest.post('/signin').send({ email: 'demop@gmail.com', password: '123456' }).then((result) => {
