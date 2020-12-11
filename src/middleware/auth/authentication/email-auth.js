@@ -9,8 +9,20 @@ module.exports = (req, res, next) => {
     let values = [data.id];
     let data2 = await client.query(SQL, values);
     let account_status = data2.rows[0].account_status;
+    console.log(account_status);
     if (account_status == 'pending') {
       req.user = data;
+      req.accountStatus = 'pending';
+      next();
+    } else if (account_status == 'blocked') {
+      req.user = data;
+      req.accountStatus = 'blocked';
+      next();
+    } else if (account_status == 'active'){
+      req.user = data;
+      req.accountStatus = 'active';
+      next();
+    }else{
       next();
     }
   });

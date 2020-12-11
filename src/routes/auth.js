@@ -29,8 +29,16 @@ passport.deserializeUser(function (user, done) {
 //--------------------------------------// Routes \\--------------------------------------\\
 router.get('/verify/:token', emailAuth, async (req, res, next) => {
   try {
-    let result = await authHelpers.verify(req.user, req.params.token);
-    res.status(201).json(result);
+    if (req.accountStatus == 'pending') {
+      let result = await authHelpers.verify(req.user, req.params.token);
+      res.status(201).json(result);
+    } else if (req.accountStatus == 'blocked') {
+      res.status(201).json('blocked');
+    } else if (req.accountStatus == 'active') {
+      res.status(201).json('active');
+    } else {
+      res.status(201).json('guest');
+    }
   } catch (error) {
     next(error);
   }

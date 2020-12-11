@@ -96,7 +96,6 @@ class AuthHelper {
       const SQL = `SELECT * FROM auth WHERE id=$1`;
       const value = [tokenObject.id];
       const check = await client.query(SQL, value);
-
       if (check.rows[0].account_type == tokenObject.account_type) {
         return Promise.resolve(tokenObject);
       } else {
@@ -126,7 +125,8 @@ class AuthHelper {
       await client.query(SQL, value);
       return true;
     } else {
-      throw new Error('Please Check the sent code');
+      return false;
+      // throw new Error('Please Check the sent code');
     }
   }
 }
