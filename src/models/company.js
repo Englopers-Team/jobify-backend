@@ -77,7 +77,7 @@ class Company {
 
   async companyApps(company) {
     const id = await helper.getID(company.id, 'company');
-    let SQL = `SELECT * FROM applications WHERE company_id=$1`;
+    let SQL = `SELECT * FROM applications JOIN person ON applications.person_id=person.auth_id WHERE company_id=$1;`;
     let value = [id];
     const data = await client.query(SQL, value);
     return data.rows;
