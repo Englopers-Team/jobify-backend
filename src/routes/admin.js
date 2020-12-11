@@ -37,21 +37,7 @@ router.patch('/removeBlock/:id', authorize(['admin']), async (req, res) => {
 
 router.get('/report', async (req, res) => {
   const data = await admin.reports();
-  const SQL2 = `SELECT account_type FROM auth WHERE WHERE id=$1;`;
-  const values2 = [data.auth_id];
-  const result2 = await client.query(SQL2, values2);
-  const account_type = result2.rows[0].account_type;
-  let table;
-  if (account_type === 'c') {
-    table = 'company';
-  } else if (account_type === 'p') {
-    table = 'person';
-  }
-  const SQL = `SELECT * FROM ${table} WHERE auth_id=$1`;
-  const values = [data.auth_id];
-  const result = await client.query(SQL, values);
-  const data2 = result.rows[0];
-  res.status(200).json({ reportDetaild: data, senderDetails: data2 });
+  res.status(200).json(data);
 });
 
 router.get('/report/:id', async (req, res) => {
