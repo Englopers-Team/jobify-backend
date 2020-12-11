@@ -18,7 +18,7 @@ const test = process.env.TESTS || 'true';
 
 //----------------------------------// Helper Module \\--------------------------------\\
 class Helper {
-  constructor() { }
+  constructor() {}
 
   async location(ip) {
     try {
@@ -83,16 +83,16 @@ class Helper {
   }
 
   pdfScanner(file) {
-    let rows = {}; 
+    let rows = {};
     function printRows() {
-      Object.keys(rows) 
-        .sort((y1, y2) => parseFloat(y1) - parseFloat(y2)) 
+      Object.keys(rows)
+        .sort((y1, y2) => parseFloat(y1) - parseFloat(y2))
         .forEach((y) => (rows[y] || []).join(''));
     }
     new pdfreader.PdfReader().parseFileItems(`./uploads/cv/${file}`, function (err, item) {
       if (!item || item.page) {
         printRows();
-        rows = {}; 
+        rows = {};
       } else if (item.text) {
         (rows[item.y] = rows[item.y] || []).push(item.text);
       }
@@ -150,12 +150,12 @@ class Helper {
     const transporter = nodemailer.createTransport({
       service: 'zoho',
       auth: {
-        user: 'electrical@perfectsolutionco.com',
-        pass: 'Perfect.Sol.777!',
+        user: 'jobs@jobifys.com',
+        pass: 'Jobify123456*',
       },
     });
     const mailOptions = {
-      from: 'electrical@perfectsolutionco.com',
+      from: 'jobs@jobifys.com',
       to: email,
       subject: `${payload.person.first_name} ${payload.person.last_name} ${payload.company.title} Job Application`,
       text: `Dear Sir,
@@ -177,8 +177,8 @@ class Helper {
     const transporter = nodemailer.createTransport({
       service: 'zoho',
       auth: {
-        user: 'electrical@perfectsolutionco.com',
-        pass: 'Perfect.Sol.777!',
+        user: 'jobs@jobifys.com',
+        pass: 'Jobify123456*',
       },
     });
     let name;
@@ -189,7 +189,7 @@ class Helper {
     }
 
     const mailOptions = {
-      from: 'electrical@perfectsolutionco.com',
+      from: 'jobs@jobifys.com',
       to: payload.email,
       cc: 'mohammad.esseili@gmail.com',
       subject: `VERIFICATION EMAIL for ${name}`,
