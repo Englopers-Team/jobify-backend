@@ -10,7 +10,6 @@ module.exports = (req, res, next) => {
     throw new Error(`Access denied`);
   } else {
     const token = req.headers.authorization.split(' ').pop();
-    console.log(token);
     authHelpers
       .authenticateToken(token)
       .then(async (data) => {
