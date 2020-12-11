@@ -83,6 +83,13 @@ class Company {
     return data.rows;
   }
 
+  async companySingleApp(id) {
+    let SQL = `SELECT status FROM applications WHERE id=$1;`;
+    let value = [id];
+    const data = await client.query(SQL, value);
+    return data.rows[0];
+  }
+
   async answerApp(company, appID, payload) {
     const id = await helper.getID(company.id, 'company');
     let values = [payload, appID];
