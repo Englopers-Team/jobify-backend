@@ -82,6 +82,11 @@ router.get('/oauth-facebook', passport.authenticate('facebook', { failureRedirec
 
 router.get('/auth/facebook', passport.authenticate('facebook'));
 
+router.get('/getinfo', bearerAuth, async (req, res) => {
+  const data = await authHelpers.getInfo(req.user);
+  res.status(200).json(data);
+});
+
 //-----------------------------------// Export Module \\-----------------------------------\\
 module.exports = router;
 
