@@ -116,13 +116,13 @@ class Community {
 
   async likePost(user, postID) {
     const targetPost = await this.getPost(postID);
-    const likes = targetPost.likes;
+    let likes = targetPost.likes;
     const check = likes.includes(user.id);
 
     if (!check) {
       likes.push(user.id);
     } else {
-      likes.filter((id) => {
+      likes = likes.filter((id) => {
         return id != user.id;
       });
     }
