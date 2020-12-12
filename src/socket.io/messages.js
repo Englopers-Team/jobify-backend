@@ -97,7 +97,7 @@ messages.on('connection', (socket) => {
           let SQL2 = `SELECT ${searchFor} FROM ${targeted} WHERE id=$1;`;
           let value2 = [id[Object.keys(msgfrom[0])[0]]];
           let result2 = await client.query(SQL2, value2);
-          return { [result2.rows[0][searchFor]]: result1.rows };
+          return { [result2.rows[0][searchFor]]: result1.rows,profile:result2.rows[0] };
         }),
       );
       messages.to(tokenObject.id).emit('message', [arr, user]);
