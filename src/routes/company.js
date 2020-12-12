@@ -15,6 +15,11 @@ router.get('/jobs', async (req, res) => {
   res.status(200).json(data);
 });
 
+router.get('/jobs/:id', async (req, res) => {
+  const data = await company.jobs(req.user, req.params.id);
+  res.status(200).json(data);
+});
+
 router.put('/jobs/:id', async (req, res, next) => {
   try {
     await company.editJob(req.user, req.params.id, req.body);
@@ -43,10 +48,15 @@ router.get('/app', async (req, res) => {
   res.status(200).json(data);
 });
 
+router.get('/app/:id', async (req, res) => {
+  let data = await company.companySingleApp(req.params.id);
+  res.status(200).json(data);
+});
+
 router.put('/app/:id', async (req, res, next) => {
   try {
     await company.answerApp(req.user, req.params.id, req.body.status);
-    res.status(202).json('App answerd successfully');
+    res.status(202).json('App answered successfully');
   } catch (err) {
     next(err);
   }
@@ -62,7 +72,7 @@ router.post('/offers/:id', async (req, res) => {
   res.status(201).json('Offer sent successfully');
 });
 
-router.delete('/offers/:id', async (req, res,next) => {
+router.delete('/offers/:id', async (req, res, next) => {
   try {
     await company.deleteOffer(req.user, req.params.id);
     res.status(202).json('Offer deleted successfully');

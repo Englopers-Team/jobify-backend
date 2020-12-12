@@ -29,12 +29,20 @@ class Company {
     return { statistics, offers, apps, notifications };
   }
 
-  async jobs(company) {
-    const id = await helper.getID(company.id, 'company');
-    let SQL = `SELECT * FROM jobs WHERE company_id=$1;`;
-    let value = [id];
-    const data = await client.query(SQL, value);
-    return data.rows;
+  async jobs(company, jobId) {
+    if (jobId) {
+      const id = await helper.getID(company.id, 'company');
+      let SQL = `SELECT * FROM jobs WHERE company_id=$1 AND id=$2;`;
+      let value = [id, jobId];
+      const data = await client.query(SQL, value);
+      return data.rows[0];
+    } else {
+      const id = await helper.getID(company.id, 'company');
+      let SQL = `SELECT * FROM jobs WHERE company_id=$1;`;
+      let value = [id];
+      const data = await client.query(SQL, value);
+      return data.rows;
+    }
   }
 
   async submitJob(company, payload) {
@@ -77,10 +85,17 @@ class Company {
 
   async companyApps(company) {
     const id = await helper.getID(company.id, 'company');
-    let SQL = `SELECT * FROM applications JOIN person ON applications.person_id=person.auth_id WHERE company_id=$1;`;
+    let SQL = `SELECT *,applications.id FROM applications JOIN person ON applications.person_id=person.id WHERE company_id=$1;`;
     let value = [id];
     const data = await client.query(SQL, value);
     return data.rows;
+  }
+
+  async companySingleApp(id) {
+    let SQL = `SELECT status FROM applications WHERE id=$1;`;
+    let value = [id];
+    const data = await client.query(SQL, value);
+    return data.rows[0];
   }
 
   async answerApp(company, appID, payload) {
