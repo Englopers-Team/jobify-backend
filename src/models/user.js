@@ -86,7 +86,7 @@ class User {
 
   async userApps(user) {
     const id = await helper.getID(user.id, 'person');
-    let SQL = `SELECT * FROM applications JOIN jobs ON applications.job_id=jobs.id JOIN company ON applications.company_id=company.id WHERE person_id= $1;`;
+    let SQL = `SELECT *,applications.id FROM applications JOIN jobs ON applications.job_id=jobs.id JOIN company ON applications.company_id=company.id WHERE person_id= $1;`;
     let value = [id];
     let SQL2 = `SELECT * FROM applications_api WHERE person_id= $1;`;
     let value2 = [id];
