@@ -122,6 +122,13 @@ class User {
     await client.query(SQL3, value3);
   }
 
+  async deleteAppApi(user, appID) {
+    const id = await helper.getID(user.id, 'person');
+    let SQL = `DELETE FROM applications_api WHERE id=$1 AND person_id=$2;`;
+    let value = [appID, id];
+    await client.query(SQL, value);
+  }
+
   async userOffers(user) {
     const id = await helper.getID(user.id, 'person');
     let SQL = `SELECT * FROM job_offers JOIN company ON job_offers.company_id=company.id WHERE person_id=$1;`;
