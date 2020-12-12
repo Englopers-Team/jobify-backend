@@ -117,16 +117,25 @@ class Community {
   async likePost(user, postID) {
     const targetPost = await this.getPost(postID);
     const likes = targetPost.likes;
-    let status = 'like';
-    likes.forEach((like, index) => {
-      if (like == user.id) {
-        delete likes[index];
-        status = 'dislike';
-      }
-    });
-    if (status == 'like') {
+    const check = likes.includes(user.id);
+
+    if (!check) {
       likes.push(user.id);
+    } else {
+      likes.filter((id) => {
+        return id != user.id;
+      });
     }
+    // let status = 'like';
+    // likes.forEach((like, index) => {
+    //   if (like == user.id) {
+    //     delete likes[index];
+    //     status = 'dislike';
+    //   }
+    // });
+    // if (status == 'like') {
+    //   likes.push(user.id);
+    // }
     targetPost.likes = likes;
     await targetPost.save();
   }
