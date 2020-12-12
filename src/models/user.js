@@ -131,7 +131,7 @@ class User {
 
   async userOffers(user) {
     const id = await helper.getID(user.id, 'person');
-    let SQL = `SELECT * FROM job_offers JOIN company ON job_offers.company_id=company.id WHERE person_id=$1;`;
+    let SQL = `SELECT *,job_offers.id FROM job_offers JOIN company ON job_offers.company_id=company.id WHERE person_id=$1;`;
     let value = [id];
     const data = await client.query(SQL, value);
     return data.rows;
