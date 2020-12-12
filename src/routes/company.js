@@ -15,6 +15,11 @@ router.get('/jobs', async (req, res) => {
   res.status(200).json(data);
 });
 
+router.get('/jobs/:id', async (req, res) => {
+  const data = await company.jobs(req.user, req.params.id);
+  res.status(200).json(data);
+});
+
 router.put('/jobs/:id', async (req, res, next) => {
   try {
     await company.editJob(req.user, req.params.id, req.body);
