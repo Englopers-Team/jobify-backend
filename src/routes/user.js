@@ -45,6 +45,15 @@ router.delete('/app/:id', async (req, res, next) => {
   }
 });
 
+router.delete('/app-api/:id', async (req, res, next) => {
+  try {
+    await user.deleteAppApi(req.user, req.params.id);
+    res.status(202).json('App deleted successfully');
+  } catch (err) {
+    next(`Can't delete app`);
+  }
+});
+
 router.get('/offers', async (req, res) => {
   const data = await user.userOffers(req.user);
   res.status(200).json(data);
