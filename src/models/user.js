@@ -44,7 +44,7 @@ class User {
     let value2 = [jobID];
     await client.query(SQL, value);
     await client.query(SQL2, value2);
-    let SQL3 = `SELECT company_name FROM person WHERE id=$1;`;
+    let SQL3 = `SELECT * FROM person WHERE id=$1;`;
     let value3 = [personID];
     let results = await client.query(SQL3, value3);
     if (test == 'false') {
