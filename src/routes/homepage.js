@@ -9,12 +9,13 @@ const user = require('../models/user');
 const bearerAuth = require('../middleware/auth/authentication/bearer-auth');
 const helper = require('../models/helper');
 const authorize = require('../middleware/auth/authorization/authorize');
+const location = require('../middleware/location');
 
 //-------------------------------// App Level Middleware \\-----------------------------\\
 const router = express.Router();
 
 //--------------------------------------// Routes \\--------------------------------------\\
-router.get('/home', bearerAuth, async (req, res,next) => {
+router.get('/home', bearerAuth, async (req, res, next) => {
   try {
     let data;
     if (req.user.account_type === 'p') {
@@ -52,6 +53,11 @@ router.get('/test500', () => {
 
 router.get('/testAuthorize', authorize(['p']), (req, res) => {
   res.status(200).json('worked');
+});
+
+router.get('/flag', location, async (req, res) => {
+  const data = await helper.flag(req.ipAddress);
+  res.status(200).json(data);
 });
 
 //-----------------------------------// Export Module \\-----------------------------------\\
