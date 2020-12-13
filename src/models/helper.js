@@ -40,7 +40,7 @@ class Helper {
     let URL = `https://api.ip2country.info/ip?${ip}`;
     let data = await superagent.get(URL);
     let countryCode = data.body.countryCode == '' ? 'JO' : data.body.countryCode;
-    let flag = `https://www.countryflags.io/${countryCode}/Shiny/64.png`;
+    let flag = `https://www.countryflags.io/${countryCode}/shiny/64.png`;
     return flag;
   }
 
