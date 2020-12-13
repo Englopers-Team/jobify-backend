@@ -23,7 +23,7 @@ class Notificaion {
     const SQL = 'INSERT INTO notifications (title,description,seen,auth_id) VALUES ($1,$2,$3,$4);';
     const values = [title, description, 'false', id];
     await client.query(SQL, values);
-    const notifi = io.connect('http://localhost:3000/notification');
+    const notifi = io.connect('http://localhost/notification');
     notifi.emit('notification', { id });
   }
 }
