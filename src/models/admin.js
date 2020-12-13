@@ -6,8 +6,8 @@ const helper = require('./helper');
 
 //-----------------------------------// Admin Module \\---------------------------------\\
 class Admin {
-  constructor() {}
-  
+  constructor() { }
+
   async dashboard() {
     let SQL;
     let data;
@@ -173,6 +173,14 @@ class Admin {
     let SQL = `DELETE FROM admin_reports WHERE id=$1;`;
     let value = [id];
     await client.query(SQL, value);
+  }
+
+  async getAllUser() {
+    let SQL1 = 'SELECT * FROM person';
+    let SQL2 = 'SELECT * FROM company';
+    let dataPerson = await client.query(SQL1);
+    let dataCompany = await client.query(SQL2);
+    return { dataPerson, dataCompany };
   }
 }
 
