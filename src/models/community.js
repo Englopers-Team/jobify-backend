@@ -142,7 +142,11 @@ class Community {
 
   async pin(postID) {
     const targetPost = await this.getPost(postID);
-    targetPost.pinned = 'true';
+    if (targetPost.pinned === 'false') {
+      targetPost.pinned = 'true';
+    } else if (targetPost.pinned === 'true') {
+      targetPost.pinned = 'false';
+    }
     await targetPost.save();
   }
 }
