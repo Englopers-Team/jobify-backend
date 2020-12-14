@@ -60,14 +60,14 @@ module.exports = async function authorize(req, res, next) {
     if (check) {
       await authHelpers
         .authenticateBasic(userRecord.email, userRecord.password)
-        .then((validUser) => {
-          req.token = authHelpers.generateToken(validUser);
+        .then(async (validUser) => {
+          req.token = await authHelpers.generateToken(validUser);
           next();
         })
         .catch((err) => next(err));
     } else {
       const data = await authHelpers.signup(userRecord);
-      req.token = authHelpers.generateToken(data);
+      req.token = await authHelpers.generateToken(data);
       next();
     }
   } catch (e) {
