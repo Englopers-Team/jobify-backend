@@ -14,6 +14,14 @@ const CLIENT_SECRET = process.env.CLIENT_SECRET_FACEBOOK || 'a01a2595620ed60e2ff
 
 //---------------------------------// Passport Oauth \\-------------------------------\\
 
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(obj, done) {
+  done(null, obj);
+});
+
 passport.use(
   new FacebookStrategy(
     {

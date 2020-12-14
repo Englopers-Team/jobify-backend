@@ -25,6 +25,7 @@ module.exports = (req, res, next) => {
           next();
           // throw new Error(`Your account is not active please verify your email`);
         } else {
+          req.user = data;
           next();
           // throw new Error(`You are banned`);
         }
