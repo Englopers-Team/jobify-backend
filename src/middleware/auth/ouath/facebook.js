@@ -34,6 +34,7 @@ passport.use(
           phone: '079',
           country: 'jo',
           job_title: 'dev',
+          oauth:true,
         };
         const check = await authHelpers.checkEmail(userRecord.email);
         if (check) {

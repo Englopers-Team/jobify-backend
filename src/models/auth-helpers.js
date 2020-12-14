@@ -28,7 +28,7 @@ class AuthHelper {
           status = 'active';
         }
         const SQL2 = `INSERT INTO auth (email,password,account_type,account_status) VALUES ($1,$2,$3,$4);`;
-        const values = [email, password, account_type,status];
+        const values = [email, password, account_type, status];
         await client.query(SQL2, values);
         const SQL3 = `SELECT * FROM auth WHERE email=$1`;
         const value2 = [email];
@@ -39,13 +39,17 @@ class AuthHelper {
           const SQL3 = `INSERT INTO person (first_name,last_name,phone,job_title,country,auth_id) VALUES ($1,$2,$3,$4,$5,$6);`;
           const values2 = [first_name, last_name, phone, job_title, country, id];
           await client.query(SQL3, values2);
-          await helper.sendVerifyEmail(payload);
+          if (!payload.oauth) {
+            await helper.sendVerifyEmail(payload);
+          }
           return Promise.resolve({ id, account_type });
         } else if (account_type == 'c' && company_name && logo && company_url && phone && country) {
           const SQL3 = `INSERT INTO company (company_name,phone,logo,country,company_url,auth_id) VALUES ($1,$2,$3,$4,$5,$6);`;
           const values2 = [company_name, phone, logo, country, company_url, id];
           await client.query(SQL3, values2);
-          await helper.sendVerifyEmail(payload);
+          if (!payload.oauth) {
+            await helper.sendVerifyEmail(payload);
+          }
           return Promise.resolve({ id, account_type });
         } else if (account_type == 'admin' || account_type == 'editor') {
           return Promise.resolve({ id, account_type });

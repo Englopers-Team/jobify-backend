@@ -46,6 +46,7 @@ async function getUser(remoteUser) {
     phone: '079',
     country: 'jo',
     job_title: 'dev',
+    oauth:true,
   };
   return userRecord;
 }
