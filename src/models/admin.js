@@ -6,7 +6,7 @@ const helper = require('./helper');
 
 //-----------------------------------// Admin Module \\---------------------------------\\
 class Admin {
-  constructor() {}
+  constructor() { }
 
   async dashboard() {
     let SQL;
@@ -176,8 +176,8 @@ class Admin {
   }
 
   async getAllUser() {
-    let SQL1 = 'SELECT * FROM person';
-    let SQL2 = 'SELECT * FROM company';
+    let SQL1 = 'SELECT * FROM person JOIN auth ON person.auth_id=auth.id;';
+    let SQL2 = 'SELECT * FROM company JOIN auth ON company.auth_id=auth.id;';
     let dataPerson = await client.query(SQL1);
     let dataCompany = await client.query(SQL2);
     return { dataPerson: dataPerson.rows, dataCompany: dataCompany.rows };
