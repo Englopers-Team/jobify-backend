@@ -70,14 +70,14 @@ router.get('/test', bearerAuth, (req, res) => {
 });
 
 router.get('/oauth-linkedin', linkedin, (req, res) => {
-  res.status(200).cookie('token', req.token).json({ token: req.token, userinfo: req.user });
+  res.status(200).cookie('token', req.token).json({ token: req.token, userinfo: req.user,test:'test' });
 });
 
 router.get('/oauth-google', google, (req, res) => {
-  res.status(200).cookie('token', req.token).json({ token: req.token, userinfo: req.user });
+  res.status(200).cookie('token', req.token).json({ token: req.token, userinfo: req.user,test:'test' });
 });
 router.get('/oauth-facebook', passport.authenticate('facebook', { failureRedirect: '/login' }), function (req, res) {
-  res.status(200).cookie('token', req.user.token).json({ token: req.user.token, userinfo: req.user });
+  res.status(200).cookie('token', req.user.token).json({ token: req.user.token, userinfo: req.user,test:'test' });
 });
 
 router.get('/auth/facebook', passport.authenticate('facebook'));
