@@ -174,6 +174,14 @@ class Admin {
     let value = [id];
     await client.query(SQL, value);
   }
+
+  async getAllUser() {
+    let SQL1 = 'SELECT * FROM person';
+    let SQL2 = 'SELECT * FROM company';
+    let dataPerson = await client.query(SQL1);
+    let dataCompany = await client.query(SQL2);
+    return { dataPerson: dataPerson.rows, dataCompany: dataCompany.rows };
+  }
 }
 
 //-----------------------------------// Export Module \\-----------------------------------\\

@@ -116,24 +116,37 @@ class Community {
 
   async likePost(user, postID) {
     const targetPost = await this.getPost(postID);
-    const likes = targetPost.likes;
-    let status = 'like';
-    likes.forEach((like, index) => {
-      if (like == user.id) {
-        delete likes[index];
-        status = 'dislike';
-      }
-    });
-    if (status == 'like') {
+    let likes = targetPost.likes;
+    const check = likes.includes(user.id);
+
+    if (!check) {
       likes.push(user.id);
+    } else {
+      likes = likes.filter((id) => {
+        return id != user.id;
+      });
     }
+    // let status = 'like';
+    // likes.forEach((like, index) => {
+    //   if (like == user.id) {
+    //     delete likes[index];
+    //     status = 'dislike';
+    //   }
+    // });
+    // if (status == 'like') {
+    //   likes.push(user.id);
+    // }
     targetPost.likes = likes;
     await targetPost.save();
   }
 
   async pin(postID) {
     const targetPost = await this.getPost(postID);
-    targetPost.pinned = 'true';
+    if (targetPost.pinned === 'false') {
+      targetPost.pinned = 'true';
+    } else if (targetPost.pinned === 'true') {
+      targetPost.pinned = 'false';
+    }
     await targetPost.save();
   }
 }

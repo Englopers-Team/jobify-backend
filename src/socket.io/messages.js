@@ -59,7 +59,7 @@ messages.on('connection', (socket) => {
       messages.to(id).emit('message', payload.body);
     }
     let SQL = `INSERT INTO messages (body,person_id,company_id,sender) VALUES ($1,$2,$3,$4);`;
-    let value = [payload.body, personID, companyID,payload.type];
+    let value = [payload.body, personID, companyID, payload.type];
     await client.query(SQL, value);
   });
 
@@ -88,6 +88,9 @@ messages.on('connection', (socket) => {
           let SQL1 = `SELECT * FROM messages WHERE ${targeted}_id=$1 AND ${user}_id=$2;`;
           let value1 = [id[Object.keys(msgfrom[0])[0]], userID];
           let result1 = await client.query(SQL1, value1);
+          let sender_SQL = `SELECT * FROM ${targeted} WHERE id= $1;`;
+          let sender_value = [id[Object.keys(msgfrom[0])[0]]];
+          let profile = await client.query(sender_SQL, sender_value);
           let searchFor = '';
           if (targeted === 'person') {
             searchFor = 'first_name';
@@ -97,7 +100,7 @@ messages.on('connection', (socket) => {
           let SQL2 = `SELECT ${searchFor} FROM ${targeted} WHERE id=$1;`;
           let value2 = [id[Object.keys(msgfrom[0])[0]]];
           let result2 = await client.query(SQL2, value2);
-          return { [result2.rows[0][searchFor]]: result1.rows };
+          return { [result2.rows[0][searchFor]]: result1.rows, profile: profile.rows[0] };
         }),
       );
       messages.to(tokenObject.id).emit('message', [arr, user]);

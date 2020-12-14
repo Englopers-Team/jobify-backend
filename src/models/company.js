@@ -129,8 +129,11 @@ class Company {
     let SQL = `INSERT INTO job_offers (person_id,company_id,title,location,type,description) VALUES ($1,$2,$3,$4,$5,$6);`;
     let value = [person_id, company_id, title, location, type, description];
     await client.query(SQL, value);
+    let SQL2 = `SELECT company_name FROM company WHERE id=$1;`;
+    let value2 = [id];
+    let results = await client.query(SQL2,value2);
     if (test == 'false') {
-      const data = { id: person_auth_id, title: 'offer', description: `${title} from company number ${company_id}` };
+      const data = { id: person_auth_id, title: 'Offer', description: `${results.rows[0].company_name} sent you an offer for position ${title}` };
       await notifi.addNotification(data);
     }
   }
