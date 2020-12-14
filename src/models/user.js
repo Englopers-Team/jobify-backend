@@ -86,9 +86,9 @@ class User {
 
   async userApps(user) {
     const id = await helper.getID(user.id, 'person');
-    let SQL = `SELECT *,applications.id FROM applications JOIN jobs ON applications.job_id=jobs.id JOIN company ON applications.company_id=company.id WHERE person_id= $1;`;
+    let SQL = `SELECT *,applications.id FROM applications JOIN jobs ON applications.job_id=jobs.id JOIN company ON applications.company_id=company.id WHERE person_id= $1 ORDER BY applications.id DESC;`;
     let value = [id];
-    let SQL2 = `SELECT * FROM applications_api WHERE person_id= $1;`;
+    let SQL2 = `SELECT * FROM applications_api WHERE person_id= $1 ORDER BY id DESC;`;
     let value2 = [id];
     const dataDB = await client.query(SQL, value);
     const dataApi = await client.query(SQL2, value2);
@@ -98,7 +98,7 @@ class User {
 
   async userApp(user, appID) {
     const id = await helper.getID(user.id, 'person');
-    let SQL = `SELECT * FROM applications WHERE id=$1 AND person_id=$2;`;
+    let SQL = `SELECT * FROM applications WHERE id=$1 AND person_id=$2 ORDER BY id DESC;`;
     let value = [appID, id];
     const data = await client.query(SQL, value);
     if (data.rows[0].length) {
@@ -131,7 +131,7 @@ class User {
 
   async userOffers(user) {
     const id = await helper.getID(user.id, 'person');
-    let SQL = `SELECT *,job_offers.id FROM job_offers JOIN company ON job_offers.company_id=company.id WHERE person_id=$1;`;
+    let SQL = `SELECT *,job_offers.id FROM job_offers JOIN company ON job_offers.company_id=company.id WHERE person_id=$1 ORDER BY job_offers.id DESC;`;
     let value = [id];
     const data = await client.query(SQL, value);
     return data.rows;
