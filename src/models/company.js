@@ -38,7 +38,7 @@ class Company {
       return data.rows[0];
     } else {
       const id = await helper.getID(company.id, 'company');
-      let SQL = `SELECT * FROM jobs WHERE company_id=$1;`;
+      let SQL = `SELECT * FROM jobs WHERE company_id=$1 ORDER BY id DESC;`;
       let value = [id];
       const data = await client.query(SQL, value);
       return data.rows;
@@ -85,7 +85,7 @@ class Company {
 
   async companyApps(company) {
     const id = await helper.getID(company.id, 'company');
-    let SQL = `SELECT *,applications.id FROM applications JOIN person ON applications.person_id=person.id WHERE company_id=$1;`;
+    let SQL = `SELECT *,applications.id FROM applications JOIN person ON applications.person_id=person.id WHERE company_id=$1 ORDER BY applications.id DESC;`;
     let value = [id];
     const data = await client.query(SQL, value);
     return data.rows;
@@ -114,7 +114,7 @@ class Company {
 
   async companyOffers(company) {
     const id = await helper.getID(company.id, 'company');
-    let SQL = `SELECT *,job_offers.id FROM job_offers JOIN person ON job_offers.person_id=person.id WHERE company_id=$1`;
+    let SQL = `SELECT *,job_offers.id FROM job_offers JOIN person ON job_offers.person_id=person.id WHERE company_id=$1 ORDER BY job_offers.id DESC`;
     let value = [id];
     const data = await client.query(SQL, value);
     return data.rows;

@@ -6,7 +6,7 @@ const helper = require('./helper');
 
 //-----------------------------------// Admin Module \\---------------------------------\\
 class Admin {
-  constructor() { }
+  constructor() {}
 
   async dashboard() {
     let SQL;
@@ -140,7 +140,7 @@ class Admin {
   }
 
   async reports() {
-    let SQL = `SELECT * FROM admin_reports;`;
+    let SQL = `SELECT * FROM admin_reports ORDER BY id DESC;`;
     const data = await client.query(SQL);
     return data.rows;
   }

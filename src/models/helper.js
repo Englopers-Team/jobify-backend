@@ -69,7 +69,7 @@ class Helper {
   }
 
   async reports(user) {
-    let SQL = `SELECT * FROM admin_reports WHERE auth_id=$1;`;
+    let SQL = `SELECT * FROM admin_reports WHERE auth_id=$1 ORDER BY id DESC;`;
     let value = [user.id];
     const data = await client.query(SQL, value);
     return data.rows;
