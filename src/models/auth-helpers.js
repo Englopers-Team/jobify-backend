@@ -23,8 +23,12 @@ class AuthHelper {
       let { email, password, account_type, first_name, last_name, phone, job_title, country, company_name, logo, company_url } = payload;
       if (email && password && account_type) {
         password = await bcrypt.hash(password, 5);
-        const SQL2 = `INSERT INTO auth (email,password,account_type) VALUES ($1,$2,$3);`;
-        const values = [email, password, account_type];
+        let status = 'pending';
+        if (payload.oauth) {
+          status = 'active';
+        }
+        const SQL2 = `INSERT INTO auth (email,password,account_type,account_status) VALUES ($1,$2,$3,$4);`;
+        const values = [email, password, account_type,status];
         await client.query(SQL2, values);
         const SQL3 = `SELECT * FROM auth WHERE email=$1`;
         const value2 = [email];
@@ -76,7 +80,7 @@ class AuthHelper {
       const SQL = `SELECT * FROM ${table} WHERE auth_id=$1;`;
       const value = [user.id];
       let results = await client.query(SQL, value);
-      profile = { id: results.rows[0].id, first: results.rows[0].first_name, last: results.rows[0].last_name, avatar: results.rows[0].avatar,job_title:results.rows[0].job_title, country: results.rows[0].country };
+      profile = { id: results.rows[0].id, first: results.rows[0].first_name, last: results.rows[0].last_name, avatar: results.rows[0].avatar, job_title: results.rows[0].job_title, country: results.rows[0].country };
     } else if (user.account_type == 'c') {
       table = 'company';
       const SQL = `SELECT * FROM ${table} WHERE auth_id=$1;`;
