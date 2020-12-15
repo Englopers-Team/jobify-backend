@@ -151,22 +151,24 @@ class Helper {
       service: 'zoho',
       auth: {
         user: 'jobs@jobifys.com',
-        pass: 'Jobify123456*',
+        pass: 'Jobify123456**',
       },
     });
+    let subject1 = `${payload.person.first_name} ${payload.person.last_name} ${payload.company.title} Job Application`;
+    let MAILBODY = `<p><strong>&nbsp;Dear Sir,</strong></p>
+<p>I am writing in response to your recently advertised position as an <strong>${payload.company.title}</strong>, I am very interested in this opportunity with you, and I believe that my qualifications, education, and professional experience would make me a strong candidate for the position.</p>
+<p><br>Enclosed is my resume that more fully details my background and work experience, and how they relate to your position.</p>
+<p><br>Thank you in advance for your consideration.<br><br>Best Regards.<br>${payload.person.first_name}&nbsp;${payload.person.last_name}</p>
+<p><strong><a href=${payload.person.cv}>Resume Link</a></strong></p>`;
     const mailOptions = {
       from: 'jobs@jobifys.com',
       to: email,
-      subject: `${payload.person.first_name} ${payload.person.last_name} ${payload.company.title} Job Application`,
-      text: `Dear Sir,
-      I’m writing in response to your recently advertised position as an ${payload.company.title} I am very interested in this opportunity with you, and i believe that my qualifications, education, and professional experience would make me a strong candidate for the position.
-      Enclosed is my resume that more fully details my background and work experience, and how they relate to your position.
-      Thank you in advance for your consideration.
-      Best regards.`,
+      cc: payload.person.email,
+      subject: subject1,
+      html: MAILBODY,
     };
-    if (test == 'false') {
-      transporter.sendMail(mailOptions);
-    }
+
+    transporter.sendMail(mailOptions);
   }
 
   async sendVerifyEmail(payload) {
@@ -178,7 +180,7 @@ class Helper {
       service: 'zoho',
       auth: {
         user: 'jobs@jobifys.com',
-        pass: 'Jobify123456*',
+        pass: 'Jobify123456**',
       },
     });
     let name;
@@ -187,17 +189,21 @@ class Helper {
     } else {
       name = payload.company_name;
     }
+    let MAILBODY = `<p><span style="font-size: 26px;">YOUR VERIFICATION CODE IS: <span style="color: rgb(184, 49, 47);">${random}</span></span></p>
+<p><br></p>
+<p><br></p>`;
+    let subject2 = `VERIFICATION EMAIL for ${name}`;
 
     const mailOptions = {
       from: 'jobs@jobifys.com',
       to: payload.email,
       cc: 'mohammad.esseili@gmail.com',
-      subject: `VERIFICATION EMAIL for ${name}`,
-      text: `VERIFICATION Link : http://localhost:3000/verify/${random}`,
+      subject: subject2,
+      html: MAILBODY,
     };
-    if (test == 'false') {
-      transporter.sendMail(mailOptions);
-    }
+
+    transporter.sendMail(mailOptions);
+
     return random;
   }
 
