@@ -14,6 +14,14 @@ const CLIENT_SECRET = process.env.CLIENT_SECRET_FACEBOOK || 'a01a2595620ed60e2ff
 
 //---------------------------------// Passport Oauth \\-------------------------------\\
 
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(obj, done) {
+  done(null, obj);
+});
+
 passport.use(
   new FacebookStrategy(
     {
@@ -34,16 +42,17 @@ passport.use(
           phone: '079',
           country: 'jo',
           job_title: 'dev',
+          oauth:true,
         };
         const check = await authHelpers.checkEmail(userRecord.email);
         if (check) {
-          await authHelpers.authenticateBasic(userRecord.email, userRecord.password).then((validUser) => {
-            const token = authHelpers.generateToken(validUser);
+          await authHelpers.authenticateBasic(userRecord.email, userRecord.password).then(async (validUser) => {
+            const token = await authHelpers.generateToken(validUser);
             return cb(null, { userData: validUser, token: token });
           });
         } else {
           const data = await authHelpers.signup(userRecord);
-          const token = authHelpers.generateToken(data);
+          const token = await authHelpers.generateToken(data);
           return cb(null, { userData: data, token: token });
         }
       } catch (error) {

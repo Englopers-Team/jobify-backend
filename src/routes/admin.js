@@ -19,6 +19,15 @@ router.get('/', async (req, res) => {
   res.status(200).json(data);
 });
 
+router.get('/users', authorize(['admin']), async (req, res, next) => {
+  try {
+    const data = await admin.getAllUser();
+    res.status(200).json(data);
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.patch('/block/:id', authorize(['admin']), async (req, res, next) => {
   try {
     let id = req.params.id;

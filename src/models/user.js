@@ -14,7 +14,7 @@ const test = process.env.TESTS || 'true';
 
 //------------------------------------// User Module \\----------------------------------\\
 class User {
-  constructor() {}
+  constructor() { }
 
   async dashboard(user) {
     const id = await helper.getID(user.id, 'person');
@@ -37,14 +37,18 @@ class User {
   async applyDB(user, payload) {
     let { jobID, companyID } = payload;
     let personID = await helper.getID(user.id, 'person');
+    let compID = await helper.getAuthID(companyID, 'company');
     let SQL = `INSERT INTO applications (person_id,job_id,company_id) VALUES ($1,$2,$3);`;
     let SQL2 = `UPDATE jobs SET applicants_num=applicants_num+1 WHERE id=$1;`;
     let value = [personID, jobID, companyID];
     let value2 = [jobID];
     await client.query(SQL, value);
     await client.query(SQL2, value2);
+    let SQL3 = `SELECT * FROM person WHERE id=$1;`;
+    let value3 = [personID];
+    let results = await client.query(SQL3, value3);
     if (test == 'false') {
-      const data = { id: user.id, title: 'Application', description: `recevied application to ${jobID} job` };
+      const data = { id: compID, title: 'Application', description: `You have recived application from ${results.rows[0].first_name} ${results.rows[0].last_name}` };
       await notifi.addNotification(data);
     }
   }

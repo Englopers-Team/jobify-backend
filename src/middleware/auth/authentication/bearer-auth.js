@@ -22,9 +22,12 @@ module.exports = (req, res, next) => {
           next();
         } else if (account_status == 'pending') {
           req.user = data;
-          throw new Error(`Your account is not active please verify your email`);
+          next();
+          // throw new Error(`Your account is not active please verify your email`);
         } else {
-          throw new Error(`You are banned`);
+          req.user = data;
+          next();
+          // throw new Error(`You are banned`);
         }
       })
       .catch((err) => {
