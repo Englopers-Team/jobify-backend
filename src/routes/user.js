@@ -76,10 +76,10 @@ router.put('/edit', async (req, res) => {
 router.post('/apply/:id', async (req, res) => {
   if (req.body.api) {
     await user.applyAPI(req.user, req.body);
-    res.status(201).json('Job applocation submitted successfully');
+    res.status(201).json('Job application submitted successfully');
   } else {
     await user.applyDB(req.user, { jobID: req.params.id, companyID: req.body.company_id });
-    res.status(201).json('Job applocation submitted successfully');
+    res.status(201).json('Job application submitted successfully');
   }
 });
 

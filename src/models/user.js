@@ -60,7 +60,8 @@ class User {
     let value = [title, location, type, company_name, 'Submitted', logo, personID];
     await client.query(SQL, value);
     let userData = await helper.getProfile(personID, 'person');
-    const record = { company: payload, person: userData };
+    let authData = await helper.getProfile(userData.auth_id, 'auth');
+    const record = { company: payload, person: { ...userData, ...authData } };
     helper.sendEmail(email, record);
   }
 

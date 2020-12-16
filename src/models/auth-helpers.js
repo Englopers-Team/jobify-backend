@@ -13,14 +13,14 @@ const SECRET = process.env.SECRET || 'z1337z';
 
 //---------------------------------// AuthHelper Module \\-------------------------------\\
 class AuthHelper {
-  constructor() { }
+  constructor() {}
 
   async signup(payload) {
     const check = await this.checkEmail(payload.email);
     if (check) {
       return Promise.reject('Email already registered');
     } else {
-      let { email, password, account_type, first_name, last_name, phone, job_title, country, company_name, logo, company_url } = payload;
+      let { email, password, account_type, first_name, last_name, phone, job_title, country, company_name, logo, company_url, cv, avatar } = payload;
       if (email && password && account_type) {
         password = await bcrypt.hash(password, 5);
         let status = 'pending';
@@ -35,9 +35,9 @@ class AuthHelper {
         const getID = await client.query(SQL3, value2);
         // const account_status = getID.rows[0].account_status;
         const id = getID.rows[0].id;
-        if (account_type == 'p' && first_name && last_name && phone && job_title && country) {
-          const SQL3 = `INSERT INTO person (first_name,last_name,phone,job_title,country,auth_id) VALUES ($1,$2,$3,$4,$5,$6);`;
-          const values2 = [first_name, last_name, phone, job_title, country, id];
+        if (account_type == 'p' && first_name && last_name && phone && job_title && country && cv && avatar) {
+          const SQL3 = `INSERT INTO person (first_name,last_name,phone,job_title,country,cv,avatar,auth_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8);`;
+          const values2 = [first_name, last_name, phone, job_title, country, cv, avatar, id];
           await client.query(SQL3, values2);
           if (!payload.oauth) {
             await helper.sendVerifyEmail(payload);
