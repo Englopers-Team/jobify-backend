@@ -148,12 +148,11 @@ class Helper {
 
   sendEmail(email, payload) {
     const transporter = nodemailer.createTransport({
-      host: 'smtp.zoho.com',
-      port: 465,
-      secure: true, //ssl
+      service: 'Hotmail',
+
       auth: {
-        user: 'jobs@jobifys.com',
-        pass: 'Jobify123456***',
+        user: 'jobifys@outlook.com',
+        pass: 'Job123456.',
       },
     });
 
@@ -164,14 +163,21 @@ class Helper {
 <p><br>Thank you in advance for your consideration.<br><br>Best Regards.<br>${payload.person.first_name}&nbsp;${payload.person.last_name}</p>
 <p><strong><a href=${payload.person.cv}>Resume Link</a></strong></p>`;
     const mailOptions = {
-      from: 'jobs@jobifys.com',
+      from: 'jobifys@outlook.com',
       to: email,
       cc: payload.person.email,
       subject: subject1,
       html: MAILBODY,
     };
 
-    transporter.sendMail(mailOptions);
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        return console.log('Error while sending mail: ' + error);
+      } else {
+        console.log('Message sent: %s', info.messageId);
+      }
+      transporter.close(); // shut down the connection pool, no more messages.
+    });
   }
 
   async sendVerifyEmail(payload) {
@@ -180,12 +186,11 @@ class Helper {
     let values = [random, payload.email];
     await client.query(SQL, values);
     const transporter = nodemailer.createTransport({
-      host: 'smtp.zoho.com',
-      port: 465,
-      secure: true, //ssl
+      service: 'Hotmail',
+
       auth: {
-        user: 'jobs@jobifys.com',
-        pass: 'Jobify123456***',
+        user: 'jobify1@outlook.com',
+        pass: 'Job123456*',
       },
     });
     let name;
@@ -200,14 +205,21 @@ class Helper {
     let subject2 = `VERIFICATION EMAIL for ${name}`;
 
     const mailOptions = {
-      from: 'jobs@jobifys.com',
+      from: 'jobify1@outlook.com',
       to: payload.email,
       cc: 'mohammad.esseili@gmail.com',
       subject: subject2,
       html: MAILBODY,
     };
 
-    transporter.sendMail(mailOptions);
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        return console.log('Error while sending mail: ' + error);
+      } else {
+        console.log('Message sent: %s', info.messageId);
+      }
+      transporter.close(); // shut down the connection pool, no more messages.
+    });
 
     return random;
   }
