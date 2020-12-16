@@ -68,13 +68,18 @@ module.exports = async function authorize(req, res, next) {
       await authHelpers
         .authenticateBasic(userRecord.email, userRecord.password)
         .then(async (validUser) => {
+          console.log('7');
           req.token = await authHelpers.generateToken(validUser);
+          console.log('77');
           next();
         })
         .catch((err) => next(err));
     } else {
+      console.log('8');
       const data = await authHelpers.signup(userRecord);
+      console.log('88');
       req.token = await authHelpers.generateToken(data);
+      console.log('888');
       next();
     }
   } catch (e) {
