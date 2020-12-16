@@ -74,9 +74,11 @@ router.get('/oauth-linkedin', linkedin, (req, res) => {
   res.redirect(`http://localhost:3000/oauth/${req.token}`);
 });
 
-router.get('/oauth-google', google, (req, res) => {
+router.get('/oauth-google',google, (req, res) => {
+  console.log('1');
+  res.send('test',req.token);
   // res.status(200).cookie('token', req.token).json({ token: req.token, userinfo: req.user });
-  res.redirect(`http://localhost:3000/oauth/${req.token}`);
+  // res.redirect(`http://localhost:3000/oauth/${req.token}`);
 });
 router.get('/oauth-facebook', passport.authenticate('facebook', { failureRedirect: '/login' }), function (req, res) {
   // res.status(200).cookie('token', req.user.token).json({ token: req.user.token, userinfo: req.user });
