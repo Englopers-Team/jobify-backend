@@ -170,3 +170,79 @@ INSERT INTO messages (body,person_id,company_id,sender) VALUES ('this is message
 
 
 
+INSERT INTO auth (email,password,account_type,account_status) VALUES('democt1@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','c','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('democt2@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','c','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('democt3@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','c','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('democt4@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','c','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('democt5@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','c','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('democt6@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','c','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('democt7@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','c','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('democt8@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','c','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('democt9@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','c','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('democt10@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','c','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('democt11@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','c','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('democt12@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','c','active');
+
+INSERT INTO auth (email,password,account_type,account_status) VALUES('demopt1@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('demopt2@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('demopt3@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('demopt4@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('demopt5@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('demopt6@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('demopt7@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('demopt8@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('demopt9@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('demopt10@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('demopt11@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('demopt12@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('demopt13@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('demopt14@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('demopt15@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('demopt16@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('demopt17@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('demopt18@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('demopt19@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('demopt20@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('demopt21@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('demopt22@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('demopt23@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','active');
+INSERT INTO auth (email,password,account_type,account_status) VALUES('demopt24@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','active');
+
+
+INSERT INTO company (company_name,phone,company_url,logo,country,auth_id) VALUES ('Yman Co.', '079028555', 'www.demo.com', 'https://www.flaticon.com/svg/static/icons/svg/993/993891.svg', 'KSA', 9);
+INSERT INTO company (company_name,phone,company_url,logo,country,auth_id) VALUES ('Zatar Co.', '079028555', 'www.demo.com', 'https://www.flaticon.com/svg/static/icons/svg/993/993891.svg', 'KSA', 10);
+INSERT INTO company (company_name,phone,company_url,logo,country,auth_id) VALUES ('Osama Co.', '079028555', 'www.demo.com', 'https://www.flaticon.com/svg/static/icons/svg/993/993891.svg', 'KSA', 11);
+INSERT INTO company (company_name,phone,company_url,logo,country,auth_id) VALUES ('Zakaria Co.', '079028555', 'www.demo.com', 'https://www.flaticon.com/svg/static/icons/svg/993/993891.svg', 'KSA', 12);
+INSERT INTO company (company_name,phone,company_url,logo,country,auth_id) VALUES ('Mohammad Co.', '079028555', 'www.demo.com', 'https://www.flaticon.com/svg/static/icons/svg/993/993891.svg', 'Jordan', 13);
+INSERT INTO company (company_name,phone,company_url,logo,country,auth_id) VALUES ('Malek Co.', '079028555', 'www.demo.com', 'https://www.flaticon.com/svg/static/icons/svg/993/993891.svg', 'Jordan', 14);
+INSERT INTO company (company_name,phone,company_url,logo,country,auth_id) VALUES ('Nawrs Co.', '079028555', 'www.demo.com', 'https://www.flaticon.com/svg/static/icons/svg/993/993891.svg', 'UAE', 15);
+INSERT INTO company (company_name,phone,company_url,logo,country,auth_id) VALUES ('Noor Co.', '079028555', 'www.demo.com', 'https://www.flaticon.com/svg/static/icons/svg/993/993891.svg', 'USA', 16);
+INSERT INTO company (company_name,phone,company_url,logo,country,auth_id) VALUES ('Ysar Co.', '079028555', 'www.demo.com', 'https://www.flaticon.com/svg/static/icons/svg/993/993891.svg', 'Qatar', 17);
+INSERT INTO company (company_name,phone,company_url,logo,country,auth_id) VALUES ('Faraj Co.', '079028555', 'www.demo.com', 'https://www.flaticon.com/svg/static/icons/svg/993/993891.svg', 'Egypt', 18);
+INSERT INTO company (company_name,phone,company_url,logo,country,auth_id) VALUES ('Ysar Co.', '079028555', 'www.demo.com', 'https://www.flaticon.com/svg/static/icons/svg/993/993891.svg', 'Bahrain', 19);
+INSERT INTO company (company_name,phone,company_url,logo,country,auth_id) VALUES ('Faraj Co.', '079028555', 'www.demo.com', 'https://www.flaticon.com/svg/static/icons/svg/993/993891.svg', 'kuwait', 20);
+
+INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Malek','Ahmed','0790278534','Front End Developer','Jordan',24,'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg','5','https://www.docdroid.net/izBd6Li/cv-pdf', 21);
+INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Mohammad','Ahmed','0790278534','Civil Eng','Jordan',26,'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg','6','https://www.docdroid.net/izBd6Li/cv-pdf', 22);
+INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Noor','Ahmed','0790278534','Civil Eng','Jordan',26,'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg','4','https://www.docdroid.net/izBd6Li/cv-pdf', 23);
+INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Omar','Yaseen','0790278534','Front End Developer','USA',24,'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg','5','https://www.docdroid.net/izBd6Li/cv-pdf', 24);
+INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Rami','Ahmed','0790278534','Front End Developer','USA',26,'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg','6','https://www.docdroid.net/izBd6Li/cv-pdf', 25);
+INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Sara','Yaseen','0790278534','Front End Developer','Jordan',26,'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg','4','https://www.docdroid.net/izBd6Li/cv-pdf', 26);
+INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Malek','Ahmed','0790278534','Front End Developer','UAE',24,'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg','5','https://www.docdroid.net/izBd6Li/cv-pdf', 27);
+INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Mohammad','Ahmed','0790278534','Mechanical Eng','Egypt',26,'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg','6','https://www.docdroid.net/izBd6Li/cv-pdf', 28);
+INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Noor','Ahmed','0790278534','Accountant','Egypt',26,'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg','4','https://www.docdroid.net/izBd6Li/cv-pdf', 29);
+INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Omar','Yaseen','0790278534','Back End Developer','Egypt',24,'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg','5','https://www.docdroid.net/izBd6Li/cv-pdf', 30);
+INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Rami','Ahmed','0790278534','UI UX Designer','Qatar',26,'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg','6','https://www.docdroid.net/izBd6Li/cv-pdf', 31);
+INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Sara','Yaseen','0790278534','UI UX Designer','kuwait',26,'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg','4','https://www.docdroid.net/izBd6Li/cv-pdf', 32);
+INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Malek','Mohammad','0790278534','Front End Developer','Jordan',24,'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg','5','https://www.docdroid.net/izBd6Li/cv-pdf', 33);
+INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Ahmad','Malek','0790278534','Civil Eng','Jordan',26,'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg','6','https://www.docdroid.net/izBd6Li/cv-pdf', 34);
+INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Noor','Omar','0790278534','Civil Eng','Jordan',26,'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg','4','https://www.docdroid.net/izBd6Li/cv-pdf', 35);
+INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Ahmed','Yaseen','0790278534','Front End Developer','USA',24,'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg','5','https://www.docdroid.net/izBd6Li/cv-pdf', 36);
+INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Sara','Rami','0790278534','Front End Developer','USA',26,'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg','6','https://www.docdroid.net/izBd6Li/cv-pdf', 37);
+INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Ahmed','Yaseen','0790278534','Front End Developer','Jordan',26,'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg','4','https://www.docdroid.net/izBd6Li/cv-pdf', 38);
+INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Sami','Ahmed','0790278534','Front End Developer','UAE',24,'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg','5','https://www.docdroid.net/izBd6Li/cv-pdf', 39);
+INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Mohammad','Rami','0790278534','Mechanical Eng','Egypt',26,'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg','6','https://www.docdroid.net/izBd6Li/cv-pdf', 40);
+INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Noor','Ahmed','0790278534','Accountant','Egypt',26,'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg','4','https://www.docdroid.net/izBd6Li/cv-pdf', 41);
+INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Omar','Yaseen','0790278534','Back End Developer','Egypt',24,'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg','5','https://www.docdroid.net/izBd6Li/cv-pdf', 42);
+INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Rami','Ahmed','0790278534','UI UX Designer','Qatar',26,'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg','6','https://www.docdroid.net/izBd6Li/cv-pdf', 43);
+INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Sara','Yaseen','0790278534','Networking Engineer','kuwait',26,'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg','4','https://www.docdroid.net/izBd6Li/cv-pdf', 44);
