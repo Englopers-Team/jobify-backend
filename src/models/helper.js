@@ -148,12 +148,15 @@ class Helper {
 
   sendEmail(email, payload) {
     const transporter = nodemailer.createTransport({
-      service: 'zoho',
+      host: 'smtp.zoho.com',
+      port: 465,
+      secure: true, //ssl
       auth: {
         user: 'jobs@jobifys.com',
-        pass: 'Jobify123456**',
+        pass: 'Jobify123456***',
       },
     });
+
     let subject1 = `${payload.person.first_name} ${payload.person.last_name} ${payload.company.title} Job Application`;
     let MAILBODY = `<p><strong>&nbsp;Dear Sir,</strong></p>
 <p>I am writing in response to your recently advertised position as an <strong>${payload.company.title}</strong>, I am very interested in this opportunity with you, and I believe that my qualifications, education, and professional experience would make me a strong candidate for the position.</p>
@@ -177,10 +180,12 @@ class Helper {
     let values = [random, payload.email];
     await client.query(SQL, values);
     const transporter = nodemailer.createTransport({
-      service: 'zoho',
+      host: 'smtp.zoho.com',
+      port: 465,
+      secure: true, //ssl
       auth: {
         user: 'jobs@jobifys.com',
-        pass: 'Jobify123456**',
+        pass: 'Jobify123456***',
       },
     });
     let name;
