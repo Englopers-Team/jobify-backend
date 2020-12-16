@@ -44,7 +44,9 @@ async function getUser(remoteUser) {
     phone: '079',
     country: 'jo',
     job_title: 'dev',
-    // oauth:true,
+    oauth:true,
+    avatar:'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg',
+    cv:'https://www.docdroid.net/izBd6Li/cv-pdf',
   };
   return userRecord;
 }

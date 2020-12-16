@@ -14,11 +14,11 @@ const CLIENT_SECRET = process.env.CLIENT_SECRET_FACEBOOK || 'a01a2595620ed60e2ff
 
 //---------------------------------// Passport Oauth \\-------------------------------\\
 
-passport.serializeUser(function(user, done) {
+passport.serializeUser(function (user, done) {
   done(null, user);
 });
 
-passport.deserializeUser(function(obj, done) {
+passport.deserializeUser(function (obj, done) {
   done(null, obj);
 });
 
@@ -42,7 +42,9 @@ passport.use(
           phone: '079',
           country: 'jo',
           job_title: 'dev',
-          oauth:true,
+          oauth: true,
+          avatar: 'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg',
+          cv: 'https://www.docdroid.net/izBd6Li/cv-pdf',
         };
         const check = await authHelpers.checkEmail(userRecord.email);
         if (check) {
