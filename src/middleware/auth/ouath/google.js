@@ -37,6 +37,7 @@ async function getRemoteUserInfo(token) {
 }
 
 async function getUser(remoteUser) {
+  console.log(remoteUser);
   let userRecord = {
     email: remoteUser.email,
     password: 'oauthpassword',
@@ -46,7 +47,7 @@ async function getUser(remoteUser) {
     phone: '079',
     country: 'jo',
     job_title: 'dev',
-    oauth:true,
+    // oauth:true,
   };
   return userRecord;
 }
@@ -55,7 +56,9 @@ async function getUser(remoteUser) {
 module.exports = async function authorize(req, res, next) {
   try {
     let code = req.query.code;
+    console.log('here1');
     let remoteToken = await exchangeCodeForToken(code);
+    console.log('here2');
     let remoteUser = await getRemoteUserInfo(remoteToken);
     let userRecord = await getUser(remoteUser);
     const check = await authHelpers.checkEmail(userRecord.email);

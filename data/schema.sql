@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS person (
     job_title VARCHAR(255),
     country VARCHAR(255),
     age INT DEFAULT 23,
-    avatar VARCHAR(255) DEFAULT 'https://library.kissclipart.com/20180929/ooq/kissclipart-avatar-person-clipart-avatar-computer-icons-person-87355c56a1748473.jpg',
+    avatar VARCHAR(255) DEFAULT 'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg',
     experince VARCHAR(255) DEFAULT '0',
     cv VARCHAR(255) DEFAULT 'Edit your profile',
     auth_id INT REFERENCES auth (id)
@@ -111,12 +111,15 @@ INSERT INTO auth (email,password,account_type,account_status) VALUES('democ3@gma
 INSERT INTO auth (email,password,account_type,account_status) VALUES('demoadmin@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','admin','active');
 INSERT INTO auth (email,password,account_type,account_status) VALUES('demoeditor@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','editor','active');
 
-INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Malek','Ahmed','0790278534','Developer','USA',24,'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg','5','https://www.docdroid.net/izBd6Li/cv-pdf', 1);
-INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Malek','Ahmed','0790278534','civil eng','Jordan',26,'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg','5','https://www.docdroid.net/izBd6Li/cv-pdf', 3);
-INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Malek','Ahmed','0790278534','civil eng','Jordan',26,'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg','5','https://www.docdroid.net/izBd6Li/cv-pdf', 5);
-INSERT INTO company (company_name,phone,company_url,logo,country,auth_id) VALUES ('Demo Company', '079028555', 'www.demo.com', 'https://www.flaticon.com/svg/static/icons/svg/993/993891.svg', 'USA', 2);
-INSERT INTO company (company_name,phone,company_url,logo,country,auth_id) VALUES ('Demo Company', '079028555', 'www.demo.com', 'https://www.flaticon.com/svg/static/icons/svg/993/993891.svg', 'KSA', 4);
-INSERT INTO company (company_name,phone,company_url,logo,country,auth_id) VALUES ('Demo Company', '079028555', 'www.demo.com', 'https://www.flaticon.com/svg/static/icons/svg/993/993891.svg', 'KSA', 6);
+INSERT INTO auth (email,password,account_type,account_status) VALUES('demop4@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','active');
+
+
+INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Abdallah','Zakaria','0799999999','Javascript Developer','USA',24,'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg','5','https://www.docdroid.net/izBd6Li/cv-pdf', 1);
+INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Osama','Althabth','0799999999','Javascript Developer','KSA',24,'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg','5','https://www.docdroid.net/izBd6Li/cv-pdf', 3);
+INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Abdulhakim','Zatar','0799999999','Javascript Developer','Jordan',24,'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg','5','https://www.docdroid.net/izBd6Li/cv-pdf', 5);
+INSERT INTO company (company_name,phone,company_url,logo,country,auth_id) VALUES ('BMW', '0799999999', 'www.bmw.com', 'https://pngimg.com/uploads/bmw_logo/bmw_logo_PNG19707.png', 'USA', 2);
+INSERT INTO company (company_name,phone,company_url,logo,country,auth_id) VALUES ('Amazon', '0799999999', 'www.amazon.com', 'https://images-na.ssl-images-amazon.com/images/I/31%2BDgxPWXtL.jpg', 'USA', 4);
+INSERT INTO company (company_name,phone,company_url,logo,country,auth_id) VALUES ('Google', '0799999999', 'www.google.com', 'https://banner2.cleanpng.com/20180728/tju/kisspng-google-logo-business-microsoft-windows-operating-system-5b5cb99e99ca38.3321008115328034866299.jpg', 'Jordan', 6);
 
 
 INSERT INTO jobs (title,location,type,description,company_id) VALUES ('Developer','Jordan','Full Time','A full time job with 900jd salary.',1);

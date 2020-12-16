@@ -44,7 +44,7 @@ async function getUser(remoteUser) {
     phone: '079',
     country: 'jo',
     job_title: 'dev',
-    oauth:true,
+    // oauth:true,
   };
   return userRecord;
 }
@@ -52,12 +52,18 @@ async function getUser(remoteUser) {
 module.exports = async function authorize(req, res, next) {
   try {
     let code = req.query.code;
+    console.log('1');
     let remoteToken = await exchangeCodeForToken(code);
+    console.log('2');
     let remoteUserProfile = await getRemoteUserInfo(remoteToken, remoteAPIprofile);
+    console.log('3');
     let remoteUserEmail = await getRemoteUserInfo(remoteToken, remoteAPIemail);
+    console.log('4');
     let remoteUser = { remoteUserProfile, remoteUserEmail };
     let userRecord = await getUser(remoteUser);
+    console.log('5');
     const check = await authHelpers.checkEmail(userRecord.email);
+    console.log('6');
     if (check) {
       await authHelpers
         .authenticateBasic(userRecord.email, userRecord.password)
