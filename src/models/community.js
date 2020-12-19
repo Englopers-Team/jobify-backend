@@ -23,13 +23,13 @@ const post = mongoose.model(
 
 //---------------------------------// Community Module \\-------------------------------\\
 class Community {
-  constructor() { }
+  constructor() {}
 
   async posts(user) {
     const pinned = await post.find({ pinned: 'true' });
     const personPost = await post.find({ auth_id: user.id, pinned: 'false' });
     const communityPosts = await post.find({ pinned: 'false', auth_id: { $ne: user.id } });
-    return { pinned, personPost, communityPosts };
+    return { pinned: pinned.reverse(), personPost: personPost.reverse(), communityPosts: communityPosts.reverse() };
   }
 
   async getPost(postID) {
@@ -110,7 +110,7 @@ class Community {
   }
 
   async searchPosts(title) {
-    const result = await post.find({ title: { $regex: `${title}`, $options: 'i' } }, function (err, docs) { });
+    const result = await post.find({ title: { $regex: `${title}`, $options: 'i' } }, function (err, docs) {});
     return result;
   }
 
@@ -155,4 +155,3 @@ class Community {
 module.exports = new Community();
 
 //-----------------------------------------------------------------------------------------\\
-
