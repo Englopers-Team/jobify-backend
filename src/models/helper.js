@@ -290,7 +290,7 @@ class Helper {
       image = 'avatar';
       name ='first_name';
     }
-    let SQL = `SELECT ${neededData},${image},${name} FROM meetings JOIN ${table} ON meetings.${neededData}=${table}.auth_id WHERE ${searchAccType}=$1;`;
+    let SQL = `SELECT ${neededData},${image},${name},date FROM meetings JOIN ${table} ON meetings.${neededData}=${table}.auth_id WHERE ${searchAccType}=$1;`;
     let values = [user.id];
     const result = await client.query(SQL, values);
     return result.rows;
