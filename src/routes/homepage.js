@@ -65,6 +65,11 @@ router.get('/meetings', bearerAuth, async (req, res) => {
   res.status(200).json(data);
 });
 
+router.post('/meetings', bearerAuth, async (req, res) => {
+  await helper.addMeetings(req.user, req.body);
+  res.status(201).json('Meeting added successfully');
+});
+
 //-----------------------------------// Export Module \\-----------------------------------\\
 module.exports = router;
 

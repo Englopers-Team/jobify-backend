@@ -280,7 +280,7 @@ class Helper {
   async getMeetings(user) {
     let searchAccType = 'auth_id_person';
     let neededData = 'auth_id_company';
-    if (user.account_type == 'c') {
+    if (user.account_type === 'c') {
       searchAccType = 'auth_id_company';
       neededData = 'auth_id_person';
     }
@@ -288,6 +288,12 @@ class Helper {
     let values = [user.id];
     const result = await client.query(SQL, values);
     return result.rows;
+  }
+
+  async addMeetings(user , payload){
+    if(user.account_type === 'c'){
+
+    }
   }
 }
 
