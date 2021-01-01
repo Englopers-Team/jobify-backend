@@ -99,6 +99,12 @@ CREATE TABLE IF NOT EXISTS messages (
     sender VARCHAR(255),  
     company_id INT REFERENCES company (id)
 );
+CREATE TABLE IF NOT EXISTS meetings (
+    id SERIAL PRIMARY KEY,
+    auth_id_company INT REFERENCES auth (id),
+    auth_id_person INT REFERENCES auth (id),
+    date  VARCHAR(255)
+);
 
 
 INSERT INTO auth (email,password,account_type,account_status) VALUES('demop@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','active');
@@ -246,3 +252,8 @@ INSERT INTO person (first_name, last_name, phone, job_title, country, age, avata
 INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Omar','Yaseen','0790278534','Back End Developer','Egypt',24,'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg','5','https://www.docdroid.net/izBd6Li/cv-pdf', 42);
 INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Rami','Ahmed','0790278534','UI UX Designer','Qatar',26,'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg','6','https://www.docdroid.net/izBd6Li/cv-pdf', 43);
 INSERT INTO person (first_name, last_name, phone, job_title, country, age, avatar, experince, cv, auth_id) VALUES ('Sara','Yaseen','0790278534','Networking Engineer','kuwait',26,'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg','4','https://www.docdroid.net/izBd6Li/cv-pdf', 44);
+
+INSERT INTO meetings (auth_id_company,auth_id_person,date) VALUES(2,1,'1/1/2020,12:00:00 AM');
+INSERT INTO meetings (auth_id_company,auth_id_person,date) VALUES(4,3,'1/2/2020,12:00:00 AM');
+INSERT INTO meetings (auth_id_company,auth_id_person,date) VALUES(8,7,'1/2/2020,5:00:00 PM');
+INSERT INTO meetings (auth_id_company,auth_id_person,date) VALUES(6,5,'1/3/2020,5:00:00 PM');
