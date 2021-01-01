@@ -292,7 +292,9 @@ class Helper {
 
   async addMeetings(user , payload){
     if(user.account_type === 'c'){
-
+      const SQL = 'INSERT INTO meetings (auth_id_company,auth_id_person,date) VALUES ($1,$2,$3)';
+      let values = [user.id, payload.auth_id_person, payload.date];
+      await client.query(SQL, values);
     }
   }
 }
