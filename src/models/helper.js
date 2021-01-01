@@ -18,7 +18,7 @@ const test = process.env.TESTS || 'true';
 
 //----------------------------------// Helper Module \\--------------------------------\\
 class Helper {
-  constructor() {}
+  constructor() { }
 
   async location(ip) {
     try {
@@ -275,6 +275,17 @@ class Helper {
       let values = [file.destination, id];
       await client.query(SQL, values);
     }
+  }
+
+  async getMeetings(user) {
+    let searchAccType = 'auth_id_person';
+    if (user.account_type == 'c') {
+      searchAccType = 'auth_id_company';
+    }
+    let SQL = `SELECT * FROM meetings WHERE ${searchAccType}=$1;`;
+    let values = [user.id];
+    const result = await client.query(SQL, values);
+    return result.rows;
   }
 }
 
