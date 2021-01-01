@@ -279,10 +279,12 @@ class Helper {
 
   async getMeetings(user) {
     let searchAccType = 'auth_id_person';
+    let neededData = 'auth_id_company';
     if (user.account_type == 'c') {
       searchAccType = 'auth_id_company';
+      neededData = 'auth_id_person';
     }
-    let SQL = `SELECT * FROM meetings WHERE ${searchAccType}=$1;`;
+    let SQL = `SELECT ${neededData} FROM meetings WHERE ${searchAccType}=$1;`;
     let values = [user.id];
     const result = await client.query(SQL, values);
     return result.rows;
