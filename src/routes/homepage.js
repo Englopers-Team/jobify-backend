@@ -60,7 +60,7 @@ router.get('/flag', location, async (req, res) => {
   res.status(200).json(data);
 });
 
-router.get('/meetings', async (req, res) => {
+router.get('/meetings', bearerAuth, async (req, res) => {
   const data = await helper.getMeetings(req.user);
   res.status(200).json(data);
 });
