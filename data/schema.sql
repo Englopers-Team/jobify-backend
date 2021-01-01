@@ -99,6 +99,12 @@ CREATE TABLE IF NOT EXISTS messages (
     sender VARCHAR(255),  
     company_id INT REFERENCES company (id)
 );
+CREATE TABLE IF NOT EXISTS meetings (
+    id SERIAL PRIMARY KEY,
+    auth_id_company INT REFERENCES auth (id),
+    auth_id_person INT REFERENCES auth (id),
+    date  VARCHAR(255)
+);
 
 
 INSERT INTO auth (email,password,account_type,account_status) VALUES('demop@gmail.com','$2b$05$mmpitpTUVYrZfKYjauH0/efhMGB0UtsbkFBvXPvcs6IQhFSeYSC2K','p','active');
