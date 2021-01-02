@@ -185,6 +185,30 @@ class User {
     const result = await client.query(SQL, value);
     return result.rows;
   }
+
+  async updateExperience(user, payload) {
+    const id = await helper.getID(user.id, 'person');
+    let { title, company, field, starting_date, ending_date, present, location, description, logo } = payload;
+    let SQL = `UPDATE experience SET title=$1,field=$2,starting_date=$3,ending_date=$4,present=$5,location=$6,description=$7,logo=$8,company=$9 WHERE id=$10;`;
+    let value = [title, field, starting_date, ending_date, present, location, description, logo, company, id];
+    await client.query(SQL, value);
+  }
+
+  async updateEducation(user, payload) {
+    const id = await helper.getID(user.id, 'person');
+    let { school, degree, field, starting_date, ending_date, present, grade, description, logo } = payload;
+    let SQL = `UPDATE education SET school=$1,degree=$2,field=$3,starting_date=$4,ending_date=$5,present=$6,grade=$7,description=$8,logo=$9 WHERE id=$10;`;
+    let value = [school, degree, field, starting_date, ending_date, present, grade, description, logo, id];
+    await client.query(SQL, value);
+  }
+
+  async updateCourses(user, payload) {
+    const id = await helper.getID(user.id, 'person');
+    let { course_name, field, course_date, school } = payload;
+    let SQL = `UPDATE courses SET course_name=$1,field=$2,course_date=$3,school=$4 WHERE id=$5;`;
+    let value = [course_name, field, course_date, school, id];
+    await client.query(SQL, value);
+  }
 }
 
 const JOB = function (data) {
