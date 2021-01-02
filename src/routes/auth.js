@@ -74,7 +74,7 @@ router.get('/oauth-linkedin', linkedin, (req, res) => {
   res.redirect(`https://www.jobifys.com/oauth/${req.token}`);
 });
 
-router.get('/oauth-google',google, (req, res) => {
+router.get('/oauth-google', google, (req, res) => {
   // res.send('test',req.token);
   // res.status(200).cookie('token', req.token).json({ token: req.token, userinfo: req.user });
   res.redirect(`https://www.jobifys.com/oauth/${req.token}`);
