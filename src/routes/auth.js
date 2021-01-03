@@ -91,6 +91,12 @@ router.get('/getinfo', bearerAuth, async (req, res) => {
   res.status(200).json(data);
 });
 
+router.get('/getinfo/:id', bearerAuth, async (req, res) => {
+  const data = await authHelpers.getInfoOther(req.params.id, req.user);
+  res.status(200).json(data);
+
+});
+
 //-----------------------------------// Export Module \\-----------------------------------\\
 module.exports = router;
 
