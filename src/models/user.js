@@ -204,9 +204,9 @@ class User {
 
   async updateCourses(user, payload) {
     const id = await helper.getID(user.id, 'person');
-    let { course_name, field, course_date, school } = payload;
-    let SQL = `UPDATE courses SET course_name=$1,field=$2,course_date=$3,school=$4 WHERE id=$5;`;
-    let value = [course_name, field, course_date, school, id];
+    let { course_name, field, course_date, org } = payload;
+    let SQL = `UPDATE courses SET course_name=$1,field=$2,course_date=$3,org=$4 WHERE id=$5;`;
+    let value = [course_name, field, course_date, org, id];
     await client.query(SQL, value);
   }
 }
