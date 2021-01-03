@@ -41,12 +41,12 @@ async function getUser(remoteUser) {
     account_type: 'p',
     first_name: remoteUser.remoteUserProfile.firstName.localized.en_US,
     last_name: remoteUser.remoteUserProfile.lastName.localized.en_US,
-    phone: '079',
-    country: 'jo',
-    job_title: 'dev',
-    oauth:true,
-    avatar:'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg',
-    cv:'https://www.docdroid.net/izBd6Li/cv-pdf',
+    phone: '079999999',
+    country: 'Jordan',
+    job_title: 'Developer',
+    oauth: true,
+    avatar: 'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg',
+    cv: 'https://www.docdroid.net/izBd6Li/cv-pdf',
   };
   return userRecord;
 }
