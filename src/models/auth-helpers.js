@@ -13,7 +13,7 @@ const SECRET = process.env.SECRET || 'z1337z';
 
 //---------------------------------// AuthHelper Module \\-------------------------------\\
 class AuthHelper {
-  constructor() {}
+  constructor() { }
 
   async signup(payload) {
     const check = await this.checkEmail(payload.email);
@@ -148,6 +148,17 @@ class AuthHelper {
     let value = [payload.id];
     let data = await client.query(SQL, value);
     return data.rows[0];
+  }
+
+  async getInfoOther(id, user) {
+    let table = 'company';
+    if (user.account_type === 'c') {
+      table = 'person';
+    }
+    const SQL = `SELECT * FROM ${table} WHERE auth_id=$1;`;
+    const value = [id];
+    const result = await client.query(SQL, value);
+    return result.rows[0];
   }
 }
 
