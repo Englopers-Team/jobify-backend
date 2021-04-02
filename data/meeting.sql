@@ -1,0 +1,3 @@
+CREATE TABLE IF NOT EXISTS meetings (    id SERIAL PRIMARY KEY,    auth_id_company INT REFERENCES auth (id),    auth_id_person INT REFERENCES auth (id),    date  VARCHAR(255));
+
+INSERT INTO meetings (auth_id_company,auth_id_person,date) VALUES(2,1,'1/1/2020,12:00:00 AM');INSERT INTO meetings (auth_id_company,auth_id_person,date) VALUES(4,3,'1/2/2020,12:00:00 AM');INSERT INTO meetings (auth_id_company,auth_id_person,date) VALUES(8,7,'1/2/2020,5:00:00 PM');INSERT INTO meetings (auth_id_company,auth_id_person,date) VALUES(6,5,'1/3/2020,5:00:00 PM');

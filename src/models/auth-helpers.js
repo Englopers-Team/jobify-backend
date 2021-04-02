@@ -13,7 +13,7 @@ const SECRET = process.env.SECRET || 'z1337z';
 
 //---------------------------------// AuthHelper Module \\-------------------------------\\
 class AuthHelper {
-  constructor() {}
+  constructor() { }
 
   async signup(payload) {
     const check = await this.checkEmail(payload.email);
@@ -148,6 +148,24 @@ class AuthHelper {
     let value = [payload.id];
     let data = await client.query(SQL, value);
     return data.rows[0];
+  }
+
+  async getFullInfo(payload) {
+    let SQL = `SELECT *,auth_id,p.id,e.starting_date AS ex_starting_date,e.ending_date AS ex_ending_date,ed.starting_date AS edu_starting_date,ed.ending_date AS edu_ending_date,e.logo AS ex_logo,ed.logo AS edu_logo,e.description AS ex_description,ed.description AS edu_description,e.present AS ex_present,ed.present AS edu_present,e.field AS ex_field,ed.field AS edu_field,c.field AS c_field FROM person AS p FULL JOIN experience AS e ON p.id=e.person_id FULL JOIN education AS ed ON p.id=ed.person_id FULL JOIN courses AS c ON p.id=c.person_id WHERE p.auth_id=$1;`;
+    let value = [payload];
+    let data = await client.query(SQL, value);
+    return data.rows;
+  }
+
+  async getInfoOther(id, user) {
+    let table = 'company';
+    if (user.account_type === 'c') {
+      table = 'person';
+    }
+    const SQL = `SELECT * FROM ${table} WHERE auth_id=$1;`;
+    const value = [id];
+    const result = await client.query(SQL, value);
+    return result.rows[0];
   }
 }
 

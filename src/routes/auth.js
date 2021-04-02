@@ -74,7 +74,7 @@ router.get('/oauth-linkedin', linkedin, (req, res) => {
   res.redirect(`https://www.jobifys.com/oauth/${req.token}`);
 });
 
-router.get('/oauth-google',google, (req, res) => {
+router.get('/oauth-google', google, (req, res) => {
   // res.send('test',req.token);
   // res.status(200).cookie('token', req.token).json({ token: req.token, userinfo: req.user });
   res.redirect(`https://www.jobifys.com/oauth/${req.token}`);
@@ -89,6 +89,12 @@ router.get('/auth/facebook', passport.authenticate('facebook'));
 router.get('/getinfo', bearerAuth, async (req, res) => {
   const data = await authHelpers.getInfo(req.user);
   res.status(200).json(data);
+});
+
+router.get('/getinfo/:id', bearerAuth, async (req, res) => {
+  const data = await authHelpers.getInfoOther(req.params.id, req.user);
+  res.status(200).json(data);
+
 });
 
 //-----------------------------------// Export Module \\-----------------------------------\\

@@ -72,6 +72,20 @@ router.put('/edit', async (req, res) => {
   await user.editProfile(req.user, req.body);
   res.status(201).json('Profile updated successfully');
 });
+router.put('/update-experience', async (req, res) => {
+  await user.updateExperience(req.user, req.body);
+  res.status(201).json('Experience updated successfully');
+});
+
+router.put('/update-education', async (req, res) => {
+  await user.updateEducation(req.user, req.body);
+  res.status(201).json('Education updated successfully');
+});
+
+router.put('/update-courses', async (req, res) => {
+  await user.updateCourses(req.user, req.body);
+  res.status(201).json('Courses updated successfully');
+});
 
 router.post('/apply/:id', async (req, res) => {
   if (req.body.api) {

@@ -18,7 +18,7 @@ const test = process.env.TESTS || 'true';
 
 //----------------------------------// Helper Module \\--------------------------------\\
 class Helper {
-  constructor() {}
+  constructor() { }
 
   async location(ip) {
     try {
@@ -273,6 +273,33 @@ class Helper {
       id = await this.getID(user.id, 'company');
       let SQL = 'UPDATE company SET logo=$1 WHERE id=$2;';
       let values = [file.destination, id];
+      await client.query(SQL, values);
+    }
+  }
+
+  async getMeetings(user) {
+    let searchAccType = 'auth_id_person';
+    let neededData = 'auth_id_company';
+    let table = 'company';
+    let image = 'logo';
+    let name ='company_name';
+    if (user.account_type === 'c') {
+      searchAccType = 'auth_id_company';
+      neededData = 'auth_id_person';
+      table = 'person';
+      image = 'avatar';
+      name ='first_name';
+    }
+    let SQL = `SELECT ${neededData},${image},${name},date FROM meetings JOIN ${table} ON meetings.${neededData}=${table}.auth_id WHERE ${searchAccType}=$1;`;
+    let values = [user.id];
+    const result = await client.query(SQL, values);
+    return result.rows;
+  }
+
+  async addMeetings(user, payload) {
+    if (user.account_type === 'c') {
+      const SQL = 'INSERT INTO meetings (auth_id_company,auth_id_person,date) VALUES ($1,$2,$3)';
+      let values = [user.id, payload.auth_id_person, payload.date];
       await client.query(SQL, values);
     }
   }
